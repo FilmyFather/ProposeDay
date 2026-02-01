@@ -1,123 +1,252 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Propose Journey ❤️</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>For My Love ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- GOOGLE FONTS -->
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --pink:#ff6fa5;
+  --bg:#2a0016;
+  --card:rgba(255,255,255,0.08);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:radial-gradient(circle at top,#3b0020,#14000a);
+  color:#fff;
+  font-family:'Poppins',sans-serif;
+  overflow:hidden;
+}
+
+/* COMMON */
+.page{
+  display:none;
+  height:100vh;
+  padding:24px 18px;
+  text-align:center;
+}
+.page.active{display:block}
+
+h1,h2{
+  font-family:'Pacifico',cursive;
+  color:var(--pink);
+}
+
+.btn{
+  background:linear-gradient(135deg,#ff5a9e,#ff85b6);
+  border:none;
+  border-radius:16px;
+  padding:14px 26px;
+  color:#fff;
+  font-size:16px;
+  margin-top:18px;
+}
+
+.card{
+  background:var(--card);
+  border-radius:18px;
+  padding:22px;
+  margin-top:22px;
+}
+
+/* GIF SIZES (LEVEL BASED) */
+.gif-hero{width:180px;height:180px}
+.gif-mid{width:150px;height:150px}
+.gif-small{width:120px;height:120px}
+
+.gif{
+  border-radius:50%;
+  border:3px solid var(--pink);
+  object-fit:cover;
+  margin:16px auto;
+  display:block;
+}
+
+/* INPUT */
+input{
+  width:100%;
+  padding:14px;
+  border-radius:14px;
+  border:none;
+  outline:none;
+  margin-top:18px;
+  text-align:center;
+}
+
+/* OPTIONS */
+.option{
+  background:rgba(255,255,255,0.12);
+  border-radius:14px;
+  padding:14px;
+  margin:10px 0;
+  font-size:15px;
+}
+
+/* HEART RAIN */
+.heart{
+  position:fixed;
+  top:-20px;
+  color:#ff5a9e;
+  font-size:14px;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  to{transform:translateY(110vh)}
+}
+</style>
 </head>
+
 <body>
 
-<audio id="bgMusic" preload="auto">
-  <source src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3">
-</audio>
+<!-- MUSIC -->
+<audio id="bgm" src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3"></audio>
 
-<!-- MUSIC CONTROL -->
-<div class="music-pill" id="musicPill">
-  🎵
-  <span data-vol="0.4">Low</span>
-  <span data-vol="0.7" class="active">Mid</span>
-  <span data-vol="1">High</span>
-</div>
-
-<!-- PAGES -->
-<div id="pages">
-
-<!-- PAGE 1 -->
-<section class="page active">
-  <img class="gif" src="https://media.tenor.com/lquwmqAgQekAAAAm/bubu-dudu.webp">
-  <h1 class="cursive">Three years to prove my love…</h1>
-  <p>I have a very special question for you…</p>
-  <button onclick="startJourney()">Start the Journey →</button>
+<!-- PAGE 1 LOCK -->
+<section class="page active" id="p1">
+  <img class="gif gif-hero" src="https://media.tenor.com/lquwmqAgQekAAAAm/bubu-dudu.webp">
+  <h1>Hey Beautiful 💖</h1>
+  <p>3 years of love’s ultimate test…</p>
+  <input id="nameInput" placeholder="Enter your name">
+  <button class="btn" onclick="unlock()">Unlock ❤️</button>
 </section>
 
-<!-- PAGE 2 -->
-<section class="page">
-  <img class="gif" src="https://media.tenor.com/YiMNm2QVdMoAAAAm/bubu-dudu-sseeyall.webp">
-  <h2>Step 1: The Love Quiz</h2>
-  <div id="quizBox"></div>
+<!-- PAGE 2 QUIZ -->
+<section class="page" id="p2">
+  <img class="gif gif-mid" src="https://media.tenor.com/YiMNm2QVdMoAAAAm/bubu-dudu-sseeyall.webp">
+  <h2>Step 1: The Love Quiz ✍️</h2>
+  <div class="card" id="quizBox"></div>
 </section>
 
-<!-- PAGE 3 -->
-<section class="page">
-  <img class="gif" src="https://media.tenor.com/nBQQ6XM5BhIAAAAm/cute.webp">
+<!-- PAGE 3 FINAL CHECK -->
+<section class="page" id="p3">
+  <img class="gif gif-mid" src="https://media.tenor.com/nBQQ6XM5BhIAAAAm/cute.webp">
   <h2>Final Security Check</h2>
-  <p>Are you officially the cutest ever?</p>
-  <button onclick="nextPage()">Yes, obviously! 💁‍♀️</button>
-  <button id="runBtn">No, I'm just okay</button>
+  <div class="card">
+    Are you officially the cutest ever?
+    <button class="btn" onclick="go(4)">Yes, obviously 😌</button>
+  </div>
 </section>
 
-<!-- PAGE 4 -->
-<section class="page">
-  <img class="gif" src="https://media.tenor.com/-3Z-ojIe5IcAAAAm/bubu-dudu-sseeyall.webp">
+<!-- PAGE 4 PROPOSAL HUNT -->
+<section class="page" id="p4">
+  <img class="gif gif-mid" src="https://media.tenor.com/-3Z-ojIe5IcAAAAm/bubu-dudu-sseeyall.webp">
   <h2>The Proposal Hunt 💍</h2>
-  <div class="grid" id="huntGrid"></div>
-  <p id="ringCount">Rings: 0/3</p>
+  <p>Rings Found: <span id="rings">0</span>/3</p>
+  <button class="btn" onclick="collectRing()">Search 🌿</button>
 </section>
 
-<!-- PAGE 5 -->
-<section class="page">
-  <img class="gif" src="https://media.tenor.com/bvXwJ4I19ZQAAAAm/cat-cat-meme.webp">
-  <h2>Catch My Love! ❤️</h2>
-  <button id="startGame">Start Game</button>
-  <div id="gameArea"></div>
-  <div class="progress"><div id="bar"></div></div>
+<!-- PAGE 5 CATCH MY LOVE -->
+<section class="page" id="p5">
+  <img class="gif gif-small" src="https://media.tenor.com/bvXwJ4I19ZQAAAAm/cat-cat-meme.webp">
+  <h2>Catch My Love ❤️</h2>
+  <p>Tap hearts to fill love bar</p>
+  <button class="btn" onclick="startCatch()">Start Game</button>
 </section>
 
-<!-- PAGE 6 -->
-<section class="page">
-  <img class="gif" src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp">
-  <div class="letter">
+<!-- PAGE 6 LETTER -->
+<section class="page" id="p6">
+  <img class="gif gif-mid" src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp">
+  <div class="card">
     <h2>My Dearest,</h2>
-    <p>
-      You are my forever. I promise to always hold your hand.  
-      You are my everything my love. Never gonna leave you.
-    </p>
-    <b>Happy Propose Day!</b>
+    You are my forever. I promise to always hold your hand.  
+    Happy Propose Day 💖
   </div>
-  <button onclick="nextPage()">Our Memories…</button>
+  <button class="btn" onclick="go(7)">Our Memories 📸</button>
 </section>
 
-<!-- PAGE 7 -->
-<section class="page">
+<!-- PAGE 7 PHOTOS -->
+<section class="page" id="p7">
   <h2>Some Precious Moments 📸</h2>
-  <div class="gallery">
-    <img src="images/p1.jpg">
-    <img src="images/p2.jpg">
-    <img src="images/p3.jpg">
-    <img src="images/p4.jpg">
-    <img src="images/p5.jpg">
-    <img src="images/p6.jpg">
-  </div>
-  <button onclick="nextPage()">One Last Thing… ❤️</button>
+  <button class="btn" onclick="go(8)">One Last Thing ❤️</button>
 </section>
 
-<!-- PAGE 8 -->
-<section class="page">
-  <img class="gif" src="https://media.tenor.com/qGiP_qcGH3MAAAAm/peach-goma.webp">
+<!-- PAGE 8 YES / NO -->
+<section class="page" id="p8">
+  <img class="gif gif-mid" src="https://media.tenor.com/qGiP_qcGH3MAAAAm/peach-goma.webp">
   <h2>Will you be mine forever? 💍</h2>
-  <div id="yesZone">
-    <button id="yesBtn">YES!</button>
-    <button id="altBtn">Really??</button>
-  </div>
+  <button class="btn" onclick="go(9)">YES ❤️</button>
 </section>
 
-<!-- PAGE 9 -->
-<section class="page">
-  <img class="gif" src="https://media.tenor.com/nQD8tNYfJzQAAAAm/dance-love.webp">
-  <h2>I Know U Love Me A Lot! 🎉</h2>
-  <p>Best Decision Ever 💖<br>
-  Again & again… April 6 & 31, 2023 ✨</p>
-  <button onclick="location.reload()">Want to do it again? 🔁</button>
+<!-- PAGE 9 FINAL -->
+<section class="page" id="p9">
+  <img class="gif gif-mid" src="https://media.tenor.com/nQD8tNYfJzQAAAAm/dance-love.webp">
+  <h2>I know you love me a lot 🎉</h2>
+  <p>You once again made the right decision, just like  
+     on April 6 & May 31, 2023 ✨</p>
+  <button class="btn" onclick="location.reload()">Want to do it again? 🔁</button>
+  <p style="margin-top:20px;font-size:12px">
+    Developed with ❤️ by <a href="https://instagram.com/itz___yuviiii" style="color:#ff9acb">Yuvraj</a>
+  </p>
 </section>
 
-</div>
+<script>
+/* PAGE SWITCH */
+function go(n){
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ document.getElementById('p'+n).classList.add('active');
+}
 
-<div class="footer">
-  Developed with ❤️ by <a href="https://instagram.com/YOUR_INSTA_ID" target="_blank">Yuvraj</a>
-</div>
+/* UNLOCK */
+function unlock(){
+ const v=document.getElementById('nameInput').value.toLowerCase();
+ if(v.includes("rajkumari")||v.includes("dimple")||v.includes("yuvraj")){
+   document.getElementById("bgm").play();
+   go(2);
+ }
+}
 
-<script src="script.js"></script>
+/* QUIZ */
+const quiz=[
+["Who is the lucky one?","You","Me","Both of us","Both of us"],
+["Perfect propose gift?","Expensive Gifts","Your hand in mine","Food","Your hand in mine"],
+["Stay forever?","Maybe","Yes, Always","No","Yes, Always"],
+["Who loves more?","You","Me","Both","Both"],
+["Who says sorry first?","You","Me","Both","Me"],
+["Who is cutest?","You","Me","Both","You"],
+["Who owns whom?","You","Me","Both","Both"]
+];
+let qi=0;
+const qb=document.getElementById("quizBox");
+
+function showQ(){
+ const q=quiz[qi];
+ qb.innerHTML=`<p>${q[0]}</p>`;
+ for(let i=1;i<=3;i++){
+  const d=document.createElement("div");
+  d.className="option";
+  d.innerText=q[i];
+  d.onclick=()=>{if(q[i]==q[4]){qi++;qi<quiz.length?showQ():go(3)}};
+  qb.appendChild(d);
+ }
+}
+showQ();
+
+/* RINGS */
+let r=0;
+function collectRing(){
+ r++;
+ document.getElementById("rings").innerText=r;
+ if(r>=3)go(5);
+}
+
+/* HEART RAIN */
+setInterval(()=>{
+ const h=document.createElement("div");
+ h.className="heart";
+ h.innerText="❤️";
+ h.style.left=Math.random()*100+"vw";
+ h.style.animationDuration=2+Math.random()*3+"s";
+ document.body.appendChild(h);
+ setTimeout(()=>h.remove(),5000);
+},300);
+
+function startCatch(){go(6);}
+</script>
+
 </body>
 </html>
