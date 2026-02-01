@@ -71,20 +71,42 @@ function showQ(){
 }
 showQ();
 
-/* PROPOSAL HUNT */
-let r=0;
-const grid=document.getElementById("huntGrid");
-for(let i=0;i<9;i++){
- const d=document.createElement("div");
- d.innerText="🌿";
- d.onclick=()=>{
-  if(Math.random()<0.33 && r<3){
-    r++; d.innerText="💍";
-    document.getElementById("rings").innerText=r;
-    if(r===3)setTimeout(()=>go(5),600);
-  }else d.innerText="💩";
- };
- grid.appendChild(d);
+/* ===== PROPOSAL HUNT (FIXED) ===== */
+let ringsFound = 0;
+const grid = document.getElementById("huntGrid");
+const ringCount = document.getElementById("rings");
+
+// clear grid (safety)
+grid.innerHTML = "";
+
+// exactly 3 ring positions
+const positions = [...Array(9).keys()];
+positions.sort(() => 0.5 - Math.random());
+const ringPositions = positions.slice(0, 3);
+
+for (let i = 0; i < 9; i++) {
+  const box = document.createElement("div");
+  box.innerText = "🌿";
+  box.style.cursor = "pointer";
+
+  box.onclick = () => {
+    if (box.dataset.clicked) return;
+    box.dataset.clicked = "true";
+
+    if (ringPositions.includes(i)) {
+      box.innerText = "💍";
+      ringsFound++;
+      ringCount.innerText = ringsFound;
+
+      if (ringsFound === 3) {
+        setTimeout(() => go(5), 800); // next page
+      }
+    } else {
+      box.innerText = "💩";
+    }
+  };
+
+  grid.appendChild(box);
 }
 
 /* HEART CATCH */
