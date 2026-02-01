@@ -1,34 +1,287 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Enter Your Name ❤️</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Propose Journey 💖</title>
+<style>
+:root{
+  --pink:#ff7aa2; --deep:#c2185b; --bg1:#ffd1dc; --bg2:#ffe6f0;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; min-height:100vh; font-family:system-ui,-apple-system,Segoe UI,Roboto;
+  background:linear-gradient(135deg,var(--bg1),var(--bg2));
+  color:#5b1230;
+}
+.page{display:none; padding:20px}
+.page.active{display:block}
+.card{
+  max-width:420px; margin:40px auto; background:#fff; border-radius:22px;
+  padding:22px; box-shadow:0 18px 40px rgba(0,0,0,.18); text-align:center;
+}
+h1,h2{margin:.4em 0}
+.btn{
+  border:0; border-radius:999px; padding:12px 18px; cursor:pointer;
+  background:var(--pink); color:#fff; font-size:16px;
+}
+.btn.secondary{background:#eee;color:#333}
+.btn.small{padding:8px 12px;font-size:14px}
+input{
+  width:100%; padding:12px; border-radius:999px; border:2px solid #f3b2c7;
+  text-align:center; font-size:15px; outline:none;
+}
+.msg{min-height:22px; margin-top:8px}
+.hint{white-space:pre-line; color:#b0003a; font-size:14px}
+.footer{
+  position:fixed; left:0; right:0; bottom:8px; text-align:center; font-size:13px;
+}
+.footer a{color:var(--deep); text-decoration:none; font-weight:600}
+.topbar{
+  position:fixed; top:10px; left:10px; right:10px; display:flex; gap:10px; justify-content:space-between;
+}
+.music-pill{
+  background:#fff; border-radius:999px; padding:6px 10px; display:flex; gap:6px; align-items:center;
+  box-shadow:0 8px 20px rgba(0,0,0,.18)
+}
+.pill-btn{
+  border-radius:999px; border:1px solid #ffd1dc; padding:6px 10px; cursor:pointer; background:#fff
+}
+.pill-btn.active{background:var(--pink); color:#fff}
+.pulse{animation:pulse 1.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,122,162,.6)}70%{box-shadow:0 0 0 14px rgba(255,122,162,0)}100%{box-shadow:0 0 0 0 rgba(255,122,162,0)}}
+
+/* grids & games */
+.grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px}
+.rings{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+.ring{
+  background:#fff; border-radius:16px; padding:20px; cursor:pointer; box-shadow:0 8px 18px rgba(0,0,0,.15)
+}
+.poop{font-size:36px}
+.runaway{position:relative}
+.run-btn{position:absolute}
+.hearts{position:relative; height:260px; overflow:hidden}
+.heart{
+  position:absolute; font-size:26px; cursor:pointer; animation:float 6s linear infinite
+}
+@keyframes float{from{transform:translateY(260px)}to{transform:translateY(-40px)}}
+.gallery{display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:10px}
+.gallery img{width:100%; border-radius:14px; cursor:pointer}
+.modal{
+  position:fixed; inset:0; background:rgba(0,0,0,.6); display:none; align-items:center; justify-content:center
+}
+.modal.show{display:flex}
+.modal img{max-width:90%; max-height:80%; border-radius:18px}
+.close{position:absolute; top:14px; right:16px; background:#fff; border-radius:999px; padding:6px 10px; cursor:pointer}
+.big-yes{font-size:18px; transition:transform .2s}
+</style>
 </head>
 <body>
 
-<div class="music-bar">
-  🎵
-  <input type="range" min="0" max="1" step="0.01" value="0.7" disabled>
+<div class="topbar">
+  <div class="music-pill" id="musicPill">
+    <span>🎵</span>
+    <button class="pill-btn" data-v="0.4">Low</button>
+    <button class="pill-btn active" data-v="0.7">Mid</button>
+    <button class="pill-btn" data-v="1">High</button>
+  </div>
 </div>
 
-<div class="card">
-  <h1>Enter your name ❤️</h1>
-  <p id="hintText" class="hint"></p>
+<!-- PAGE 1: LOCK -->
+<section class="page active" id="p1">
+  <div class="card">
+    <h1>Enter your name ❤️</h1>
+    <div class="hint" id="hint"></div>
+    <input id="pass" placeholder="Type here"/>
+    <button class="btn" onclick="check()">Unlock</button>
+    <div class="msg" id="msg"></div>
+  </div>
+</section>
 
-  <input type="text" id="passInput" placeholder="Type here">
-  <button onclick="checkPass()">Unlock</button>
+<!-- PAGE 2: QUIZ -->
+<section class="page" id="p2">
+  <div class="card">
+    <h2>Cute Quiz 😄</h2>
+    <div id="q"></div>
+    <div class="grid" id="opts"></div>
+  </div>
+</section>
 
-  <p id="msg" class="msg"></p>
+<!-- PAGE 3: RING HUNT -->
+<section class="page" id="p3">
+  <div class="card">
+    <h2>The Proposal Hunt 💍</h2>
+    <div class="rings">
+      <div class="ring" onclick="ring(false)">Ring A</div>
+      <div class="ring" onclick="ring(true)">Ring B</div>
+      <div class="ring" onclick="ring(false)">Ring C</div>
+    </div>
+    <div class="msg" id="ringMsg"></div>
+  </div>
+</section>
 
-  <div class="dev">Developed with ❤️ by Yuvraj</div>
+<!-- PAGE 4: RUNAWAY -->
+<section class="page" id="p4">
+  <div class="card runaway" style="height:200px">
+    <h2>Final Security Check</h2>
+    <button class="btn run-btn" id="run">No I'm Not Interested</button>
+  </div>
+</section>
+
+<!-- PAGE 5: HEARTS -->
+<section class="page" id="p5">
+  <div class="card">
+    <h2>Catch My Love ❤️</h2>
+    <p id="line">Tap hearts to complete…</p>
+    <div class="hearts" id="hearts"></div>
+  </div>
+</section>
+
+<!-- PAGE 6: PROPOSAL -->
+<section class="page" id="p6">
+  <div class="card">
+    <h2>Will you be mine? 💖</h2>
+    <button class="btn secondary">No</button>
+    <button class="btn big-yes" id="yes">YES</button>
+  </div>
+</section>
+
+<!-- PAGE 7: PHOTOS -->
+<section class="page" id="p7">
+  <div class="card">
+    <h2>Memories 📸</h2>
+    <div class="gallery">
+      <img src="images/p1.jpg" onclick="openImg(this)">
+      <img src="images/p2.jpg" onclick="openImg(this)">
+      <img src="images/p3.jpg" onclick="openImg(this)">
+      <img src="images/p4.jpg" onclick="openImg(this)">
+      <img src="images/p5.jpg" onclick="openImg(this)">
+      <img src="images/p6.jpg" onclick="openImg(this)">
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 8: END -->
+<section class="page" id="p8">
+  <div class="card">
+    <h1>I know you love me 😌❤️</h1>
+    <button class="btn" onclick="location.reload()">Want to do it again?</button>
+  </div>
+</section>
+
+<div class="modal" id="m">
+  <span class="close" onclick="closeImg()">✖</span>
+  <img id="mi">
 </div>
 
-<audio id="bgMusic">
+<div class="footer">
+  Developed with ❤️ by <a href="https://instagram.com/your_instagram_id" target="_blank">Yuvraj</a>
+</div>
+
+<audio id="aud" preload="auto">
   <source src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3?hash=AgADnS" type="audio/mpeg">
 </audio>
 
-<script src="script.js"></script>
+<script>
+/* GLOBAL */
+const pages=[...document.querySelectorAll('.page')];
+const aud=document.getElementById('aud');
+const pill=document.getElementById('musicPill');
+let unlocked=false;
+
+/* MUSIC PILL */
+pill.querySelectorAll('.pill-btn').forEach(b=>{
+  b.onclick=()=>{
+    pill.querySelectorAll('.pill-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    aud.volume=parseFloat(b.dataset.v);
+  }
+});
+
+/* PAGE SWITCH */
+function go(id){ pages.forEach(p=>p.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+
+/* LOCK */
+let wrong=0;
+const msgs=[
+"Arre Ghelsodi 😝 Dhapudiii kahin ki…",
+"Oye Bhilan 😆 Wagri mode ON?",
+"Gaanduu Insaan 😜 par cute wali!",
+"Dhapudiii 😂 dil se soch!",
+"Ghelsodi + Wagri combo 😝"
+];
+function check(){
+  const v=document.getElementById('pass').value.trim().toLowerCase();
+  if(v==="rajkumari"){
+    unlocked=true;
+    aud.currentTime=62; aud.volume=0.7; aud.play(); pill.classList.add('pulse');
+    go('p2');
+  }else{
+    wrong++;
+    document.getElementById('msg').innerText=msgs[Math.floor(Math.random()*msgs.length)];
+    if(wrong>=5){
+      document.getElementById('hint').innerText=
+"Hint – Yuvraj agar Rajkumar hoga,\n to tum uski kya hogi…??? 💖";
+    }
+  }
+}
+
+/* QUIZ */
+const quiz=[
+{q:"Yuvraj ka favorite?", o:["Tum 😌","Chocolate","Movie","Song"], a:0},
+{q:"Ghelsodi ka matlab?", o:["Cute 😄","Serious","Angry","Sleepy"], a:0},
+{q:"Pyaar ka color?", o:["Pink 💗","Blue","Green","Black"], a:0},
+{q:"Hamesha saath?", o:["Haan ❤️","Nahi"], a:0}
+];
+let qi=0;
+const qEl=document.getElementById('q'), oEl=document.getElementById('opts');
+function renderQ(){
+  qEl.innerHTML="<h3>"+quiz[qi].q+"</h3>";
+  oEl.innerHTML="";
+  quiz[qi].o.forEach((t,i)=>{
+    const b=document.createElement('button');
+    b.className="btn small";
+    b.textContent=t;
+    b.onclick=()=>{ if(i===quiz[qi].a){ qi++; qi<quiz.length?renderQ():go('p3'); } };
+    oEl.appendChild(b);
+  });
+}
+renderQ();
+
+/* RING */
+function ring(ok){
+  const m=document.getElementById('ringMsg');
+  if(ok){ m.textContent="Found it! 💍"; setTimeout(()=>go('p4'),600); }
+  else{ m.innerHTML="<span class='poop'>💩</span> Wrong!"; }
+}
+
+/* RUNAWAY */
+const run=document.getElementById('run');
+run.onmouseover=run.ontouchstart=()=>{
+  run.style.left=Math.random()*240+"px";
+  run.style.top=Math.random()*120+"px";
+};
+
+/* HEARTS */
+const hearts=document.getElementById('hearts'); let caught=0;
+for(let i=0;i<10;i++){
+  const h=document.createElement('div');
+  h.className="heart"; h.textContent="❤️";
+  h.style.left=Math.random()*90+"%"; h.style.animationDuration=(4+Math.random()*4)+"s";
+  h.onclick=()=>{ h.remove(); caught++; document.getElementById('line').textContent="Caught "+caught+"/6"; if(caught>=6) go('p6'); };
+  hearts.appendChild(h);
+}
+
+/* PROPOSAL */
+const yes=document.getElementById('yes'); let scale=1;
+yes.onclick=()=>{ scale+=.15; yes.style.transform="scale("+scale+")"; if(scale>1.6) go('p7'); };
+
+/* PHOTOS MODAL */
+function openImg(i){ document.getElementById('mi').src=i.src; document.getElementById('m').classList.add('show'); }
+function closeImg(){ document.getElementById('m').classList.remove('show'); }
+
+/* END after photos click anywhere */
+document.getElementById('p7').onclick=()=>setTimeout(()=>go('p8'),400);
+</script>
 </body>
 </html>
