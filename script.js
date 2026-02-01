@@ -109,55 +109,57 @@ for (let i = 0; i < 9; i++) {
   grid.appendChild(box);
 }
 
-/* ===== HEART CATCH GAME (FINAL FIXED) ===== */
+/* ===== HEART CATCH GAME (FINAL WORKING) ===== */
 let caught = 0;
 let gameStarted = false;
+let heartInterval = null;
+
 const box = document.getElementById("gameBox");
 const bar = document.getElementById("bar");
+const startBtn = document.getElementById("startGameBtn");
 
-// safety
-box.style.position = "relative";
-box.style.overflow = "hidden";
+startBtn.addEventListener("click", startHeartGame);
 
-function startHeartGame() {
-  if (gameStarted) return;
+function startHeartGame(){
+  if(gameStarted) return;
   gameStarted = true;
+  startBtn.style.display = "none";
 
-  const interval = setInterval(() => {
-    // sirf page 5 active ho tab
-    if (!document.getElementById("p5").classList.contains("active")) return;
+  heartInterval = setInterval(()=>{
+    // page 5 active hona chahiye
+    if(!document.getElementById("p5").classList.contains("active")) return;
 
     const h = document.createElement("span");
     h.innerText = "❤️";
     h.style.position = "absolute";
-    h.style.fontSize = "22px";
-    h.style.left = Math.random() * 85 + "%";
+    h.style.left = Math.random()*85 + "%";
     h.style.top = "-30px";
+    h.style.fontSize = "24px";
     h.style.cursor = "pointer";
     h.style.transition = "top 3s linear";
 
     box.appendChild(h);
 
-    // fall animation
-    requestAnimationFrame(() => {
+    // fall
+    requestAnimationFrame(()=>{
       h.style.top = "110%";
     });
 
-    // click to catch
-    h.onclick = () => {
+    // catch
+    h.onclick = ()=>{
       caught++;
-      bar.style.width = (caught / 12) * 100 + "%";
+      bar.style.width = (caught/12)*100 + "%";
       h.remove();
 
-      if (caught >= 12) {
-        clearInterval(interval);
-        setTimeout(() => go(6), 600);
+      if(caught >= 12){
+        clearInterval(heartInterval);
+        setTimeout(()=>go(6), 700);
       }
     };
 
-    // auto remove if missed
-    setTimeout(() => {
-      if (h.parentElement) h.remove();
+    // miss
+    setTimeout(()=>{
+      if(h.parentElement) h.remove();
     }, 3200);
 
   }, 700);
