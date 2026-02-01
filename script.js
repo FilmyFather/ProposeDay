@@ -109,26 +109,59 @@ for (let i = 0; i < 9; i++) {
   grid.appendChild(box);
 }
 
-/* HEART CATCH */
-let caught=0;
-const box=document.getElementById("gameBox");
-const bar=document.getElementById("bar");
-setInterval(()=>{
- if(document.getElementById("p5").classList.contains("active")){
-  const h=document.createElement("span");
-  h.innerText="❤️";
-  h.style.position="absolute";
-  h.style.left=Math.random()*90+"%";
-  h.style.top="-10px";
-  h.onclick=()=>{
-    caught++; bar.style.width=(caught/12*100)+"%";
-    h.remove();
-    if(caught>=12)go(6);
-  };
-  box.appendChild(h);
-  setTimeout(()=>h.remove(),3000);
- }
-},600);
+/* ===== HEART CATCH GAME (FINAL FIXED) ===== */
+let caught = 0;
+let gameStarted = false;
+const box = document.getElementById("gameBox");
+const bar = document.getElementById("bar");
+
+// safety
+box.style.position = "relative";
+box.style.overflow = "hidden";
+
+function startHeartGame() {
+  if (gameStarted) return;
+  gameStarted = true;
+
+  const interval = setInterval(() => {
+    // sirf page 5 active ho tab
+    if (!document.getElementById("p5").classList.contains("active")) return;
+
+    const h = document.createElement("span");
+    h.innerText = "❤️";
+    h.style.position = "absolute";
+    h.style.fontSize = "22px";
+    h.style.left = Math.random() * 85 + "%";
+    h.style.top = "-30px";
+    h.style.cursor = "pointer";
+    h.style.transition = "top 3s linear";
+
+    box.appendChild(h);
+
+    // fall animation
+    requestAnimationFrame(() => {
+      h.style.top = "110%";
+    });
+
+    // click to catch
+    h.onclick = () => {
+      caught++;
+      bar.style.width = (caught / 12) * 100 + "%";
+      h.remove();
+
+      if (caught >= 12) {
+        clearInterval(interval);
+        setTimeout(() => go(6), 600);
+      }
+    };
+
+    // auto remove if missed
+    setTimeout(() => {
+      if (h.parentElement) h.remove();
+    }, 3200);
+
+  }, 700);
+}
 
 /* YES NO */
 const yes=document.getElementById("yesBtn");
