@@ -1,68 +1,31 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FilmyFather – Rajkumari</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Enter Your Name ❤️</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- LOCK SCREEN -->
-<div id="lockScreen" class="lock-screen">
-  <div class="lock-box">
-    <h2>🔒 Secret Lock</h2>
-    <p>Sirf Rajkumari hi khol sakti hai 💖</p>
-    <input type="password" id="passwordInput" placeholder="Password daalo">
-    <button onclick="unlock()">Unlock ❤️</button>
-    <p id="errorMsg"></p>
-  </div>
+<div class="music-bar">
+  🎵
+  <input type="range" min="0" max="1" step="0.01" value="0.7" disabled>
 </div>
 
-<!-- MAIN CONTENT -->
-<div id="mainContent" class="hidden">
+<div class="card">
+  <h1>Enter your name ❤️</h1>
+  <p id="hintText" class="hint"></p>
 
-  <h1>❤️ Dimple Yuvraj Chauhan ❤️</h1>
+  <input type="text" id="passInput" placeholder="Type here">
+  <button onclick="checkPass()">Unlock</button>
 
-  <p class="tagline">
-    Ghelsodi ki yaadein, Dhaapudii ke kisse  
-    aur Magarmach wali shararatein 🐊😄
-  </p>
+  <p id="msg" class="msg"></p>
 
-  <!-- MUSIC PLAYER -->
-  <div class="music-box">
-    <button id="playBtn" onclick="toggleMusic()">▶️</button>
-    <div class="volume-wrap">
-      🔊
-      <input type="range" min="0" max="1" step="0.01"
-             value="0.7" onchange="setVolume(this.value)">
-    </div>
-  </div>
-
-  <!-- GALLERY (06 PHOTOS) -->
-  <div class="gallery">
-    <img src="images/p1.jpg" onclick="openImg(this)">
-    <img src="images/p2.jpg" onclick="openImg(this)">
-    <img src="images/p3.jpg" onclick="openImg(this)">
-    <img src="images/p4.jpg" onclick="openImg(this)">
-    <img src="images/p5.jpg" onclick="openImg(this)">
-    <img src="images/p6.jpg" onclick="openImg(this)">
-  </div>
-
-  <p class="footer">
-    🎬 FilmyFather Style <br>
-    👨‍💻 Developer: <b>Yuvraj Chauhan</b>
-  </p>
+  <div class="dev">Developed with ❤️ by Yuvraj</div>
 </div>
 
-<!-- IMAGE MODAL -->
-<div id="imgModal" class="img-modal">
-  <span class="close-btn" onclick="closeImg()">✖</span>
-  <img id="modalImg">
-</div>
-
-<!-- AUDIO -->
-<audio id="bgMusic" preload="auto">
+<audio id="bgMusic">
   <source src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3?hash=AgADnS" type="audio/mpeg">
 </audio>
 
