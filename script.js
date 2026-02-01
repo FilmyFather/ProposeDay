@@ -1,45 +1,43 @@
-const music = document.getElementById("bgMusic");
-const playBtn = document.getElementById("playBtn");
-const modal = document.getElementById("imgModal");
-const modalImg = document.getElementById("modalImg");
+const correctPass = "rajkumari";
+let wrongCount = 0;
 
-function unlock() {
-  const input = document.getElementById("passwordInput")
-                .value.trim().toLowerCase();
+const msgs = [
+  "Arre Ghelsodi 😝 itna bhi yaad nahi? Dhapudiii kahin ki…",
+  "Oye Bhilan 😆 Wagri mode ON ho gaya kya?",
+  "Gaanduu Insaan 😜 par cute wali, phir try kar",
+  "Dhapudiii 😂 dil se soch, dimaag nahi",
+  "Ghelsodi + Wagri full combo lag raha hai 😝",
+  "Arre Bhilan 😅 Yuvraj bhi has raha hoga",
+  "Gaanduu Insaan 😂 hint saamne hai phir bhi miss?",
+  "Dhapudiii nahi re… pyaar se type kar 💖"
+];
 
-  if (input === "rajkumari") {
-    document.getElementById("lockScreen").style.display = "none";
-    document.getElementById("mainContent").classList.remove("hidden");
+function checkPass() {
+  const input = document.getElementById("passInput").value.trim().toLowerCase();
+  const msgBox = document.getElementById("msg");
+  const hintBox = document.getElementById("hintText");
 
-    music.currentTime = 62; // 01:02
-    music.volume = 0.7;
+  if (!input) return;
+
+  if (input === correctPass) {
+    const music = document.getElementById("bgMusic");
+    music.currentTime = 62;
     music.play();
-    playBtn.innerText = "⏸️";
+
+    document.querySelector(".music-bar input").disabled = false;
+
+    msgBox.innerText = "Unlock ho gaya 💖";
+    setTimeout(() => {
+      alert("NEXT PAGE AAYEGA (Quiz) — next step me");
+    }, 500);
   } else {
-    document.getElementById("errorMsg").innerText =
-      "❌ Galat password! Rajkumari fir se try karo 😄";
+    wrongCount++;
+    msgBox.innerText = msgs[Math.floor(Math.random() * msgs.length)];
+
+    if (wrongCount >= 5) {
+      hintBox.innerText =
+        "Hint – Yuvraj agar Rajkumar hoga,\n" +
+        "to tum uski kya hogi…??? 💖";
+    }
   }
-}
-
-function toggleMusic() {
-  if (music.paused) {
-    music.play();
-    playBtn.innerText = "⏸️";
-  } else {
-    music.pause();
-    playBtn.innerText = "▶️";
-  }
-}
-
-function setVolume(val) {
-  music.volume = val;
-}
-
-function openImg(el) {
-  modalImg.src = el.src;
-  modal.classList.add("show");
-}
-
-function closeImg() {
-  modal.classList.remove("show");
 }
