@@ -75,12 +75,12 @@ button{
   font-size:24px;
 }
 .game-box{
-  height:220px;
-  border:2px dashed var(--pink);
-  border-radius:20px;
-  margin-top:20px;
-  position:relative;
-  overflow:hidden;
+  height: 240px;              /* 🔥 MUST */
+  border: 2px dashed #ff6fa5;
+  border-radius: 20px;
+  margin: 20px auto;
+  position: relative;         /* 🔥 MUST */
+  overflow: hidden;           /* 🔥 MUST */
 }
 .progress{
   height:8px;
