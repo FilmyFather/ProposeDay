@@ -1,94 +1,77 @@
 body{
-  margin:0;
-  background:#14040a;
-  color:white;
-  text-align:center;
-  font-family:Arial;
+margin:0;
+font-family:sans-serif;
+background:#220014;
+color:white;
+text-align:center;
+overflow-x:hidden;
 }
-.cursive{font-family:'Dancing Script',cursive}
-.page{display:none;min-height:100vh;padding:20px}
+
+.page{display:none;min-height:100vh;padding:25px}
 .page.active{display:block}
 
-.gif{width:170px;border-radius:50%;margin:10px auto}
+.gif{width:160px;margin:15px auto}
 
 input,button{
-  padding:12px 20px;
-  border-radius:25px;
-  border:none;
-  margin:8px;
-  font-size:16px;
-}
-button{background:#ff4d6d;color:white}
-
-#bgHearts span{
-  position:fixed;
-  opacity:.3;
-  animation:float 6s infinite;
-}
-@keyframes float{
-  50%{transform:translateY(-20px)}
+padding:12px 20px;
+border-radius:25px;
+border:none;
+margin:10px;
+font-size:16px;
 }
 
-.shake{animation:shake .3s}
-@keyframes shake{
-  25%{transform:translateX(-5px)}
-  50%{transform:translateX(5px)}
+button{background:#ff5a8a;color:white}
+
+#musicCtrl{
+position:fixed;
+top:10px;right:10px;
+font-size:26px;
+cursor:pointer;
 }
 
-#quizCard{background:#ffffff22;padding:20px;border-radius:20px}
-
-#quizOpt button{display:block;width:100%;margin:6px 0}
-
-#huntGrid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-  max-width:300px;
-  margin:auto;
+.grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
 }
-.huntCard{
-  background:white;color:black;
-  padding:20px;
-  border-radius:15px;
-  font-size:24px;
+
+.grid div{
+font-size:30px;
+padding:30px;
+background:#fff2;
+border-radius:15px;
+cursor:pointer;
 }
 
 #gameBox{
-  width:300px;height:220px;
-  border:2px dashed pink;
-  margin:auto;
-  position:relative;
-  overflow:hidden;
+width:300px;height:300px;
+border:2px dashed pink;
+margin:15px auto;
+position:relative;
+overflow:hidden;
 }
-.heart{position:absolute;animation:fall 3s linear}
-@keyframes fall{to{top:240px}}
 
-.bar{width:300px;height:6px;background:#333;margin:10px auto}
-#bar{height:100%;width:0;background:lime}
+.heart{
+position:absolute;
+font-size:22px;
+cursor:pointer;
+}
 
-#envelope{
-  width:200px;height:120px;
-  background:#a0522d;
-  margin:20px auto;
-  cursor:pointer;
+#progress{
+width:80%;height:10px;
+background:#fff3;
+margin:10px auto;
 }
-#letter{
-  background:#fff;color:#000;
-  padding:15px;
+#progress div{
+height:100%;
+width:0%;
+background:pink;
 }
-.hidden{display:none}
 
 .photos img{
-  width:90px;
-  border-radius:10px;
-  margin:5px;
+width:30%;
+margin:5px;
+border-radius:15px;
 }
 
-#musicCtrl{
-  position:fixed;
-  top:10px;right:10px;
-  font-size:24px;
-  cursor:pointer;
-}
-
-footer{opacity:.7;font-size:12px;padding:10px}
+.hidden{display:none}
