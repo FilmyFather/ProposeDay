@@ -1,66 +1,94 @@
-document.addEventListener("DOMContentLoaded", () => {
+let current=1;
+const music=document.getElementById("music");
 
-  const gameBox = document.getElementById("gameBox");
-  const bar = document.getElementById("bar");
-  const startBtn = document.getElementById("startBtn");
+function go(n){
+  document.getElementById("p"+current).classList.remove("active");
+  current=n;
+  document.getElementById("p"+current).classList.add("active");
+}
 
-  let caught = 0;
-  let gameRunning = false;
-  let dropInterval;
+/* LOCK */
+let wrong=0;
+function unlock(){
+  const val=document.getElementById("password").value.toLowerCase();
+  if(val==="rajkumari"){
+    music.currentTime=62;
+    music.play();
+    go(2);
+    loadQuiz();
+  }else{
+    wrong++;
+    document.getElementById("lockMsg").innerText=
+      wrong>=5?"Hint: Agar Yuvraj Rajkumar hai to tum kya ho?":"Wrong password";
+  }
+}
 
-  startBtn.addEventListener("click", () => {
-    if (gameRunning) return;
-
-    gameRunning = true;
-    caught = 0;
-    bar.style.width = "0%";
-    gameBox.innerHTML = "";
-
-    dropInterval = setInterval(dropHeart, 600);
-  });
-
-  function dropHeart() {
-    const heart = document.createElement("span");
-    heart.className = "heart";
-    heart.innerText = "❤️";
-
-    const left = Math.random() * 85;
-    heart.style.left = left + "%";
-    heart.style.top = "-30px";
-
-    gameBox.appendChild(heart);
-
-    let top = -30;
-    const fall = setInterval(() => {
-      top += 4;
-      heart.style.top = top + "px";
-
-      if (top > gameBox.clientHeight) {
-        clearInterval(fall);
-        heart.remove();
-      }
-    }, 30);
-
-    heart.onclick = () => {
-      clearInterval(fall);
-      heart.remove();
-      caught++;
-      bar.style.width = (caught / 12) * 100 + "%";
-
-      if (caught >= 12) {
-        endGame();
+/* QUIZ */
+const quiz=[
+  {q:"Who is the lucky one?",o:["Me","You","Both"],c:1},
+  {q:"Perfect gift?",o:["Ring","Chocolate","Heart"],c:0},
+  {q:"Stay forever?",o:["Yes","No"],c:0}
+];
+let qi=0;
+function loadQuiz(){
+  const q=quiz[qi];
+  document.getElementById("qTitle").innerText=q.q;
+  const box=document.getElementById("options");
+  box.innerHTML="";
+  q.o.forEach((t,i)=>{
+    const b=document.createElement("button");
+    b.innerText=t;
+    b.onclick=()=>{
+      if(i===q.c){
+        qi++;
+        qi<quiz.length?loadQuiz():go(3);
       }
     };
-  }
+    box.appendChild(b);
+  });
+}
 
-  function endGame() {
-    clearInterval(dropInterval);
-    gameRunning = false;
-
-    setTimeout(() => {
-      alert("❤️ Level Complete!");
-      // yaha go(6) ya next page call karega
-    }, 200);
-  }
-
+/* PROPOSAL HUNT */
+const hunt=document.getElementById("huntGrid");
+let found=0;
+["💍","💩","💍","💩","💍","💩"].forEach(x=>{
+  const s=document.createElement("span");
+  s.innerText=x;
+  s.onclick=()=>{
+    if(x==="💍"){found++;s.remove();}
+    if(found===3)go(5);
+  };
+  hunt.appendChild(s);
 });
+
+/* CATCH MY LOVE */
+let caught=0,interval;
+document.getElementById("startGame").onclick=()=>{
+  const box=document.getElementById("gameBox");
+  caught=0;
+  document.getElementById("bar").style.width="0%";
+  clearInterval(interval);
+  interval=setInterval(()=>{
+    const h=document.createElement("div");
+    h.className="heart";
+    h.innerText="❤️";
+    h.style.left=Math.random()*90+"%";
+    h.onclick=()=>{
+      caught++;
+      document.getElementById("bar").style.width=(caught/12*100)+"%";
+      h.remove();
+      if(caught>=12){clearInterval(interval);go(6);}
+    };
+    box.appendChild(h);
+    setTimeout(()=>h.remove(),3000);
+  },600);
+};
+
+/* YES / NO */
+function yes(){go(9);}
+function no(){
+  const b=document.getElementById("noBtn");
+  b.style.position="absolute";
+  b.style.left=Math.random()*70+"%";
+  b.style.top=Math.random()*70+"%";
+}
