@@ -1,58 +1,97 @@
-body{
-  margin:0;
-  background:#2b0b14;
-  color:#fff;
-  font-family:Arial;
-  text-align:center;
+let current=1;
+const music=document.getElementById("music");
+
+function go(n){
+  document.getElementById("p"+current).classList.remove("active");
+  current=n;
+  document.getElementById("p"+current).classList.add("active");
 }
-.page{display:none;padding:20px;}
-.page.active{display:block;}
-input,button{
-  padding:10px;
-  border-radius:20px;
-  border:none;
-  margin:5px;
+
+/* LOCK */
+let wrong=0;
+function unlock(){
+  const p=document.getElementById("password").value.toLowerCase();
+  if(p==="rajkumari"){
+    music.currentTime=62;
+    music.play();
+    go(2);
+    loadQuiz();
+  }else{
+    wrong++;
+    document.getElementById("lockMsg").innerText=
+      wrong>=5?"Hint: Agar Yuvraj Rajkumar hai to tum kya ho?":"Wrong password!";
+  }
 }
-button{background:#ff6b81;color:#fff;}
-.gif{
-  width:150px;
-  border-radius:50%;
-  margin:10px auto;
+
+/* QUIZ */
+const quiz=[
+  {q:"Who is the lucky one?",o:["Me","You","Both"],c:1},
+  {q:"Perfect propose gift?",o:["Ring","Chocolate","Heart"],c:0},
+  {q:"Stay forever?",o:["Yes","No"],c:0}
+];
+let qi=0;
+function loadQuiz(){
+  const q=quiz[qi];
+  document.getElementById("qTitle").innerText=q.q;
+  const box=document.getElementById("options");
+  box.innerHTML="";
+  q.o.forEach((t,i)=>{
+    const b=document.createElement("button");
+    b.innerText=t;
+    b.onclick=()=>{
+      if(i===q.c){
+        b.style.background="green";
+        qi++;
+        setTimeout(()=>qi<quiz.length?loadQuiz():go(3),500);
+      }else{
+        b.style.background="red";
+      }
+    };
+    box.appendChild(b);
+  });
 }
-#huntGrid span{
-  font-size:30px;
-  margin:10px;
-  cursor:pointer;
+
+/* PROPOSAL HUNT */
+const hunt=document.getElementById("huntGrid");
+let found=0;
+for(let i=0;i<6;i++){
+  const s=document.createElement("span");
+  s.innerText=i%2===0?"💍":"💩";
+  s.onclick=()=>{
+    if(s.innerText==="💍"){found++;s.remove();}
+    if(found===3)go(5);
+  };
+  hunt.appendChild(s);
 }
-#gameBox{
-  width:300px;
-  height:220px;
-  border:2px dashed pink;
-  margin:auto;
-  position:relative;
-  overflow:hidden;
-}
-.heart{
-  position:absolute;
-  font-size:22px;
-  animation:fall 3s linear;
-}
-@keyframes fall{from{top:-30px;}to{top:240px;}}
-.bar{width:300px;height:6px;background:#444;margin:10px auto;}
-#bar{height:100%;width:0;background:lime;}
-.letter{
-  background:#fff;
-  color:#000;
-  padding:20px;
-  border-radius:10px;
-}
-.photos img{
-  width:90px;
-  margin:5px;
-  border-radius:10px;
-}
-footer{
-  opacity:.7;
-  font-size:12px;
-  margin:20px;
-}
+
+/* CATCH MY LOVE */
+let caught=0,interval=null;
+document.getElementById("startGame").onclick=()=>{
+  const box=document.getElementById("gameBox");
+  caught=0;
+  document.getElementById("bar").style.width="0";
+  clearInterval(interval);
+  interval=setInterval(()=>{
+    const h=document.createElement("div");
+    h.className="heart";
+    h.innerText="❤️";
+    h.style.left=Math.random()*90+"%";
+    h.onclick=()=>{
+      caught++;
+      document.getElementById("bar").style.width=(caught/12*100)+"%";
+      h.remove();
+      if(caught>=12){clearInterval(interval);go(6);}
+    };
+    box.appendChild(h);
+    setTimeout(()=>h.remove(),3000);
+  },600);
+};
+
+/* YES NO */
+function yes(){go(9);}
+function no(){
+  const b=document.getElementById("noBtn");
+  b.style.position="absolute";
+  b.style.left=Math.random()*70+"%";
+  b.style.top=Math.random()*70+"%";
+      }
