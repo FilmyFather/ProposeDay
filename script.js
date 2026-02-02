@@ -97,3 +97,14 @@ function closePhoto(){photoModal.style.display="none";}
 let scale=1;
 function noClick(){scale+=.2;yesBtn.style.transform=`scale(${scale})`;}
 function yesClick(){confetti();go(9);}
+
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="floating-heart";
+  h.innerText="❤";
+  h.style.left=Math.random()*100+"vw";
+  h.style.bottom="-20px";
+  h.style.fontSize=(10+Math.random()*10)+"px";
+  document.getElementById("heart-layer").appendChild(h);
+  setTimeout(()=>h.remove(),9000);
+},700);
