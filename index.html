@@ -1,127 +1,437 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Propose Day ❤️</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
-</head>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Ultimate Propose Day Surprise</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&amp;family=Quicksand:wght@400;600;700&amp;family=Pacifico&amp;display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: radial-gradient(circle at center, #2d0b16 0%, #0f0206 100%);
+            color: #ffe4e6;
+            overflow-y: auto; 
+            overflow-x: hidden;
+            touch-action: manipulation;
+        }
+        .handwriting {
+            font-family: 'Dancing Script', cursive;
+        }
+        .title-font {
+            font-family: 'Pacifico', cursive;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+        }
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .fade-in { animation: fadeIn 0.8s ease-in-out forwards; }
+        .slide-up { animation: slideUp 0.8s ease-in-out forwards; }
+        .pop-in { animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes popIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+        .heart-beat { animation: beat 1s infinite alternate; }
+        @keyframes beat { to { transform: scale(1.1); } }
+        .float { animation: float 6s ease-in-out infinite; }
+        @keyframes float { 
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #ff4d6d, #c9184a);
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
+            transition: all 0.3s ease;
+        }
+        /* Custom Yes/No Colors */
+        .btn-yes {
+            background: linear-gradient(45deg, #ef4444, #991b1b);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+        }
+        .btn-no {
+            background: linear-gradient(45deg, #3b82f6, #1e40af);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+        
+        .btn-primary:active, .btn-yes:active, .btn-no:active { transform: scale(0.95); }
+        .btn-option {
+            transition: all 0.2s;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        .btn-option:hover { background-color: rgba(255, 77, 109, 0.2); border-color: #ff4d6d; }
+        .btn-option.wrong { background-color: #374151; border-color: #4b5563; color: #9ca3af; text-decoration: line-through; }
+        .hidden-page { display: none !important; }
+        .envelope-wrapper { position: relative; cursor: pointer; transition: transform 0.3s; }
+        .envelope {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background: brown;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 2;
+        }
+        .envelope::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-top: 100px solid brown;
+            z-index: 3;
+            transform-origin: top;
+            transition: transform 0.5s 0.5s;
+        }
+        .envelope.open::before { transform: rotateX(180deg); z-index: 1; }
+        .letter {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            width: 270px;
+            height: 180px;
+            background: beige;
+            color: #590d22;
+            border-radius: 5px;
+            z-index: 1;
+            transition: transform 0.5s;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            box-shadow: 0 -5px 10px rgba(0,0,0,0.2);
+        }
+        .envelope.open .letter { transform: translateY(-100px); z-index: 4; height: 300px; }
+        .gif-container { width: 150px; height: 150px; margin: 0 auto 20px auto; border-radius: 50%; overflow: hidden; border: 3px solid rgba(255, 77, 109, 0.3); }
+        .gif-container img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .gallery-img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 1rem;
+            border: 2px solid rgba(255, 77, 109, 0.3);
+            transition: transform 0.3s;
+        }
+        .gallery-img:hover { transform: scale(1.05); }
 
-<body>
+        /* Typewriter Cursor */
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            background-color: #ec4899;
+            margin-left: 4px;
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink { from, to { opacity: 1; } 50% { opacity: 0; } }
+    </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.pointer-events-none{pointer-events:none}.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0px}.left-1\/2{left:50%}.right-0{right:0px}.top-1\/2{top:50%}.top-full{top:100%}.z-0{z-index:0}.z-10{z-index:10}.z-20{z-index:20}.mx-auto{margin-left:auto;margin-right:auto}.mb-1{margin-bottom:0.25rem}.mb-10{margin-bottom:2.5rem}.mb-2{margin-bottom:0.5rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.mt-4{margin-top:1rem}.mt-8{margin-top:2rem}.inline-block{display:inline-block}.flex{display:flex}.grid{display:grid}.hidden{display:none}.h-20{height:5rem}.h-3{height:0.75rem}.h-40{height:10rem}.h-\[50vh\]{height:50vh}.h-full{height:100%}.min-h-screen{min-height:100vh}.min-h-\[1\.5em\]{min-height:1.5em}.min-h-\[80vh\]{min-height:80vh}.w-screen{width:100vw}.w-0{width:0px}.w-full{width:100%}.max-w-lg{max-width:32rem}.max-w-md{max-width:28rem}.-translate-x-1\/2{--tw-translate-x:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.-translate-y-1\/2{--tw-translate-y:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.transform{transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.cursor-pointer{cursor:pointer}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.flex-col{flex-direction:column}.items-center{align-items:center}.justify-center{justify-content:center}.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.overflow-hidden{overflow:hidden}.rounded-2xl{border-radius:1rem}.rounded-3xl{border-radius:1.5rem}.rounded-full{border-radius:9999px}.rounded-xl{border-radius:0.75rem}.border{border-width:1px}.border-white\/10{border-color:rgb(255 255 255 / 0.1)}.bg-black\/40{background-color:rgb(0 0 0 / 0.4)}.bg-black\/70{background-color:rgb(0 0 0 / 0.7)}.bg-green-900\/40{background-color:rgb(20 83 45 / 0.4)}.bg-white\/10{background-color:rgb(255 255 255 / 0.1)}.bg-gradient-to-r{background-image:linear-gradient(to right, var(--tw-gradient-stops))}.from-pink-500{--tw-gradient-from:#ec4899 var(--tw-gradient-from-position);--tw-gradient-to:rgb(236 72 153 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.to-rose-600{--tw-gradient-to:#e11d48 var(--tw-gradient-to-position)}.p-4{padding:1rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.py-10{padding-top:2.5rem;padding-bottom:2.5rem}.px-10{padding-left:2.5rem;padding-right:2.5rem}.px-12{padding-left:3rem;padding-right:3rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.px-8{padding-left:2rem;padding-right:2rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-4{padding-top:1rem;padding-bottom:1rem}.text-center{text-align:center}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-5xl{font-size:3rem;line-height:1}.text-8xl{font-size:6rem;line-height:1}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.font-semibold{font-weight:600}.text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity, 1))}.text-gray-700{--tw-text-opacity:1;color:rgb(55 65 81 / var(--tw-text-opacity, 1))}.text-pink-300{--tw-text-opacity:1;color:rgb(249 168 212 / var(--tw-text-opacity, 1))}.text-pink-400{--tw-text-opacity:1;color:rgb(244 114 182 / var(--tw-text-opacity, 1))}.text-pink-500{--tw-text-opacity:1;color:rgb(236 72 153 / var(--tw-text-opacity, 1))}.text-rose-100{--tw-text-opacity:1;color:rgb(255 228 230 / var(--tw-text-opacity, 1))}.text-rose-200{--tw-text-opacity:1;color:rgb(254 205 211 / var(--tw-text-opacity, 1))}.text-rose-500{--tw-text-opacity:1;color:rgb(244 63 94 / var(--tw-text-opacity, 1))}.text-rose-700{--tw-text-opacity:1;color:rgb(190 18 60 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.opacity-40{opacity:0.4}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-200{transition-duration:200ms}.duration-300{transition-duration:300ms}@media (min-width: 768px){.md\:text-6xl{font-size:3.75rem;line-height:1}}</style></head>
+<body class="min-h-screen w-screen flex flex-col items-center relative py-10">
 
-<!-- 🎧 MUSIC CONTROLLER -->
-<div id="musicController">
-  <div id="musicToggle">🎧</div>
-  <div id="musicPanel">
-    <button onclick="setVolume(0.3)">Low</button>
-    <button onclick="setVolume(0.6)">Mid</button>
-    <button onclick="setVolume(1)">High</button>
-    <button onclick="toggleMusic()" id="onOffBtn">OFF</button>
-  </div>
-</div>
+    <div id="booster_root"></div><div id="particles" class="pointer-events-none opacity-40 z-0"><div style="position: absolute; left: 15.6498vw; top: 66.627vh; animation: 8.01806s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 91.7149vw; top: 44.0529vh; animation: 8.93718s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 32.3433vw; top: 19.5391vh; animation: 6.35467s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 80.8547vw; top: 97.9258vh; animation: 6.27249s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 38.3384vw; top: 64.7439vh; animation: 9.26728s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 79.6667vw; top: 12.67vh; animation: 6.73325s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 66.1568vw; top: 86.1883vh; animation: 8.24105s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 1.30933vw; top: 86.0251vh; animation: 7.0633s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 42.5423vw; top: 28.1654vh; animation: 6.29095s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 53.8116vw; top: 63.9571vh; animation: 9.8405s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 23.4051vw; top: 99.5897vh; animation: 7.78363s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 18.9258vw; top: 77.8096vh; animation: 6.61012s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 49.5083vw; top: 85.4621vh; animation: 7.51601s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 40.1201vw; top: 52.5456vh; animation: 5.51276s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 38.2108vw; top: 62.8728vh; animation: 7.44628s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 90.1046vw; top: 78.2864vh; animation: 8.6043s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 15.5829vw; top: 71.6608vh; animation: 6.5488s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 88.5052vw; top: 83.0962vh; animation: 9.87196s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 95.7132vw; top: 64.8506vh; animation: 8.24369s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 12.1739vw; top: 74.2254vh; animation: 8.14334s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 72.221vw; top: 52.0551vh; animation: 8.7774s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 99.6841vw; top: 30.4857vh; animation: 7.14378s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 91.1901vw; top: 55.1633vh; animation: 5.36903s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 96.7714vw; top: 55.3884vh; animation: 6.23487s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 26.6209vw; top: 0.815028vh; animation: 7.06245s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 76.6817vw; top: 54.8137vh; animation: 6.24714s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 43.4923vw; top: 52.2067vh; animation: 6.35169s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 28.8078vw; top: 23.9622vh; animation: 8.39535s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 32.5191vw; top: 24.8939vh; animation: 7.18935s ease 0s infinite normal none running float;">❤️</div><div style="position: absolute; left: 1.95812vw; top: 12.6519vh; animation: 5.07277s ease 0s infinite normal none running float;">❤️</div></div>
 
-<audio id="bgMusic" preload="auto">
-  <source src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3">
-</audio>
+    <!-- Page 1 -->
+    <div id="page1" class="text-center p-6 max-w-md w-full slide-up z-10 flex flex-col justify-center min-h-[80vh] hidden-page">
+        <div class="gif-container"><img src="https://media.tenor.com/lquwmqAgQekAAAAm/bubu-dudu.webp" alt="Hello"></div>
+        <h1 class="text-5xl md:text-6xl title-font text-pink-500 mb-4 min-h-[1.5em]"><span id="typewriter">Hey Beautiful!</span><span class="cursor">|</span></h1>
+        <p class="text-xl mb-8 font-medium text-rose-200">I have a very special question for you...</p>
+        <button onclick="nextPage(2)" class="btn-primary text-white font-bold py-4 px-10 rounded-full text-xl flex items-center justify-center gap-2 mx-auto">
+            <span>Start the Journey</span> <i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
 
-<!-- PAGE 01 : LOCK -->
-<section class="page active" id="p1">
-  <img class="gif" src="https://media.tenor.com/lquwmqAgQekAAAAm/bubu-dudu.webp">
-  <h1>3 Years of Love… 💖</h1>
-  <input id="password" placeholder="Enter the secret">
-  <button onclick="unlock()">Unlock ❤️</button>
-  <p id="lockMsg"></p>
-  <p class="dev">
-    Developed with ❤️ by
-    <a href="https://instagram.com/" target="_blank">Yuvraj</a>
-  </p>
-</section>
+    <!-- Page 2 -->
+    <div id="page2" class="text-center p-6 max-w-lg w-full z-10 flex flex-col justify-center min-h-[80vh] fade-in">
+        <div class="gif-container"><img src="https://media.tenor.com/YiMNm2QVdMoAAAAm/bubu-dudu-sseeyall.webp" alt="Quiz"></div>
+        <h2 class="text-3xl font-bold mb-2 text-pink-400">Step 1: The Love Quiz 📝</h2>
+        <div id="q1" class="quiz-step">
+            <p class="text-xl font-bold mb-6">1. Who is the lucky one in this relationship?</p>
+            <div class="flex flex-col gap-3">
+                <button onclick="wrongAnswer(this)" class="btn-option py-3 px-6 rounded-xl font-semibold">Try again 😜</button>
+                <button onclick="wrongAnswer(this)" class="btn-option py-3 px-6 rounded-xl font-semibold">Me </button>
+                <button onclick="nextQuiz('q1', 'q2')" class="btn-option py-3 px-6 rounded-xl font-semibold">Both of us! 🥰</button>
+            </div>
+        </div>
+        <div id="q2" class="quiz-step hidden-page">
+            <p class="text-xl font-bold mb-6">2. What is the perfect Propose Day gift?</p>
+            <div class="flex flex-col gap-3">
+                <button onclick="wrongAnswer(this)" class="btn-option py-3 px-6 rounded-xl font-semibold">Expensive Gifts 🎁</button>
+                <button onclick="nextQuiz('q2', 'q3')" class="btn-option py-3 px-6 rounded-xl font-semibold">Your Hand in Mine 🤝</button>
+                <button onclick="wrongAnswer(this)" class="btn-option py-3 px-6 rounded-xl font-semibold">Just Food 🍕</button>
+            </div>
+        </div>
+        <div id="q3" class="quiz-step hidden-page">
+            <p class="text-xl font-bold mb-6">3. Will you stay with me forever?</p>
+            <div class="flex flex-col gap-3">
+                <button onclick="wrongAnswer(this)" class="btn-option py-3 px-6 rounded-xl font-semibold">Maybe... 🤔</button>
+                <button onclick="finishQuiz()" class="btn-option py-3 px-6 rounded-xl font-semibold">Yes, Always! 🚀</button>
+                  <button onclick="wrongAnswer(this)" class="btn-option py-3 px-6 rounded-xl font-semibold">Not at all! </button>
+            </div>
+        </div>
+    </div>
 
-<!-- PAGE 02 : QUIZ -->
-<section class="page" id="p2">
-  <img class="gif" src="https://media.tenor.com/YiMNm2QVdMoAAAAm/bubu-dudu-sseeyall.webp">
-  <h2 id="qNo"></h2>
-  <h3 id="qText"></h3>
-  <div id="options"></div>
-</section>
+    <!-- Page 3 -->
+    <div id="page3" class="hidden-page text-center p-6 max-w-md w-full z-10 flex flex-col justify-center min-h-[80vh]">
+        <div class="gif-container"><img src="https://media.tenor.com/nBQQ6XM5BhIAAAAm/cute.webp" alt="Security"></div>
+        <div class="glass-card p-8 shadow-2xl slide-up">
+            <h2 class="text-2xl font-bold mb-4 text-pink-300">Final Security Check</h2>
+            <p class="text-lg font-medium mb-8 text-rose-100">Are you officially the cutest ever?</p>
+            <div class="flex flex-col gap-4">
+                <button onclick="nextPage(4)" class="btn-primary text-white font-bold py-3 px-6 rounded-xl shadow-lg">Yes, obviousally ! 🙋‍♀️</button>
+                <button id="fakeBtn" onmouseover="dodgeButton()" onclick="dodgeButton()" class="bg-white/10 text-gray-400 font-bold py-3 px-6 rounded-xl">No, I'm just okay</button>
+            </div>
+        </div>
+    </div>
 
-<!-- PAGE 03 : SECURITY -->
-<section class="page" id="p3">
-  <img class="gif" src="https://media.tenor.com/nBQQ6XM5BhIAAAAm/cute.webp">
-  <h2>Final Security Check 🔐</h2>
-  <button onclick="go(4)">Yes 😌</button>
-  <button id="runBtn">No I’m not interested</button>
-</section>
+    <!-- Page 4 -->
+    <div id="page4" class="hidden-page text-center p-4 max-w-md w-full z-10 flex flex-col justify-center min-h-[80vh]">
+        <div class="gif-container"><img src="https://media.tenor.com/-3Z-ojIe5IcAAAAm/bubu-dudu-sseeyall.webp" alt="Hunt"></div>
+        <h2 class="text-3xl title-font text-pink-400 mb-2">The Proposal Hunt 💍</h2>
+        <div class="grid grid-cols-3 gap-3 mb-6">
+            <div onclick="checkBush(this)" class="bush bg-green-900/40 h-20 rounded-2xl flex items-center justify-center text-3xl cursor-pointer" data-content="empty">🌿</div>
+            <div onclick="checkBush(this)" class="bush bg-green-900/40 h-20 rounded-2xl flex items-center justify-center text-3xl cursor-pointer" data-content="ring">🌿</div>
+            <div onclick="checkBush(this)" class="bush bg-green-900/40 h-20 rounded-2xl flex items-center justify-center text-3xl cursor-pointer" data-content="bug">🌿</div>
+            <div onclick="checkBush(this)" class="bush bg-green-900/40 h-20 rounded-2xl flex items-center justify-center text-3xl cursor-pointer" data-content="ring">🌿</div>
+            <div onclick="checkBush(this)" class="bush bg-green-900/40 h-20 rounded-2xl flex items-center justify-center text-3xl cursor-pointer" data-content="empty">🌿</div>
+            <div onclick="checkBush(this)" class="bush bg-green-900/40 h-20 rounded-2xl flex items-center justify-center text-3xl cursor-pointer" data-content="bug">🌿</div>
+            <div onclick="checkBush(this)" class="bush bg-green-900/40 h-20 rounded-2xl flex items-center justify-center text-3xl cursor-pointer" data-content="bug">🌿</div>
+            <div onclick="checkBush(this)" class="bush bg-green-900/40 h-20 rounded-2xl flex items-center justify-center text-3xl cursor-pointer" data-content="ring">🌿</div>
+            <div onclick="checkBush(this)" class="bush bg-green-900/40 h-20 rounded-2xl flex items-center justify-center text-3xl cursor-pointer" data-content="empty">🌿</div>
+        </div>
+        <p id="ringCount" class="text-xl font-bold text-pink-400 mb-6 bg-white/10 px-6 py-2 rounded-full inline-block">Rings: 0/3</p>
+    </div>
 
-<!-- PAGE 04 : PROPOSAL HUNT -->
-<section class="page" id="p4">
-  <img class="gif" src="https://media.tenor.com/-3Z-ojIe5IcAAAAm/bubu-dudu-sseeyall.webp">
-  <h2>Proposal Hunt 💍</h2>
-  <p>Rings Found: <span id="ringCount">0</span>/3</p>
-  <div class="grid" id="huntGrid"></div>
-</section>
+    <!-- Page 5 -->
+    <div id="page5" class="hidden-page text-center w-full min-h-[80vh] relative z-10 flex flex-col items-center justify-center">
+        <div class="gif-container" style="height: 100px; width: 100px;"><img src="https://media.tenor.com/bvXwJ4I19ZQAAAAm/cat-cat-meme.webp" alt="Game"></div>
+        <h2 class="text-2xl font-bold text-pink-400 mb-1">Catch My Love! ❤️</h2>
+        <div class="relative w-full max-w-md h-[50vh] bg-black/40 rounded-3xl border border-white/10 overflow-hidden" id="gameContainer">
+            <canvas id="gameCanvas" class="w-full h-full"></canvas>
+            <div id="startScreen" class="absolute inset-0 flex items-center justify-center bg-black/70 z-20">
+                <button onclick="startGame()" class="btn-primary text-white font-bold py-3 px-8 rounded-full">Start Game</button>
+            </div>
+        </div>
+        <div id="loveMeter" class="w-full max-w-md mt-4 h-3 bg-white/10 rounded-full overflow-hidden">
+            <div id="loveProgress" class="bg-gradient-to-r from-pink-500 to-rose-600 h-full w-0"></div>
+        </div>
+    </div>
 
-<!-- PAGE 05 : HEART GAME -->
-<section class="page" id="p5">
-  <img class="gif" src="https://media.tenor.com/bvXwJ4I19ZQAAAAm/cat-cat-meme.webp">
-  <h2>Catch My Love ❤️</h2>
-  <div id="gameBox"></div>
-  <div class="bar"><div id="bar"></div></div>
-  <button onclick="startGame()">Start Game</button>
-</section>
+    <!-- Page 6 -->
+    <div id="page6" class="hidden-page text-center p-6 max-w-md w-full flex flex-col items-center justify-center min-h-[80vh] z-10">
+        <div class="gif-container"><img src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp" alt="Letter"></div>
+        <h2 class="text-3xl handwriting text-pink-400 mb-10">A Letter For You...</h2>
+        <div class="envelope-wrapper" onclick="openEnvelope()">
+            <div id="envelope" class="envelope">
+                <div class="letter text-center">
+                    <p class="handwriting text-2xl mb-2 text-rose-700">My Dearest,</p>
+                    <p class="text-sm Roboto text-gray-700 font-medium">You are my forever. I promise to always hold your hand.You are my evrything my love . Be the safe as you are , never gonna leave you <br><span class="text-rose-500 font-bold">Happy Propose Day!</span></p>
+                    <div class="mt-4 text-4xl">💍</div>
+                </div>
+            </div>
+        </div>
+        <button id="letterBtn" onclick="nextPage('Gallery')" class="hidden mt-8 btn-primary text-white font-bold py-3 px-8 rounded-full fade-in">Our Memories...</button>
+    </div>
 
-<!-- PAGE 06 : LETTER -->
-<section class="page" id="p6">
-  <img class="gif" src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp">
-  <div class="letter">
-    <h3>My Dearest ❤️</h3>
-    <p>
-      You are my forever.<br>
-      I promise to stand by you always.<br><br>
-      Happy Propose Day 💖
-    </p>
-  </div>
-  <button onclick="go(7)">Next</button>
-</section>
+    <!-- Page Gallery -->
+    <div id="pageGallery" class="hidden-page text-center p-6 max-w-lg w-full z-10 flex flex-col justify-center min-h-[80vh]">
+        <h2 class="text-3xl title-font text-pink-400 mb-8">Some Precious Moments 📸</h2>
+        <div class="grid grid-cols-1 gap-4 mb-10">
+            <img src="https://i.pinimg.com/736x/9b/97/23/9b972314239e8c146213dc64168b3ead.jpg" alt="1" class="gallery-img">
+            <img src="https://i.pinimg.com/736x/01/ef/f6/01eff669f48805b3bf766f129a755dfa.jpg" alt="2" class="gallery-img">
+            <img src="https://i.pinimg.com/736x/7e/b6/ba/7eb6ba361884c2fd99889a2d0a489c1d.jpg" alt="3" class="gallery-img">
+            <img src="https://i.pinimg.com/736x/75/0c/97/750c97b5c20d857aa92be126c074d632.jpg" alt="4" class="gallery-img">
+            <img src="https://i.pinimg.com/736x/e8/4c/1c/e84c1c43d3b695b7cc37edb66a65691e.jpg" alt="5" class="gallery-img">
+            <img src="https://i.pinimg.com/736x/76/40/50/764050213fe111e105e68d35086fcf1a.jpg" alt="6" class="gallery-img">
+        </div>
+        <button onclick="nextPage(7)" class="btn-primary text-white font-bold py-4 px-10 rounded-full text-lg mx-auto">One Last Thing... ❤️</button>
+    </div>
 
-<!-- PAGE 07 : PHOTOS -->
-<section class="page" id="p7">
-  <h2>Some Precious Moments 📸</h2>
-  <div class="photo-grid">
-    <img src="images/p1.jpg" onclick="openPhoto(this)">
-    <img src="images/p2.jpg" onclick="openPhoto(this)">
-    <img src="images/p3.jpg" onclick="openPhoto(this)">
-    <img src="images/p4.jpg" onclick="openPhoto(this)">
-    <img src="images/p5.jpg" onclick="openPhoto(this)">
-    <img src="images/p6.jpg" onclick="openPhoto(this)">
-  </div>
-  <button onclick="go(8)">One Last Thing… ❤️</button>
-</section>
+    <!-- Page 7 (Red YES / Blue NO) -->
+    <div id="page7" class="hidden-page text-center p-6 max-w-md w-full relative min-h-[80vh] flex flex-col justify-center items-center z-10">
+        <div class="gif-container"><img src="https://media.tenor.com/qGiP_qcGH3MAAAAm/peach-goma.webp" alt="Proposal"></div>
+        <h1 class="text-3xl text-pink-400 mb-8 font-bold">Will you be mine forever? 💍</h1>
+        <div class="relative w-full h-40">
+            <button id="yesBtn" onclick="acceptProposal()" class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 btn-yes text-white text-2xl font-bold py-4 px-12 rounded-2xl z-20 transition-all duration-300">YES! ❤️</button>
+            <button id="noBtn" onclick="growYesButton()" class="absolute right-0 top-full mt-4 btn-no text-white text-lg font-bold py-3 px-8 rounded-xl z-10 transition-all duration-200">No</button>
+        </div>
+    </div>
 
-<div id="photoModal" onclick="closePhoto()">
-  <span class="close">✕</span>
-  <img id="modalImg">
-</div>
+    <!-- Page 8 -->
+    <div id="page8" class="hidden-page text-center p-6 max-w-md w-full z-10 flex flex-col justify-center min-h-[80vh]">
+        <div class="gif-container"><img src="https://media.tenor.com/nQD8tNYfJzQAAAAm/dance-love.webp" alt="Celebration"></div>
+        <h1 class="text-3xl text-pink-400 mb-6">I know u love me a lot ! 🎉</h1>
+        <div class="text-8xl mb-6 heart-beat">💍</div>
+        <p class="text-xl text-rose-100 font-medium">Best Decision Ever. <br> I love you so much!</p>
+    </div>
 
-<!-- PAGE 08 : YES NO -->
-<section class="page" id="p8">
-  <img class="gif" src="https://media.tenor.com/qGiP_qcGH3MAAAAm/peach-goma.webp">
-  <h2>Will you be mine forever? 💍</h2>
-  <button id="yesBtn" onclick="yesClick()">YES ❤️</button>
-  <button id="noBtn" onclick="noClick()">No</button>
-</section>
+    <script>
+        // Typewriter logic
+        const typewriterText = "Hey Beautiful!";
+        let charIndex = 0;
+        function typeEffect() {
+            if (charIndex < typewriterText.length) {
+                document.getElementById("typewriter").textContent += typewriterText.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeEffect, 150);
+            }
+        }
 
-<!-- PAGE 09 : FINAL -->
-<section class="page" id="p9">
-  <img class="gif" src="https://media.tenor.com/nQD8tNYfJzQAAAAm/dance-love.webp">
-  <h2>I Know U Love Me A Lot 🎉</h2>
-  <p>
-    You chose right again 💖<br>
-    Just like 06 April & 31 May 2023 ✨
-  </p>
-  <button onclick="location.reload()">Want to do it again 🔁</button>
-</section>
+        window.onload = () => {
+            typeEffect();
+            createParticles();
+        };
 
-<script src="script.js"></script>
-</body>
-</html>
+        let yesScale = 1;
+
+        function nextPage(id) {
+            document.querySelectorAll('[id^="page"]').forEach(el => el.classList.add('hidden-page'));
+            const next = document.getElementById('page' + id);
+            next.classList.remove('hidden-page');
+            next.classList.add('fade-in');
+            window.scrollTo(0,0);
+            if(id === 5) initGame();
+        }
+
+        function growYesButton() {
+            yesScale += 0.4;
+            const yesBtn = document.getElementById('yesBtn');
+            yesBtn.style.transform = `translate(-50%, -50%) scale(${yesScale})`;
+            const noBtn = document.getElementById('noBtn');
+            const messages = ["Are you sure?", "Really??", "Pwease?", "Think again!", "Click Yes!"];
+            noBtn.innerText = messages[Math.floor(Math.random()*messages.length)];
+        }
+
+        function nextQuiz(current, next) {
+            document.getElementById(current).classList.add('hidden-page');
+            const nextEl = document.getElementById(next);
+            nextEl.classList.remove('hidden-page');
+            nextEl.classList.add('pop-in');
+        }
+
+        function wrongAnswer(btn) {
+            btn.classList.add('wrong');
+            btn.innerText = "Try again 😜";
+            setTimeout(() => { btn.classList.remove('wrong'); }, 1000);
+        }
+
+        function finishQuiz() {
+            confetti({ particleCount: 50, spread: 50 });
+            setTimeout(() => nextPage(3), 800);
+        }
+
+        function dodgeButton() {
+            const btn = document.getElementById('fakeBtn');
+            btn.style.transform = `translateX(${Math.random() * 20 - 10}px)`;
+        }
+
+        let ringsFound = 0;
+        function checkBush(element) {
+            if (element.classList.contains('checked')) return;
+            element.classList.add('checked');
+            const type = element.getAttribute('data-content');
+            if (type === 'ring') {
+                element.innerHTML = '💍';
+                ringsFound++;
+                document.getElementById('ringCount').innerText = `Rings: ${ringsFound}/3`;
+                if (ringsFound === 3) setTimeout(() => nextPage(5), 500);
+            } else {
+                element.innerHTML = '🍃';
+            }
+        }
+
+        let canvas, ctx, animationId, hearts = [], score = 0, gameActive = false;
+        function initGame() {
+            canvas = document.getElementById('gameCanvas');
+            ctx = canvas.getContext('2d');
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+            canvas.addEventListener('pointerdown', (e) => {
+                if(!gameActive) return;
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left, y = e.clientY - rect.top;
+                for(let i = 0; i < hearts.length; i++) {
+                    if(Math.sqrt((x - hearts[i].x)**2 + (y - hearts[i].y)**2) < hearts[i].size) {
+                        hearts.splice(i, 1); score += 10;
+                        document.getElementById('loveProgress').style.width = score + '%';
+                        if(score >= 100) { gameActive = false; nextPage(6); }
+                        break;
+                    }
+                }
+            });
+        }
+
+        function startGame() {
+            document.getElementById('startScreen').style.display = 'none';
+            gameActive = true; hearts = []; spawnHeart(); gameLoop();
+        }
+
+        function spawnHeart() {
+            if(!gameActive) return;
+            hearts.push({ x: Math.random() * (canvas.width - 30) + 15, y: -20, size: 30, speed: 2, emoji: '❤️' });
+            setTimeout(spawnHeart, 700);
+        }
+
+        function gameLoop() {
+            if(!gameActive) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            hearts.forEach((h, i) => { h.y += h.speed; ctx.font = '30px Arial'; ctx.fillText(h.emoji, h.x, h.y); });
+            animationId = requestAnimationFrame(gameLoop);
+        }
+
+        function openEnvelope() {
+            const env = document.getElementById('envelope');
+            env.classList.add('open');
+            setTimeout(() => document.getElementById('letterBtn').classList.remove('hidden'), 1000);
+        }
+
+        function acceptProposal() {
+            nextPage(8);
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+        }
+
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for(let i=0; i<30; i++) {
+                const el = document.createElement('div');
+                el.innerText = '❤️';
+                el.style.position = 'absolute';
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.top = Math.random() * 100 + 'vh';
+                el.style.animation = `float ${Math.random() * 5 + 5}s infinite`;
+                container.appendChild(el);
+            }
+        }
+    </script>
+
+<audio class="audio-output" style="display: none;"></audio><div id="volume-booster-visusalizer">
+                    <div class="sound">
+                        <div class="sound-icon"></div>
+                        <div class="sound-wave sound-wave_one"></div>
+                        <div class="sound-wave sound-wave_two"></div>
+                        <div class="sound-wave sound-wave_three"></div>
+                    </div>
+                    <div class="segments-box">
+                        <div data-range="1-20" class="segment"><span></span></div>
+                        <div data-range="21-40" class="segment"><span></span></div>
+                        <div data-range="41-60" class="segment"><span></span></div>
+                        <div data-range="61-80" class="segment"><span></span></div>
+                        <div data-range="81-100" class="segment"><span></span></div>
+                    </div>
+                </div></body></html>
