@@ -2,26 +2,25 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Propose Day 💖</title>
+<title>Propose Day ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="css/style.css">
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-<!-- MUSIC -->
-<audio id="bgMusic" loop>
+<audio id="bgMusic">
   <source src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3">
 </audio>
 
-<!-- FLOATING HEARTS -->
 <div id="bgHearts"></div>
 
-<!-- PAGE 1 -->
+<!-- PAGE 1 LOCK -->
 <section id="p1" class="page active">
   <img class="gif" src="https://media.tenor.com/lquwmqAgQekAAAAm/bubu-dudu.webp">
   <h1 class="cursive">3 Years of Love… Prove It ❤️</h1>
-  <input id="password" placeholder="Enter password">
+  <input id="password" placeholder="Enter password" autocomplete="off">
   <p id="lockMsg"></p>
   <button onclick="unlock()">Unlock 🔐</button>
 </section>
@@ -29,8 +28,10 @@
 <!-- PAGE 2 QUIZ -->
 <section id="p2" class="page">
   <img class="gif" src="https://media.tenor.com/YiMNm2QVdMoAAAAm/bubu-dudu-sseeyall.webp">
-  <h2 id="quizQ"></h2>
-  <div id="quizOpt"></div>
+  <div id="quizCard">
+    <h2 id="quizQ"></h2>
+    <div id="quizOpt"></div>
+  </div>
 </section>
 
 <!-- PAGE 3 SECURITY -->
@@ -41,11 +42,12 @@
   <button id="noRun">NO I’M NOT INTERESTED</button>
 </section>
 
-<!-- PAGE 4 HUNT -->
+<!-- PAGE 4 PROPOSAL HUNT -->
 <section id="p4" class="page">
   <img class="gif" src="https://media.tenor.com/-3Z-ojIe5IcAAAAm/bubu-dudu-sseeyall.webp">
-  <h2>Find 3 Rings 💍</h2>
-  <div id="hunt"></div>
+  <h2>Find The Rings 💍</h2>
+  <p id="huntCount">Rings Found: 0 / 3</p>
+  <div id="huntGrid"></div>
 </section>
 
 <!-- PAGE 5 GAME -->
@@ -72,17 +74,17 @@
 <section id="p7" class="page">
   <h2>Some Precious Moments 📸</h2>
   <div class="photos">
-    <img src="images/p1.jpg">
-    <img src="images/p2.jpg">
-    <img src="images/p3.jpg">
-    <img src="images/p4.jpg">
-    <img src="images/p5.jpg">
-    <img src="images/p6.jpg">
+    <img src="images/photos/1.jpg">
+    <img src="images/photos/2.jpg">
+    <img src="images/photos/3.jpg">
+    <img src="images/photos/4.jpg">
+    <img src="images/photos/5.jpg">
+    <img src="images/photos/6.jpg">
   </div>
   <button onclick="go(8)">One Last Thing ❤️</button>
 </section>
 
-<!-- PAGE 8 YES NO -->
+<!-- PAGE 8 YES / NO -->
 <section id="p8" class="page">
   <img class="gif" src="https://media.tenor.com/qGiP_qcGH3MAAAAm/peach-goma.webp">
   <h2>Will you be mine forever?</h2>
@@ -95,14 +97,14 @@
   <img class="gif" src="https://media.tenor.com/nQD8tNYfJzQAAAAm/dance-love.webp">
   <h1>I Know You Love Me A Lot! 🎉</h1>
   <p>You chose me again — just like April 6 & 31, 2023 💖</p>
-  <button onclick="location.reload()">Wanna do this again? 🔁</button>
+  <button onclick="location.reload()">Do it again 🔁</button>
 </section>
 
 <footer>
   Developed with ❤️ by 
-  <a href="https://instagram.com/" target="_blank">Yuvraj</a>
+  <a href="https://instagram.com/YOUR_INSTA_ID" target="_blank">Yuvraj</a>
 </footer>
 
-<script src="script.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
