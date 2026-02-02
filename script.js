@@ -1,58 +1,54 @@
-function go(n){
-  document.querySelectorAll(".page")
-    .forEach(p=>p.classList.remove("active"));
-  document.getElementById("p"+n).classList.add("active");
-}
+const music = document.getElementById("bgMusic");
+const panel = document.getElementById("musicPanel");
+const toggleBtn = document.getElementById("musicToggle");
+const onOffBtn = document.getElementById("onOffBtn");
 
-/* MUSIC */
-function unlock(){
-  const m=document.getElementById("music");
-  m.currentTime=62;
-  m.play();
-  go(2);
-}
+let isPlaying = false;
 
-/* HEART GAME */
-let caught=0, interval;
-const box=document.getElementById("gameBox");
-const bar=document.getElementById("bar");
-const startBtn=document.getElementById("startGame");
-
-startBtn.onclick=()=>{
-  caught=0;
-  bar.style.width="0%";
-  interval=setInterval(()=>{
-    const h=document.createElement("span");
-    h.innerText="❤️";
-    h.style.position="absolute";
-    h.style.left=Math.random()*90+"%";
-    h.style.top="-20px";
-    h.style.fontSize="24px";
-    h.onclick=()=>{
-      caught++;
-      bar.style.width=(caught/12*100)+"%";
-      h.remove();
-      if(caught>=12){
-        clearInterval(interval);
-        go(3);
-      }
-    };
-    box.appendChild(h);
-    setTimeout(()=>h.remove(),3000);
-  },600);
+/* 🎧 toggle panel */
+toggleBtn.onclick = () => {
+  panel.style.display =
+    panel.style.display === "block" ? "none" : "block";
 };
 
-/* YES NO */
-let scale=1;
-function noClick(){
-  scale+=0.2;
-  document.getElementById("yesBtn").style.transform=`scale(${scale})`;
-  const n=document.getElementById("noBtn");
-  if(n.innerText==="No") n.innerText="Please 🥺";
-  else if(n.innerText==="Please 🥺") n.innerText="Are you sure?";
-  else n.innerText="Click YES!";
+/* 🔊 volume */
+function setVolume(v){
+  music.volume = v;
 }
 
-function yesClick(){
-  go(4);
+/* ▶️ ⏸ play pause */
+function toggleMusic(){
+  if(!isPlaying){
+    music.play();
+    isPlaying = true;
+    onOffBtn.innerText = "ON";
+  }else{
+    music.pause();
+    isPlaying = false;
+    onOffBtn.innerText = "OFF";
+  }
+}
+
+/* 🔓 unlock logic */
+function unlock(){
+  const val = document
+    .getElementById("passwordInput")
+    .value.trim()
+    .toLowerCase();
+
+  if(val === "rajkumari"){
+    music.currentTime = 62; // 01:02
+    music.volume = 0.6;
+
+    music.play().then(()=>{
+      isPlaying = true;
+      onOffBtn.innerText = "ON";
+    });
+
+    document.getElementById("lockPage").style.display="none";
+    document.getElementById("main").style.display="block";
+  }else{
+    document.getElementById("msg").innerText =
+      "Galat hai madam ji 😜 thoda socho…";
+  }
 }
