@@ -1,48 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>FilmyFather ❤️</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Propose Day ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- PAGE 1 -->
-<section class="page active" id="p1">
-  <img class="img" src="https://media.tenor.com/lquwmqAgQekAAAAm/bubu-dudu.webp">
+<!-- 🎧 MUSIC CONTROLLER -->
+<div id="musicController">
+  <div id="musicToggle">🎧</div>
+  <div id="musicPanel">
+    <button onclick="setVolume(0.3)">Low</button>
+    <button onclick="setVolume(0.6)">Mid</button>
+    <button onclick="setVolume(1)">High</button>
+    <button onclick="toggleMusic()" id="onOffBtn">OFF</button>
+  </div>
+</div>
+
+<audio id="bgMusic" preload="auto">
+  <source src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 🔒 LOCK PAGE -->
+<div id="lockPage">
+  <img src="https://media.tenor.com/lquwmqAgQekAAAAm/bubu-dudu.webp">
   <h1>Hey Beautiful 💖</h1>
+
+  <input id="passwordInput" placeholder="Enter password">
+  <br>
   <button onclick="unlock()">Unlock ❤️</button>
-</section>
 
-<!-- PAGE 2 : HEART GAME -->
-<section class="page" id="p2">
-  <h2>Catch My Love ❤️</h2>
-  <div id="gameBox"></div>
-  <div id="barWrap"><div id="bar"></div></div>
-  <button id="startGame">Start Game</button>
-</section>
+  <div id="msg"></div>
 
-<!-- PAGE 3 : YES NO -->
-<section class="page" id="p3">
-  <h2>Will you be mine forever? 💍</h2>
-  <button id="yesBtn" onclick="yesClick()">YES ❤️</button>
-  <button id="noBtn" onclick="noClick()">No</button>
-</section>
+  <p class="dev">
+    Developed with ❤️ by
+    <a href="https://instagram.com/" target="_blank">Yuvraj</a>
+  </p>
+</div>
 
-<!-- PAGE 4 : FINAL -->
-<section class="page" id="p4">
-  <img class="img" src="https://media.tenor.com/nQD8tNYfJzQAAAAm/dance-love.webp">
-  <h1>I Know You Love Me 💖</h1>
-  <button onclick="go(1)">Do Again 🔁</button>
-</section>
-
-<footer>
-Developed with ❤️ by <a href="https://instagram.com/" target="_blank">Yuvraj</a>
-</footer>
-
-<audio id="music" src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3"></audio>
+<!-- 🌸 MAIN PAGE -->
+<div id="main">
+  <h2>Unlocked Successfully 💕</h2>
+  <p>Music is playing… 🎶</p>
+</div>
 
 <script src="script.js"></script>
 </body>
