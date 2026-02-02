@@ -1,79 +1,114 @@
 *{
-  margin:0;
-  padding:0;
   box-sizing:border-box;
-  font-family:Poppins,sans-serif;
+  font-family:'Segoe UI',sans-serif;
 }
 
 body{
-  background:#2a001c;
+  margin:0;
+  height:100vh;
+  background:radial-gradient(circle at top,#3a001f,#14000a);
   color:#fff;
-  text-align:center;
-}
-
-.page{
-  display:none;
-  min-height:100vh;
-  padding:30px 15px;
-}
-
-.page.active{display:block}
-
-h1,h2{color:#ff77b7;margin:20px 0}
-
-button{
-  background:linear-gradient(45deg,#ff5fa2,#ff91c7);
-  border:none;
-  color:#fff;
-  padding:14px 26px;
-  border-radius:30px;
-  font-size:18px;
-  margin:10px;
-  cursor:pointer;
-}
-
-.img{
-  width:150px;
-  height:150px;
-  border-radius:50%;
-  border:4px solid #ff77b7;
-  margin:20px auto;
-}
-
-/* GAME */
-#gameBox{
-  width:100%;
-  max-width:330px;
-  height:280px;
-  border:2px dashed #ff77b7;
-  border-radius:20px;
-  margin:20px auto;
-  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   overflow:hidden;
 }
 
-#barWrap{
-  background:#333;
-  border-radius:20px;
+/* LOCK PAGE */
+#lockPage{
+  text-align:center;
 }
 
-#bar{
-  height:10px;
-  width:0%;
-  background:#ff77b7;
-  border-radius:20px;
+#lockPage img{
+  width:160px;
 }
 
-/* YES */
-#yesBtn{
-  font-size:26px;
-  padding:20px 40px;
+#lockPage h1{
+  color:#ff7eb3;
+  margin:15px 0;
 }
 
-footer{
+#lockPage input{
+  padding:12px;
+  width:220px;
+  border:none;
+  border-radius:25px;
+  outline:none;
+  text-align:center;
+}
+
+#lockPage button{
+  margin-top:12px;
+  padding:12px 35px;
+  border:none;
+  border-radius:30px;
+  background:#ff7eb3;
+  color:#fff;
+  font-size:16px;
+  cursor:pointer;
+}
+
+#msg{
+  margin-top:10px;
+  color:#ffb3d9;
+}
+
+.dev{
+  margin-top:20px;
+  font-size:14px;
+}
+.dev a{
+  color:#ff7eb3;
+  text-decoration:none;
+}
+
+/* MUSIC CONTROLLER */
+#musicController{
   position:fixed;
-  bottom:10px;
-  width:100%;
-  font-size:13px;
+  top:15px;
+  left:15px;
+  z-index:9999;
 }
-footer a{color:#ff77b7}
+
+#musicToggle{
+  width:52px;
+  height:52px;
+  background:#ff5fa2;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  cursor:pointer;
+  box-shadow:0 0 15px rgba(255,95,162,.8);
+}
+
+#musicPanel{
+  display:none;
+  margin-top:8px;
+  background:#2a0018;
+  padding:8px;
+  border-radius:14px;
+}
+
+#musicPanel button{
+  display:block;
+  width:90px;
+  margin:5px auto;
+  padding:6px;
+  border:none;
+  border-radius:10px;
+  background:#ff7eb3;
+  color:#fff;
+  cursor:pointer;
+}
+
+/* MAIN PAGE */
+#main{
+  display:none;
+  text-align:center;
+}
+
+#main h2{
+  color:#ff7eb3;
+}
