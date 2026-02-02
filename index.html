@@ -9,7 +9,7 @@
 
 <body>
 
-<!-- 🎧 MUSIC -->
+<!-- 🎧 MUSIC CONTROLLER -->
 <div id="musicController">
   <div id="musicToggle">🎧</div>
   <div id="musicPanel">
@@ -24,46 +24,55 @@
   <source src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3">
 </audio>
 
-<!-- PAGE 1 : LOCK -->
+<!-- PAGE 01 : LOCK -->
 <section class="page active" id="p1">
   <img class="gif" src="https://media.tenor.com/lquwmqAgQekAAAAm/bubu-dudu.webp">
-  <h1>Hey Beautiful 💖</h1>
-  <input id="password" placeholder="Enter password">
+  <h1>3 Years of Love… 💖</h1>
+  <input id="password" placeholder="Enter the secret">
   <button onclick="unlock()">Unlock ❤️</button>
   <p id="lockMsg"></p>
-  <p class="dev">Developed with ❤️ by <a href="https://instagram.com/" target="_blank">Yuvraj</a></p>
+  <p class="dev">
+    Developed with ❤️ by
+    <a href="https://instagram.com/" target="_blank">Yuvraj</a>
+  </p>
 </section>
 
-<!-- PAGE 2 : QUIZ -->
+<!-- PAGE 02 : QUIZ -->
 <section class="page" id="p2">
+  <img class="gif" src="https://media.tenor.com/YiMNm2QVdMoAAAAm/bubu-dudu-sseeyall.webp">
   <h2 id="qNo"></h2>
   <h3 id="qText"></h3>
   <div id="options"></div>
 </section>
 
-<!-- PAGE 3 : SECURITY -->
+<!-- PAGE 03 : SECURITY -->
 <section class="page" id="p3">
+  <img class="gif" src="https://media.tenor.com/nBQQ6XM5BhIAAAAm/cute.webp">
   <h2>Final Security Check 🔐</h2>
-  <button onclick="go(4)">Yes, obviously 😌</button>
+  <button onclick="go(4)">Yes 😌</button>
+  <button id="runBtn">No I’m not interested</button>
 </section>
 
-<!-- PAGE 4 : PROPOSAL HUNT -->
+<!-- PAGE 04 : PROPOSAL HUNT -->
 <section class="page" id="p4">
+  <img class="gif" src="https://media.tenor.com/-3Z-ojIe5IcAAAAm/bubu-dudu-sseeyall.webp">
   <h2>Proposal Hunt 💍</h2>
   <p>Rings Found: <span id="ringCount">0</span>/3</p>
   <div class="grid" id="huntGrid"></div>
 </section>
 
-<!-- PAGE 5 : HEART CATCH -->
+<!-- PAGE 05 : HEART GAME -->
 <section class="page" id="p5">
+  <img class="gif" src="https://media.tenor.com/bvXwJ4I19ZQAAAAm/cat-cat-meme.webp">
   <h2>Catch My Love ❤️</h2>
   <div id="gameBox"></div>
   <div class="bar"><div id="bar"></div></div>
   <button onclick="startGame()">Start Game</button>
 </section>
 
-<!-- PAGE 6 : LETTER -->
+<!-- PAGE 06 : LETTER -->
 <section class="page" id="p6">
+  <img class="gif" src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp">
   <div class="letter">
     <h3>My Dearest ❤️</h3>
     <p>
@@ -72,10 +81,10 @@
       Happy Propose Day 💖
     </p>
   </div>
-  <button onclick="go(7)">Our Memories 📸</button>
+  <button onclick="go(7)">Next</button>
 </section>
 
-<!-- PAGE 7 : PHOTOS -->
+<!-- PAGE 07 : PHOTOS -->
 <section class="page" id="p7">
   <h2>Some Precious Moments 📸</h2>
   <div class="photo-grid">
@@ -86,7 +95,7 @@
     <img src="images/p5.jpg" onclick="openPhoto(this)">
     <img src="images/p6.jpg" onclick="openPhoto(this)">
   </div>
-  <button onclick="go(8)">One Last Thing ❤️</button>
+  <button onclick="go(8)">One Last Thing… ❤️</button>
 </section>
 
 <div id="photoModal" onclick="closePhoto()">
@@ -94,21 +103,23 @@
   <img id="modalImg">
 </div>
 
-<!-- PAGE 8 : YES NO -->
+<!-- PAGE 08 : YES NO -->
 <section class="page" id="p8">
+  <img class="gif" src="https://media.tenor.com/qGiP_qcGH3MAAAAm/peach-goma.webp">
   <h2>Will you be mine forever? 💍</h2>
   <button id="yesBtn" onclick="yesClick()">YES ❤️</button>
   <button id="noBtn" onclick="noClick()">No</button>
 </section>
 
-<!-- PAGE 9 : FINAL -->
+<!-- PAGE 09 : FINAL -->
 <section class="page" id="p9">
+  <img class="gif" src="https://media.tenor.com/nQD8tNYfJzQAAAAm/dance-love.webp">
   <h2>I Know U Love Me A Lot 🎉</h2>
   <p>
     You chose right again 💖<br>
-    Just like 6 April & 31 May 2023 ✨
+    Just like 06 April & 31 May 2023 ✨
   </p>
-  <button onclick="location.reload()">Do it again 🔁</button>
+  <button onclick="location.reload()">Want to do it again 🔁</button>
 </section>
 
 <script src="script.js"></script>
