@@ -2,117 +2,88 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Propose Day ❤️</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<title>Propose Day</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
-
 <body>
 
-<!-- BACKGROUND HEARTS -->
-<div id="bgHearts"></div>
-
-<!-- MUSIC -->
-<audio id="music" preload="auto">
-  <source src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3?hash=AgADnS" type="audio/mpeg">
+<audio id="music">
+  <source src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3">
 </audio>
 
-<!-- PAGE 1 : LOCK -->
+<!-- PAGE 1 -->
 <section id="p1" class="page active">
-  <h1>Unlock My Heart 🔒❤️</h1>
-  <input id="password" placeholder="Enter Password">
-  <button onclick="unlock()">Unlock</button>
+  <h1>Unlock My Heart 🔒</h1>
+  <input id="password" placeholder="Password">
   <p id="lockMsg"></p>
-  <footer>Developed with ❤️ by Yuvraj</footer>
+  <button onclick="unlock()">Unlock</button>
 </section>
 
-<!-- PAGE 2 : QUIZ -->
+<!-- PAGE 2 -->
 <section id="p2" class="page">
   <h2 id="qTitle"></h2>
   <div id="options"></div>
-  <footer>Developed with ❤️ by Yuvraj</footer>
 </section>
 
-<!-- PAGE 3 : SECURITY -->
+<!-- PAGE 3 -->
 <section id="p3" class="page">
-  <h2>Final Security Check 🔐</h2>
-  <button onclick="go(4)">Yes 😌</button>
-  <button id="runBtn">No I'm not interested</button>
-  <footer>Developed with ❤️ by Yuvraj</footer>
+  <h2>Security Passed ✅</h2>
+  <button onclick="go(4)">Continue</button>
 </section>
 
-<!-- PAGE 4 : PROPOSAL HUNT -->
+<!-- PAGE 4 -->
 <section id="p4" class="page">
   <h2>Proposal Hunt 💍</h2>
-  <p>Rings Found: <span id="ringCount">0</span>/3</p>
   <div id="huntGrid"></div>
-  <footer>Developed with ❤️ by Yuvraj</footer>
 </section>
 
-<!-- PAGE 5 : CATCH MY LOVE -->
+<!-- PAGE 5 -->
 <section id="p5" class="page">
   <h2>Catch My Love ❤️</h2>
   <div id="gameBox"></div>
   <div class="bar"><div id="bar"></div></div>
-  <button onclick="startGame()">Start Game</button>
-  <footer>Developed with ❤️ by Yuvraj</footer>
+  <button id="startGame">Start Game</button>
 </section>
 
-<!-- PAGE 6 : LETTER -->
+<!-- PAGE 6 -->
 <section id="p6" class="page">
   <div class="letter">
-    <h3>My Dearest ❤️</h3>
-    <p>
-      From the first day till forever,  
-      you are my peace, my smile, my home.  
-      I choose you — always.
-    </p>
-    <span>— Yours, Yuvraj ✨</span>
+    I loved you then.<br>
+    I love you now.<br>
+    I will love you forever.
   </div>
   <button onclick="go(7)">Next</button>
-  <footer>Developed with ❤️ by Yuvraj</footer>
 </section>
 
-<!-- PAGE 7 : PHOTOS -->
+<!-- PAGE 7 -->
 <section id="p7" class="page">
-  <h2>Some Precious Moments 📸</h2>
+  <h2>Memories 📸</h2>
   <div class="photos">
-    <img src="images/p1.jpg" onclick="openPhoto(this)">
-    <img src="images/p2.jpg" onclick="openPhoto(this)">
-    <img src="images/p3.jpg" onclick="openPhoto(this)">
-    <img src="images/p4.jpg" onclick="openPhoto(this)">
-    <img src="images/p5.jpg" onclick="openPhoto(this)">
-    <img src="images/p6.jpg" onclick="openPhoto(this)">
+    <img src="images/p1.jpg">
+    <img src="images/p2.jpg">
+    <img src="images/p3.jpg">
+    <img src="images/p4.jpg">
+    <img src="images/p5.jpg">
+    <img src="images/p6.jpg">
   </div>
-  <button onclick="go(8)">One Last Thing ❤️</button>
-  <footer>Developed with ❤️ by Yuvraj</footer>
+  <button onclick="go(8)">Next</button>
 </section>
 
-<div id="photoModal" onclick="closePhoto()">
-  <img id="modalImg">
-</div>
-
-<!-- PAGE 8 : YES / NO -->
+<!-- PAGE 8 -->
 <section id="p8" class="page">
-  <h2>Will you be mine forever? 💖</h2>
-  <button id="yesBtn" onclick="yesClick()">YES</button>
-  <button id="noBtn" onclick="noClick()">NO</button>
-  <footer>Developed with ❤️ by Yuvraj</footer>
+  <h2>Will you be mine forever?</h2>
+  <button onclick="yes()">YES ❤️</button>
+  <button id="noBtn" onclick="no()">NO 😅</button>
 </section>
 
-<!-- PAGE 9 : FINAL -->
+<!-- PAGE 9 -->
 <section id="p9" class="page">
-  <h1>I Know You Love Me A Lot 🎉</h1>
-  <p>
-    You chose the right decision again,  
-    just like you did on  
-    06 April & 31 May 2023 💖
-  </p>
-  <button onclick="location.reload()">Want to do it again 🔁</button>
-  <footer>Developed with ❤️ by Yuvraj</footer>
+  <h1>I Know You Love Me 💖</h1>
+  <button onclick="location.reload()">Again 🔁</button>
 </section>
+
+<footer>Developed with ❤️ by Yuvraj</footer>
 
 <script src="script.js"></script>
 </body>
