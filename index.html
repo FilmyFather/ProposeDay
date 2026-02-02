@@ -1,27 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Propose Day ❤️</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css"/>
 </head>
-
 <body>
 
-<!-- 🎧 MUSIC CONTROLLER -->
+<!-- 🎧 MUSIC -->
 <div id="musicController">
   <div id="musicToggle">🎧</div>
   <div id="musicPanel">
     <button onclick="setVolume(0.3)">Low</button>
     <button onclick="setVolume(0.6)">Mid</button>
     <button onclick="setVolume(1)">High</button>
-    <button onclick="toggleMusic()" id="onOffBtn">OFF</button>
+    <button id="onOffBtn" onclick="toggleMusic()">OFF</button>
   </div>
 </div>
 
 <audio id="bgMusic" preload="auto">
-  <source src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3">
+  <source src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3" type="audio/mpeg">
 </audio>
 
 <!-- PAGE 01 : LOCK -->
@@ -31,10 +30,7 @@
   <input id="password" placeholder="Enter the secret">
   <button onclick="unlock()">Unlock ❤️</button>
   <p id="lockMsg"></p>
-  <p class="dev">
-    Developed with ❤️ by
-    <a href="https://instagram.com/" target="_blank">Yuvraj</a>
-  </p>
+  <p class="dev">Developed with ❤️ by <a href="https://instagram.com/" target="_blank">Yuvraj</a></p>
 </section>
 
 <!-- PAGE 02 : QUIZ -->
@@ -67,21 +63,30 @@
   <h2>Catch My Love ❤️</h2>
   <div id="gameBox"></div>
   <div class="bar"><div id="bar"></div></div>
-  <button onclick="startGame()">Start Game</button>
+  <button id="startGameBtn">Start Game</button>
 </section>
 
 <!-- PAGE 06 : LETTER -->
 <section class="page" id="p6">
-  <img class="gif" src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp">
-  <div class="letter">
-    <h3>My Dearest ❤️</h3>
-    <p>
-      You are my forever.<br>
-      I promise to stand by you always.<br><br>
-      Happy Propose Day 💖
-    </p>
+  <img class="gif big-gif" src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp">
+  <div class="letter-wrap">
+    <div class="letter-paper">
+      <h3>My Dearest ❤️</h3>
+      <p>
+        From the day you walked into my life,<br>
+        everything started feeling warmer…<br><br>
+        Your smile became my peace,<br>
+        your voice my comfort,<br>
+        and your presence my home.<br><br>
+        I don’t promise perfection,<br>
+        but I promise effort, honesty,<br>
+        and a forever by your side.<br><br>
+        Happy Propose Day, my love 💖
+      </p>
+      <span class="signature">— Yours, Always ✨</span>
+    </div>
   </div>
-  <button onclick="go(7)">Next</button>
+  <button onclick="go(7)">Next 💌</button>
 </section>
 
 <!-- PAGE 07 : PHOTOS -->
@@ -103,7 +108,7 @@
   <img id="modalImg">
 </div>
 
-<!-- PAGE 08 : YES NO -->
+<!-- PAGE 08 : YES / NO -->
 <section class="page" id="p8">
   <img class="gif" src="https://media.tenor.com/qGiP_qcGH3MAAAAm/peach-goma.webp">
   <h2>Will you be mine forever? 💍</h2>
@@ -115,10 +120,7 @@
 <section class="page" id="p9">
   <img class="gif" src="https://media.tenor.com/nQD8tNYfJzQAAAAm/dance-love.webp">
   <h2>I Know U Love Me A Lot 🎉</h2>
-  <p>
-    You chose right again 💖<br>
-    Just like 06 April & 31 May 2023 ✨
-  </p>
+  <p>You chose right again 💖<br>Just like 06 April & 31 May 2023 ✨</p>
   <button onclick="location.reload()">Want to do it again 🔁</button>
 </section>
 
