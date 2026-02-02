@@ -1,113 +1,79 @@
-:root{
-  --pink:#ff6fa5;
-  --card:rgba(255,255,255,.12);
-}
-*{box-sizing:border-box}
-body{
+*{
   margin:0;
-  background:radial-gradient(circle at top,#3b0020,#120008);
+  padding:0;
+  box-sizing:border-box;
   font-family:Poppins,sans-serif;
+}
+
+body{
+  background:#2a001c;
   color:#fff;
-  overflow:hidden;
-}
-.page{display:none;height:100vh;padding:22px;text-align:center}
-.page.active{display:block}
-h1,h2{font-family:Pacifico;color:var(--pink)}
-.gif{
-  border-radius:50%;
-  border:4px solid var(--pink);
-  object-fit:cover;
-  margin:16px auto;
-  display:block;
-}
-.hero{width:180px;height:180px}
-.mid{width:155px;height:155px}
-.small{width:120px;height:120px}
-.card{
-  background:var(--card);
-  border-radius:20px;
-  padding:20px;
-  margin-top:20px;
-}
-input{
-  width:100%;
-  padding:14px;
-  border-radius:16px;
-  border:none;
-  margin-top:14px;
   text-align:center;
 }
+
+.page{
+  display:none;
+  min-height:100vh;
+  padding:30px 15px;
+}
+
+.page.active{display:block}
+
+h1,h2{color:#ff77b7;margin:20px 0}
+
 button{
-  background:linear-gradient(135deg,#ff5a9e,#ff8fbd);
+  background:linear-gradient(45deg,#ff5fa2,#ff91c7);
   border:none;
-  border-radius:18px;
-  padding:14px 26px;
   color:#fff;
-  font-size:16px;
-  margin-top:16px;
+  padding:14px 26px;
+  border-radius:30px;
+  font-size:18px;
+  margin:10px;
+  cursor:pointer;
 }
-.msg{min-height:40px;line-height:1.4}
-.option{
-  background:rgba(255,255,255,.14);
-  border-radius:16px;
-  padding:14px;
-  margin:10px 0;
+
+.img{
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  border:4px solid #ff77b7;
+  margin:20px auto;
 }
-.option.correct{background:#1faa59}
-.option.wrong{background:#c0392b;animation:shake .3s}
-@keyframes shake{
-  0%{transform:translateX(0)}
-  25%{transform:translateX(-4px)}
-  50%{transform:translateX(4px)}
-  75%{transform:translateX(-4px)}
-  100%{transform:translateX(0)}
-}
-.hunt-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-  margin-top:20px;
-}
-.hunt-grid div{
-  background:#0f3d2e;
-  padding:30px;
-  border-radius:16px;
-  font-size:24px;
-}
-.game-box{
-  height: 240px;              /* 🔥 MUST */
-  border: 2px dashed #ff6fa5;
-  border-radius: 20px;
-  margin: 20px auto;
-  position: relative;         /* 🔥 MUST */
-  overflow: hidden;           /* 🔥 MUST */
-}
-.progress{
-  height:8px;
-  background:#333;
-  border-radius:6px;
-  margin-top:10px;
-}
-.progress div{
-  height:100%;
-  width:0;
-  background:var(--pink);
-}
-.letter{
-  background:#fff;
-  color:#000;
-  border-radius:20px;
-  padding:22px;
-}
-.photos img{
-  width:90%;
-  border-radius:18px;
-  margin:10px 0;
-}
-.footer{
-  position:fixed;
-  bottom:6px;
+
+/* GAME */
+#gameBox{
   width:100%;
-  font-size:12px;
+  max-width:330px;
+  height:280px;
+  border:2px dashed #ff77b7;
+  border-radius:20px;
+  margin:20px auto;
+  position:relative;
+  overflow:hidden;
 }
-.footer a{color:#ff9acb;text-decoration:none}
+
+#barWrap{
+  background:#333;
+  border-radius:20px;
+}
+
+#bar{
+  height:10px;
+  width:0%;
+  background:#ff77b7;
+  border-radius:20px;
+}
+
+/* YES */
+#yesBtn{
+  font-size:26px;
+  padding:20px 40px;
+}
+
+footer{
+  position:fixed;
+  bottom:10px;
+  width:100%;
+  font-size:13px;
+}
+footer a{color:#ff77b7}
