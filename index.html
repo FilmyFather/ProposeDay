@@ -4,65 +4,113 @@
 <meta charset="UTF-8">
 <title>Propose Day ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link rel="stylesheet" href="style.css">
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 
 <body>
 
-<!-- FLOATING HEARTS -->
-<div id="hearts"></div>
+<!-- BACKGROUND HEARTS -->
+<div id="bgHearts"></div>
 
-<!-- AUDIO -->
-<audio id="music" preload="auto" loop>
+<!-- MUSIC -->
+<audio id="music" preload="auto">
   <source src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3?hash=AgADnS" type="audio/mpeg">
 </audio>
 
-<!-- PAGE 1 LOCK -->
+<!-- PAGE 1 : LOCK -->
 <section id="p1" class="page active">
-  <h1>Hey Beautiful ❤️</h1>
-  <input id="pass" placeholder="Enter Password">
-  <button onclick="unlock()">Unlock 💖</button>
-  <p id="msg"></p>
+  <h1>Unlock My Heart 🔒❤️</h1>
+  <input id="password" placeholder="Enter Password">
+  <button onclick="unlock()">Unlock</button>
+  <p id="lockMsg"></p>
   <footer>Developed with ❤️ by Yuvraj</footer>
 </section>
 
-<!-- PAGE 2 QUIZ -->
+<!-- PAGE 2 : QUIZ -->
 <section id="p2" class="page">
-  <h2>Love Quiz 💕</h2>
-
-  <div class="question">01. Will you stay with me forever?</div>
-  <button class="opt wrong" onclick="wrong(this)">Maybe</button>
-  <button class="opt right" onclick="right(this)">Yes Always</button>
-  <button class="opt wrong" onclick="wrong(this)">No</button>
-
-  <br><br>
-  <button onclick="go(3)">Next ➡️</button>
+  <h2 id="qTitle"></h2>
+  <div id="options"></div>
   <footer>Developed with ❤️ by Yuvraj</footer>
 </section>
 
-<!-- PAGE 3 YES NO -->
+<!-- PAGE 3 : SECURITY -->
 <section id="p3" class="page">
-  <h2>Will you be mine forever? 💍</h2>
-  <button class="yes" onclick="go(4)">YES ❤️</button>
-  <button class="no" onclick="nope()">NO 😜</button>
+  <h2>Final Security Check 🔐</h2>
+  <button onclick="go(4)">Yes 😌</button>
+  <button id="runBtn">No I'm not interested</button>
   <footer>Developed with ❤️ by Yuvraj</footer>
 </section>
 
-<!-- PAGE 4 GAME -->
+<!-- PAGE 4 : PROPOSAL HUNT -->
 <section id="p4" class="page">
+  <h2>Proposal Hunt 💍</h2>
+  <p>Rings Found: <span id="ringCount">0</span>/3</p>
+  <div id="huntGrid"></div>
+  <footer>Developed with ❤️ by Yuvraj</footer>
+</section>
+
+<!-- PAGE 5 : CATCH MY LOVE -->
+<section id="p5" class="page">
   <h2>Catch My Love ❤️</h2>
   <div id="gameBox"></div>
-  <div id="barWrap"><div id="bar"></div></div>
+  <div class="bar"><div id="bar"></div></div>
   <button onclick="startGame()">Start Game</button>
   <footer>Developed with ❤️ by Yuvraj</footer>
 </section>
 
-<!-- PAGE 5 FINAL -->
-<section id="p5" class="page">
-  <h1>I Know You Love Me 😘🎉</h1>
-  <p>Best decision ever 💖</p>
-  <button onclick="location.reload()">Do it again 🔁</button>
+<!-- PAGE 6 : LETTER -->
+<section id="p6" class="page">
+  <div class="letter">
+    <h3>My Dearest ❤️</h3>
+    <p>
+      From the first day till forever,  
+      you are my peace, my smile, my home.  
+      I choose you — always.
+    </p>
+    <span>— Yours, Yuvraj ✨</span>
+  </div>
+  <button onclick="go(7)">Next</button>
+  <footer>Developed with ❤️ by Yuvraj</footer>
+</section>
+
+<!-- PAGE 7 : PHOTOS -->
+<section id="p7" class="page">
+  <h2>Some Precious Moments 📸</h2>
+  <div class="photos">
+    <img src="images/p1.jpg" onclick="openPhoto(this)">
+    <img src="images/p2.jpg" onclick="openPhoto(this)">
+    <img src="images/p3.jpg" onclick="openPhoto(this)">
+    <img src="images/p4.jpg" onclick="openPhoto(this)">
+    <img src="images/p5.jpg" onclick="openPhoto(this)">
+    <img src="images/p6.jpg" onclick="openPhoto(this)">
+  </div>
+  <button onclick="go(8)">One Last Thing ❤️</button>
+  <footer>Developed with ❤️ by Yuvraj</footer>
+</section>
+
+<div id="photoModal" onclick="closePhoto()">
+  <img id="modalImg">
+</div>
+
+<!-- PAGE 8 : YES / NO -->
+<section id="p8" class="page">
+  <h2>Will you be mine forever? 💖</h2>
+  <button id="yesBtn" onclick="yesClick()">YES</button>
+  <button id="noBtn" onclick="noClick()">NO</button>
+  <footer>Developed with ❤️ by Yuvraj</footer>
+</section>
+
+<!-- PAGE 9 : FINAL -->
+<section id="p9" class="page">
+  <h1>I Know You Love Me A Lot 🎉</h1>
+  <p>
+    You chose the right decision again,  
+    just like you did on  
+    06 April & 31 May 2023 💖
+  </p>
+  <button onclick="location.reload()">Want to do it again 🔁</button>
   <footer>Developed with ❤️ by Yuvraj</footer>
 </section>
 
