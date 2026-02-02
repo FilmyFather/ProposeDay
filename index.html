@@ -1,117 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>3 Years of Love ❤️</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="css/style.css">
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Propose Day ❤️</title>
+
+<link rel="stylesheet" href="style.css" />
+<script src="script.js" defer></script>
 </head>
 
 <body>
 
 <!-- MUSIC -->
-<audio id="music">
-  <source src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3">
+<audio id="bgMusic" loop>
+  <source src="https://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3">
 </audio>
 
-<!-- MUSIC CONTROL -->
-<div id="musicCtrl">🎧</div>
+<div id="musicCtrl" onclick="toggleMusic()">🎧</div>
 
-<!-- BACKGROUND HEARTS -->
-<div id="bgHearts"></div>
-
-<!-- PAGE 1 LOCK -->
-<section id="p1" class="page active">
+<!-- PAGE 1 -->
+<section class="page active" id="p1">
   <img class="gif" src="https://media.tenor.com/lquwmqAgQekAAAAm/bubu-dudu.webp">
-  <h1 class="cursive">3 years of love… prove it ❤️</h1>
+  <h1>3 years of love… prove it ❤️</h1>
   <input id="password" placeholder="Enter password">
-  <p id="lockMsg"></p>
+  <div id="wrongText"></div>
   <button onclick="unlock()">Unlock 🔐</button>
+  <footer>Developed with ❤️ by <a href="https://instagram.com/" target="_blank">Yuvraj</a></footer>
 </section>
 
 <!-- PAGE 2 QUIZ -->
-<section id="p2" class="page">
+<section class="page" id="p2">
   <img class="gif" src="https://media.tenor.com/YiMNm2QVdMoAAAAm/bubu-dudu-sseeyall.webp">
-  <div id="quizCard">
-    <h2 id="quizQ"></h2>
-    <div id="quizOpt"></div>
-  </div>
+  <h2 id="qText"></h2>
+  <div id="options"></div>
 </section>
 
-<!-- PAGE 3 SECURITY -->
-<section id="p3" class="page">
+<!-- PAGE 3 -->
+<section class="page" id="p3">
   <img class="gif" src="https://media.tenor.com/nBQQ6XM5BhIAAAAm/cute.webp">
-  <h2>One last check… 😏</h2>
+  <h2>One last check…</h2>
   <button onclick="go(4)">YES</button>
-  <button id="noRun">NO I'M NOT INTERESTED</button>
+  <button id="noBtn">NO I'M NOT INTERESTED</button>
 </section>
 
-<!-- PAGE 4 HUNT -->
-<section id="p4" class="page">
+<!-- PAGE 4 -->
+<section class="page" id="p4">
   <img class="gif" src="https://media.tenor.com/-3Z-ojIe5IcAAAAm/bubu-dudu-sseeyall.webp">
   <h2>Find the Rings 💍</h2>
-  <p id="huntCount">Rings Found: 0 / 3</p>
-  <div id="huntGrid"></div>
+  <p>Found: <span id="ringCount">0</span>/3</p>
+  <div class="grid" id="huntGrid"></div>
 </section>
 
-<!-- PAGE 5 GAME -->
-<section id="p5" class="page">
+<!-- PAGE 5 -->
+<section class="page" id="p5">
   <img class="gif" src="https://media.tenor.com/bvXwJ4I19ZQAAAAm/cat-cat-meme.webp">
   <h2>Catch My Love ❤️</h2>
-  <div id="gameBox"></div>
-  <div class="bar"><div id="bar"></div></div>
   <button onclick="startGame()">Start Game</button>
+  <div id="gameBox"></div>
+  <div id="progress"><div></div></div>
 </section>
 
-<!-- PAGE 6 LETTER -->
-<section id="p6" class="page">
-  <img class="gif" src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp">
-  <div id="envelope" onclick="openLetter()">
-    <div id="letter" class="cursive hidden">
-      I loved you then…<br>
-      I love you now…<br>
-      I’ll love you forever 💌
-    </div>
+<!-- PAGE 6 -->
+<section class="page" id="p6">
+  <div id="envelope" onclick="openLetter()">💌 Tap to open</div>
+  <div id="letter" class="hidden">
+    My love… every step brought you here ❤️
   </div>
-  <button id="letterNext" class="hidden" onclick="go(7)">Next</button>
+  <button onclick="go(7)">Next</button>
 </section>
 
-<!-- PAGE 7 PHOTOS -->
-<section id="p7" class="page">
-  <h2>Some Precious Moments 📸</h2>
+<!-- PAGE 7 -->
+<section class="page" id="p7">
   <div class="photos">
-    <img src="images/photos/p1.jpg">
-    <img src="images/photos/p2.jpg">
-    <img src="images/photos/p3.jpg">
-    <img src="images/photos/p4.jpg">
-    <img src="images/photos/p5.jpg">
-    <img src="images/photos/p6.jpg">
+    <img src="images/p1.jpg">
+    <img src="images/p2.jpg">
+    <img src="images/p3.jpg">
+    <img src="images/p4.jpg">
+    <img src="images/p5.jpg">
+    <img src="images/p6.jpg">
   </div>
   <button onclick="go(8)">One Last Thing… ❤️</button>
 </section>
 
-<!-- PAGE 8 YES NO -->
-<section id="p8" class="page">
+<!-- PAGE 8 -->
+<section class="page" id="p8">
   <img class="gif" src="https://media.tenor.com/qGiP_qcGH3MAAAAm/peach-goma.webp">
   <h2>Will you be mine forever?</h2>
-  <button id="yesBtn" onclick="yes()">YES ❤️</button>
-  <button id="noBtn" onclick="no()">NO</button>
+  <button id="yesBtn" onclick="go(9)">YES</button>
+  <button onclick="growYes()">NO</button>
 </section>
 
-<!-- PAGE 9 FINAL -->
-<section id="p9" class="page">
+<!-- PAGE 9 -->
+<section class="page" id="p9">
   <img class="gif" src="https://media.tenor.com/nQD8tNYfJzQAAAAm/dance-love.webp">
   <h1>I know you love me a lot! 🎉</h1>
-  <p>You chose me again — just like April 6 & 31, 2023 💖</p>
+  <p>You chose me again — just like you did on<br>April 6 & 31, 2023 💖</p>
   <button onclick="location.reload()">Wanna do this again?</button>
 </section>
 
-<footer>
-  Developed with ❤️ by 
-  <a href="https://instagram.com/YOUR_INSTA_ID" target="_blank">Yuvraj</a>
-</footer>
-
-<script src="js/app.js"></script>
 </body>
 </html>
