@@ -1,4 +1,8 @@
 let current=1;
+let wrong=0;
+let qi=0;
+let found=0;
+
 const music=document.getElementById("bgMusic");
 
 /* NAV */
@@ -8,36 +12,35 @@ function go(n){
   document.getElementById("p"+current).classList.add("active");
 }
 
-/* BACKGROUND HEARTS */
-for(let i=0;i<20;i++){
-  const h=document.createElement("span");
-  h.innerText="❤️";
-  h.style.left=Math.random()*100+"%";
-  h.style.top=Math.random()*100+"%";
-  document.getElementById("bgHearts").appendChild(h);
-}
-
-/* LOCK */
-let wrong=0;
-const taunts=[
- "Arre Ghelsodi 😝",
- "Dhapudiii soch 😜",
- "Bhilan galat ❌",
- "Wagri dimag laga 🤯",
- "Gaanduu Insaan 🤦‍♂️"
+/* LOCK — FINAL TAUNTS (AS YOU SAID) */
+const taunts = [
+  "Arre Pagli 😝 itna bhi nahi pata?",
+  "Hint dimaag me tha, par use nahi kiya 😜",
+  "Galat hai madam ji 🎬 thoda socho",
+  "Yuvraj bhi shock me hai 🤯",
+  "Nope ❌ ye bhi nahi"
 ];
+
 function unlock(){
-  const v=document.getElementById("password").value.toLowerCase();
+  const input=document.getElementById("password");
+  const msg=document.getElementById("lockMsg");
+  const v=input.value.trim().toLowerCase();
+
   if(v==="rajkumari"){
+    msg.innerText="Unlocked 💖";
+    msg.style.color="lightgreen";
     music.currentTime=62;
     music.play();
     loadQuiz();
-    go(2);
+    setTimeout(()=>go(2),400);
   }else{
-    document.getElementById("lockMsg").innerText=
-      wrong>=4
-      ?"Hint: Agar Yuvraj Rajkumar hai… to tum kya ho?"
-      :taunts[wrong++];
+    input.classList.add("shake");
+    setTimeout(()=>input.classList.remove("shake"),300);
+    msg.style.color="#ffb3b3";
+    msg.innerText = wrong>=5
+      ? "Hint ❤️: Agar Yuvraj Rajkumar hoga to tum uski kya hogi…? 😉"
+      : taunts[wrong];
+    wrong++;
   }
 }
 
@@ -52,7 +55,7 @@ const quiz=[
  {q:"Forever means?",o:["Time","Always"],c:1},
  {q:"Final answer?",o:["Yes","No"],c:0}
 ];
-let qi=0;
+
 function loadQuiz(){
   const q=quiz[qi];
   document.getElementById("quizQ").innerText=`0${qi+1}. ${q.q}`;
@@ -63,11 +66,13 @@ function loadQuiz(){
     b.innerText=t;
     b.onclick=()=>{
       if(i===q.c){
+        b.style.background="green";
         qi++;
-        qi<quiz.length?loadQuiz():go(3);
+        setTimeout(()=>qi<quiz.length?loadQuiz():go(3),400);
       }else{
         b.style.background="red";
         b.classList.add("shake");
+        setTimeout(()=>b.classList.remove("shake"),300);
       }
     };
     box.appendChild(b);
@@ -82,23 +87,38 @@ noRun.onmouseover=()=>{
   noRun.style.top=Math.random()*70+"%";
 };
 
-/* HUNT */
-let found=0;
-["💍","💩","💍","💩","💍","💩"].forEach(x=>{
-  const s=document.createElement("span");
-  s.innerText=x;
-  s.onclick=()=>{
-    if(x==="💍"){found++;s.remove();}
-    if(found===3)go(5);
-  };
-  document.getElementById("hunt").appendChild(s);
+/* PROPOSAL HUNT — 3x3, each row 1 ring */
+const huntGrid=document.getElementById("huntGrid");
+const rows=[
+ ["💍","💩","💩"],
+ ["💩","💍","💩"],
+ ["💩","💩","💍"]
+];
+rows.forEach(r=>{
+  r.sort(()=>Math.random()-0.5);
+  r.forEach(x=>{
+    const c=document.createElement("div");
+    c.className="huntCard";
+    c.innerText="❓";
+    c.onclick=()=>{
+      if(c.clicked) return;
+      c.clicked=true;
+      c.innerText=x;
+      if(x==="💍"){
+        found++;
+        document.getElementById("huntCount").innerText=`Rings Found: ${found} / 3`;
+        if(found===3) setTimeout(()=>go(5),600);
+      }
+    };
+    huntGrid.appendChild(c);
+  });
 });
 
 /* GAME */
 let caught=0,interval;
 function startGame(){
   caught=0;
-  document.getElementById("bar").style.width="0%";
+  bar.style.width="0%";
   clearInterval(interval);
   interval=setInterval(()=>{
     const h=document.createElement("div");
@@ -107,20 +127,19 @@ function startGame(){
     h.style.left=Math.random()*90+"%";
     h.onclick=()=>{
       caught++;
-      document.getElementById("bar").style.width=(caught/12*100)+"%";
+      bar.style.width=(caught/12*100)+"%";
       h.remove();
-      if(caught>=12){clearInterval(interval);go(6);}
+      if(caught>=12){clearInterval(interval);go(6)}
     };
-    document.getElementById("gameBox").appendChild(h);
+    gameBox.appendChild(h);
     setTimeout(()=>h.remove(),3000);
   },600);
 }
 
-/* YES NO */
-function yes(){go(9);}
+/* YES / NO */
+function yes(){go(9)}
 function no(){
-  const b=document.getElementById("noBtn");
-  b.style.left=Math.random()*70+"%";
-  b.style.top=Math.random()*70+"%";
-  b.style.position="absolute";
-}
+  noBtn.style.position="absolute";
+  noBtn.style.left=Math.random()*70+"%";
+  noBtn.style.top=Math.random()*70+"%";
+                   }
