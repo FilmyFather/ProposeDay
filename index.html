@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Propose Day ❤️</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Propose Day ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- 🎧 MUSIC CONTROLLER -->
+<!-- 🎧 MUSIC -->
 <div id="musicController">
   <div id="musicToggle">🎧</div>
   <div id="musicPanel">
@@ -21,31 +21,95 @@
 </div>
 
 <audio id="bgMusic" preload="auto">
-  <source src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3" type="audio/mpeg">
+  <source src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3">
 </audio>
 
-<!-- 🔒 LOCK PAGE -->
-<div id="lockPage">
-  <img src="https://media.tenor.com/lquwmqAgQekAAAAm/bubu-dudu.webp">
+<!-- PAGE 1 : LOCK -->
+<section class="page active" id="p1">
+  <img class="gif" src="https://media.tenor.com/lquwmqAgQekAAAAm/bubu-dudu.webp">
   <h1>Hey Beautiful 💖</h1>
-
-  <input id="passwordInput" placeholder="Enter password">
-  <br>
+  <input id="password" placeholder="Enter password">
   <button onclick="unlock()">Unlock ❤️</button>
+  <p id="lockMsg"></p>
+  <p class="dev">Developed with ❤️ by <a href="https://instagram.com/" target="_blank">Yuvraj</a></p>
+</section>
 
-  <div id="msg"></div>
+<!-- PAGE 2 : QUIZ -->
+<section class="page" id="p2">
+  <h2 id="qNo"></h2>
+  <h3 id="qText"></h3>
+  <div id="options"></div>
+</section>
 
-  <p class="dev">
-    Developed with ❤️ by
-    <a href="https://instagram.com/" target="_blank">Yuvraj</a>
+<!-- PAGE 3 : SECURITY -->
+<section class="page" id="p3">
+  <h2>Final Security Check 🔐</h2>
+  <button onclick="go(4)">Yes, obviously 😌</button>
+</section>
+
+<!-- PAGE 4 : PROPOSAL HUNT -->
+<section class="page" id="p4">
+  <h2>Proposal Hunt 💍</h2>
+  <p>Rings Found: <span id="ringCount">0</span>/3</p>
+  <div class="grid" id="huntGrid"></div>
+</section>
+
+<!-- PAGE 5 : HEART CATCH -->
+<section class="page" id="p5">
+  <h2>Catch My Love ❤️</h2>
+  <div id="gameBox"></div>
+  <div class="bar"><div id="bar"></div></div>
+  <button onclick="startGame()">Start Game</button>
+</section>
+
+<!-- PAGE 6 : LETTER -->
+<section class="page" id="p6">
+  <div class="letter">
+    <h3>My Dearest ❤️</h3>
+    <p>
+      You are my forever.<br>
+      I promise to stand by you always.<br><br>
+      Happy Propose Day 💖
+    </p>
+  </div>
+  <button onclick="go(7)">Our Memories 📸</button>
+</section>
+
+<!-- PAGE 7 : PHOTOS -->
+<section class="page" id="p7">
+  <h2>Some Precious Moments 📸</h2>
+  <div class="photo-grid">
+    <img src="images/p1.jpg" onclick="openPhoto(this)">
+    <img src="images/p2.jpg" onclick="openPhoto(this)">
+    <img src="images/p3.jpg" onclick="openPhoto(this)">
+    <img src="images/p4.jpg" onclick="openPhoto(this)">
+    <img src="images/p5.jpg" onclick="openPhoto(this)">
+    <img src="images/p6.jpg" onclick="openPhoto(this)">
+  </div>
+  <button onclick="go(8)">One Last Thing ❤️</button>
+</section>
+
+<div id="photoModal" onclick="closePhoto()">
+  <span class="close">✕</span>
+  <img id="modalImg">
+</div>
+
+<!-- PAGE 8 : YES NO -->
+<section class="page" id="p8">
+  <h2>Will you be mine forever? 💍</h2>
+  <button id="yesBtn" onclick="yesClick()">YES ❤️</button>
+  <button id="noBtn" onclick="noClick()">No</button>
+</section>
+
+<!-- PAGE 9 : FINAL -->
+<section class="page" id="p9">
+  <h2>I Know U Love Me A Lot 🎉</h2>
+  <p>
+    You chose right again 💖<br>
+    Just like 6 April & 31 May 2023 ✨
   </p>
-</div>
-
-<!-- 🌸 MAIN PAGE -->
-<div id="main">
-  <h2>Unlocked Successfully 💕</h2>
-  <p>Music is playing… 🎶</p>
-</div>
+  <button onclick="location.reload()">Do it again 🔁</button>
+</section>
 
 <script src="script.js"></script>
 </body>
