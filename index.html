@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Propose Day ❤️</title>
+<title>3 Years of Love ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="css/style.css">
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
@@ -10,17 +10,22 @@
 
 <body>
 
-<audio id="bgMusic">
+<!-- MUSIC -->
+<audio id="music">
   <source src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3">
 </audio>
 
+<!-- MUSIC CONTROL -->
+<div id="musicCtrl">🎧</div>
+
+<!-- BACKGROUND HEARTS -->
 <div id="bgHearts"></div>
-<h1>Propose Day Live ❤️</h1>
-<!-- PAGE 01 LOCK -->
+
+<!-- PAGE 1 LOCK -->
 <section id="p1" class="page active">
   <img class="gif" src="https://media.tenor.com/lquwmqAgQekAAAAm/bubu-dudu.webp">
-  <h1 class="cursive">3 Years of Love… Prove It ❤️</h1>
-  <input id="password" placeholder="Enter password" autocomplete="off">
+  <h1 class="cursive">3 years of love… prove it ❤️</h1>
+  <input id="password" placeholder="Enter password">
   <p id="lockMsg"></p>
   <button onclick="unlock()">Unlock 🔐</button>
 </section>
@@ -37,20 +42,20 @@
 <!-- PAGE 3 SECURITY -->
 <section id="p3" class="page">
   <img class="gif" src="https://media.tenor.com/nBQQ6XM5BhIAAAAm/cute.webp">
-  <h2>One Last Check 😏</h2>
+  <h2>One last check… 😏</h2>
   <button onclick="go(4)">YES</button>
-  <button id="noRun">NO I’M NOT INTERESTED</button>
+  <button id="noRun">NO I'M NOT INTERESTED</button>
 </section>
 
-<!-- PAGE 4 PROPOSAL HUNT -->
+<!-- PAGE 4 HUNT -->
 <section id="p4" class="page">
   <img class="gif" src="https://media.tenor.com/-3Z-ojIe5IcAAAAm/bubu-dudu-sseeyall.webp">
-  <h2>Find The Rings 💍</h2>
+  <h2>Find the Rings 💍</h2>
   <p id="huntCount">Rings Found: 0 / 3</p>
   <div id="huntGrid"></div>
 </section>
 
-<!-- PAGE 05 GAME -->
+<!-- PAGE 5 GAME -->
 <section id="p5" class="page">
   <img class="gif" src="https://media.tenor.com/bvXwJ4I19ZQAAAAm/cat-cat-meme.webp">
   <h2>Catch My Love ❤️</h2>
@@ -62,29 +67,31 @@
 <!-- PAGE 6 LETTER -->
 <section id="p6" class="page">
   <img class="gif" src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp">
-  <div class="letter cursive">
-    I loved you then…<br>
-    I love you now…<br>
-    I’ll love you forever 💌
+  <div id="envelope" onclick="openLetter()">
+    <div id="letter" class="cursive hidden">
+      I loved you then…<br>
+      I love you now…<br>
+      I’ll love you forever 💌
+    </div>
   </div>
-  <button onclick="go(7)">Next</button>
+  <button id="letterNext" class="hidden" onclick="go(7)">Next</button>
 </section>
 
 <!-- PAGE 7 PHOTOS -->
 <section id="p7" class="page">
   <h2>Some Precious Moments 📸</h2>
   <div class="photos">
-    <img src="images/photos/1.jpg">
-    <img src="images/photos/2.jpg">
-    <img src="images/photos/3.jpg">
-    <img src="images/photos/4.jpg">
-    <img src="images/photos/5.jpg">
-    <img src="images/photos/6.jpg">
+    <img src="images/photos/p1.jpg">
+    <img src="images/photos/p2.jpg">
+    <img src="images/photos/p3.jpg">
+    <img src="images/photos/p4.jpg">
+    <img src="images/photos/p5.jpg">
+    <img src="images/photos/p6.jpg">
   </div>
-  <button onclick="go(8)">One Last Thing ❤️</button>
+  <button onclick="go(8)">One Last Thing… ❤️</button>
 </section>
 
-<!-- PAGE 8 YES / NO -->
+<!-- PAGE 8 YES NO -->
 <section id="p8" class="page">
   <img class="gif" src="https://media.tenor.com/qGiP_qcGH3MAAAAm/peach-goma.webp">
   <h2>Will you be mine forever?</h2>
@@ -95,9 +102,9 @@
 <!-- PAGE 9 FINAL -->
 <section id="p9" class="page">
   <img class="gif" src="https://media.tenor.com/nQD8tNYfJzQAAAAm/dance-love.webp">
-  <h1>I Know You Love Me A Lot! 🎉</h1>
+  <h1>I know you love me a lot! 🎉</h1>
   <p>You chose me again — just like April 6 & 31, 2023 💖</p>
-  <button onclick="location.reload()">Do it again 🔁</button>
+  <button onclick="location.reload()">Wanna do this again?</button>
 </section>
 
 <footer>
@@ -108,4 +115,3 @@
 <script src="js/app.js"></script>
 </body>
 </html>
-
