@@ -1,48 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Catch My Love ❤️</title>
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Propose Day</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-  <!-- PAGE 5 : Catch My Love -->
-  <section id="p5" class="page active">
+<audio id="music" preload="auto">
+  <source src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3">
+</audio>
 
-    <!-- GIF -->
-    <div class="gif-circle">
-      <img src="https://media.tenor.com/bvXwJ4I19ZQAAAAm/cat-cat-meme.webp" alt="gif">
-    </div>
+<!-- PAGE 1 -->
+<section id="p1" class="page active">
+  <img class="gif" src="https://media.tenor.com/lquwmqAgQekAAAAm/bubu-dudu.webp">
+  <h1>Unlock My Heart 🔒</h1>
+  <input id="password" placeholder="Enter password">
+  <p id="lockMsg"></p>
+  <button onclick="unlock()">Unlock</button>
+</section>
 
-    <h1 class="title">Catch My Love ❤️</h1>
+<!-- PAGE 2 -->
+<section id="p2" class="page">
+  <img class="gif" src="https://media.tenor.com/YiMNm2QVdMoAAAAm/bubu-dudu-sseeyall.webp">
+  <h2 id="qTitle"></h2>
+  <div id="options"></div>
+</section>
 
-    <!-- GAME BOX -->
-    <div id="gameBox"></div>
+<!-- PAGE 3 -->
+<section id="p3" class="page">
+  <img class="gif" src="https://media.tenor.com/nBQQ6XM5BhIAAAAm/cute.webp">
+  <h2>Final Security Check</h2>
+  <button onclick="go(4)">Continue</button>
+</section>
 
-    <!-- PROGRESS -->
-    <div class="progress">
-      <div id="bar"></div>
-    </div>
+<!-- PAGE 4 -->
+<section id="p4" class="page">
+  <img class="gif" src="https://media.tenor.com/-3Z-ojIe5IcAAAAm/bubu-dudu-sseeyall.webp">
+  <h2>The Proposal Hunt 💍</h2>
+  <div id="huntGrid"></div>
+</section>
 
-    <!-- START -->
-    <button id="startBtn">Start Game ❤️</button>
+<!-- PAGE 5 -->
+<section id="p5" class="page">
+  <img class="gif" src="https://media.tenor.com/bvXwJ4I19ZQAAAAm/cat-cat-meme.webp">
+  <h2>Catch My Love ❤️</h2>
+  <div id="gameBox"></div>
+  <div class="bar"><div id="bar"></div></div>
+  <button id="startGame">Start Game</button>
+</section>
 
-    <p class="dev">
-      Developed with ❤️ by 
-      <a href="https://instagram.com/itz___yuviiii" target="_blank">Yuvraj</a>
-    </p>
+<!-- PAGE 6 -->
+<section id="p6" class="page">
+  <img class="gif" src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp">
+  <div class="letter">
+    I loved you then.<br>
+    I love you now.<br>
+    I’ll love you forever.
+  </div>
+  <button onclick="go(7)">Next</button>
+</section>
 
-  </section>
+<!-- PAGE 7 -->
+<section id="p7" class="page">
+  <h2>Some Precious Moments 📸</h2>
+  <div class="photos">
+    <img src="images/p1.jpg">
+    <img src="images/p2.jpg">
+    <img src="images/p3.jpg">
+    <img src="images/p4.jpg">
+    <img src="images/p5.jpg">
+    <img src="images/p6.jpg">
+  </div>
+  <button onclick="go(8)">One Last Thing ❤️</button>
+</section>
 
-  <!-- JS -->
-  <script src="script.js"></script>
+<!-- PAGE 8 -->
+<section id="p8" class="page">
+  <img class="gif" src="https://media.tenor.com/qGiP_qcGH3MAAAAm/peach-goma.webp">
+  <h2>Will you be mine forever?</h2>
+  <button id="yesBtn" onclick="yes()">YES ❤️</button>
+  <button id="noBtn" onclick="no()">NO 😶</button>
+</section>
+
+<!-- PAGE 9 -->
+<section id="p9" class="page">
+  <img class="gif" src="https://media.tenor.com/nQD8tNYfJzQAAAAm/dance-love.webp">
+  <h1>I Know You Love Me 💖</h1>
+  <p>You chose me again, just like before.</p>
+  <button onclick="location.reload()">Do it again 🔁</button>
+</section>
+
+<footer>Developed with ❤️ by Yuvraj</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
