@@ -1,131 +1,146 @@
-let current=1,wrong=0,qi=0,found=0;
-const music=document.getElementById("music");
+let current=1;
+let wrong=0;
+let music=document.getElementById("bgMusic");
 
-/* NAV */
-function go(n){
-  document.getElementById("p"+current).classList.remove("active");
-  current=n;
-  document.getElementById("p"+current).classList.add("active");
-}
-
-/* BG HEARTS */
-const bg=document.getElementById("bgHearts");
-for(let i=0;i<20;i++){
-  let h=document.createElement("span");
-  h.innerText="❤️";
-  h.style.left=Math.random()*100+"%";
-  h.style.top=Math.random()*100+"%";
-  bg.appendChild(h);
-}
-
-/* LOCK */
 const taunts=[
- "Arre Ghelsodi 😝 itne pyaar ke baad bhi password yaad nahi?",
- "Dhapudiii 😜 dimaag me hint tha, par use karna bhool gayi.",
- "Bhilan ❌ itna aasan tha, phir bhi galat try.",
- "Wagri 🤯 thoda socho yaar.",
- "Gaanduu Insaan 🤦‍♂️ pyaar me bhi confusion?"
+"Arre Ghelsodi 😝 itna bhi yaad nahi?",
+"Dhapudiii 😜 thoda dimag laga!",
+"Bhilan ❌ ye bhi galat!",
+"Wagri 🤯 itna bhi tough nahi hai!",
+"Gaanduu Insaan 🤦‍♂️ last chance!"
 ];
 
+function go(n){
+document.querySelector(".page.active").classList.remove("active");
+document.getElementById("p"+n).classList.add("active");
+current=n;
+}
+
 function unlock(){
-  const v=password.value.trim().toLowerCase();
-  if(v==="rajkumari"){
-    lockMsg.innerText="Unlocked 💖";
-    music.currentTime=62;
-    music.play();
-    loadQuiz(); go(2);
-  }else{
-    password.classList.add("shake");
-    setTimeout(()=>password.classList.remove("shake"),300);
-    lockMsg.innerText = wrong>=5
-      ? "Hint ❤️: Agar Yuvraj Rajkumar hai… to tum uski kya ho?"
-      : taunts[wrong];
-    wrong++;
-  }
+let val=document.getElementById("password").value.trim().toLowerCase();
+if(val==="rajkumari"){
+music.play();
+go(2);
+loadQuiz();
+}else{
+document.getElementById("wrongText").innerText=taunts[wrong%5];
+wrong++;
+if(wrong===5){
+document.getElementById("wrongText").innerText=
+"Hint: Agar Yuvraj Rajkumar hai… to tum uski kya ho? 😉";
+}
+}
+}
+
+function toggleMusic(){
+music.paused?music.play():music.pause();
 }
 
 /* QUIZ */
 const quiz=[
- {q:"Who is the lucky one?",o:["Me","You","Both"],c:1},
- {q:"Perfect propose gift?",o:["Ring","Chocolate","Heart"],c:0},
- {q:"Stay forever?",o:["Yes","No","Maybe"],c:0},
- {q:"Who loves more?",o:["You","Yuvraj","Both"],c:1},
- {q:"Relationship depends on?",o:["Mood","Trust","Time"],c:1},
- {q:"Fight ke baad?",o:["Ignore","Talk","Block"],c:1},
- {q:"Forever means?",o:["Time","Always","Sometimes"],c:1},
- {q:"Final answer?",o:["Yes","No","Think"],c:0}
+{q:"Who is the lucky one in this relationship?",o:["Me","You","Both","Destiny","God"],a:2},
+{q:"What is the perfect Propose Day gift?",o:["Expensive Gift","One Night Stand","Whole Day Spend Together","Stay Together For Life","Party In Out Of State"],a:3},
+{q:"Will you stay with me forever?",o:["No","Maybe","Not sure","Always","Depends"],a:3},
+{q:"Who do you love the most?",o:["Family","Friends","Everyone","Yuvraj","Myself"],a:3},
+{q:"After 3 beautiful years together, will you be mine forever? 💍",o:[
+"Yes, today and always ❤️",
+"Forever and beyond ♾️",
+"I already belong to you 😘",
+"Till my last breath 💕",
+"All of the above 💍❤️"
+],a:4},
+{q:"Will you choose me again every single day? 💍",o:[
+"Yes, without thinking",
+"Always and forever",
+"In every lifetime",
+"Already chosen ❤️",
+"All of the above 💕"
+],a:4},
+{q:"What matters the most in our relationship?",o:["Love","Care","Understanding","Loyalty","Trust"],a:4},
+{q:"Final answer… will you be mine forever?",o:["No","Maybe","I’ll think","Not sure","Yes"],a:4}
 ];
 
+let qi=0;
+
 function loadQuiz(){
-  const q=quiz[qi];
-  quizQ.innerText=`0${qi+1}. ${q.q}`;
-  quizOpt.innerHTML="";
-  q.o.forEach((t,i)=>{
-    const b=document.createElement("button");
-    b.innerText=t;
-    b.onclick=()=>{
-      if(i===q.c){
-        b.style.background="green";
-        qi++;
-        setTimeout(()=>qi<quiz.length?loadQuiz():go(3),400);
-      }else{
-        b.style.background="red";
-        b.classList.add("shake");
-      }
-    };
-    quizOpt.appendChild(b);
-  });
+let q=quiz[qi];
+document.getElementById("qText").innerText=(qi+1)+". "+q.q;
+let box=document.getElementById("options");
+box.innerHTML="";
+q.o.forEach((t,i)=>{
+let b=document.createElement("button");
+b.innerText=t;
+b.onclick=()=>check(i,b);
+box.appendChild(b);
+});
 }
 
-/* NO RUN */
-noRun.onmouseover=()=>{noRun.style.left=Math.random()*70+"%";noRun.style.top=Math.random()*70+"%"}
+function check(i,b){
+if(i===quiz[qi].a){
+b.style.background="green";
+setTimeout(()=>{
+qi++;
+qi<quiz.length?loadQuiz():go(3);
+},600);
+}else{
+b.style.background="red";
+b.style.animation="shake .3s";
+navigator.vibrate?.(200);
+}
+}
+
+/* PAGE 3 NO BTN */
+const noBtn=document.getElementById("noBtn");
+noBtn.onmouseover=()=>{
+noBtn.style.position="absolute";
+noBtn.style.left=Math.random()*80+"%";
+noBtn.style.top=Math.random()*80+"%";
+};
 
 /* HUNT */
-const rows=[["💍","💩","💩"],["💩","💍","💩"],["💩","💩","💍"]];
-rows.forEach(r=>{
- r.sort(()=>Math.random()-0.5);
- r.forEach(x=>{
-  const c=document.createElement("div");
-  c.className="huntCard"; c.innerText="❓";
-  c.onclick=()=>{
-    if(c.done)return;
-    c.done=true; c.innerText=x;
-    if(x==="💍"){found++; huntCount.innerText=`Rings Found: ${found}/3`; if(found===3)go(5);}
-  };
-  huntGrid.appendChild(c);
- });
+let found=0;
+const grid=document.getElementById("huntGrid");
+[1,0,0,0,1,0,0,0,1].sort(()=>0.5-Math.random()).forEach(v=>{
+let d=document.createElement("div");
+d.innerText=v?"💍":"💩";
+d.onclick=()=>{
+if(v){
+found++;document.getElementById("ringCount").innerText=found;
+if(found===3)go(5);
+}
+};
+grid.appendChild(d);
 });
 
 /* GAME */
-let caught=0,intv;
+let caught=0;
 function startGame(){
- caught=0;bar.style.width="0%";
- clearInterval(intv);
- intv=setInterval(()=>{
-  let h=document.createElement("div");
-  h.className="heart";h.innerText="❤️";
-  h.style.left=Math.random()*90+"%";
-  h.onclick=()=>{
-    caught++;bar.style.width=(caught/12*100)+"%";
-    h.remove(); if(caught>=12){clearInterval(intv);go(6);}
-  };
-  gameBox.appendChild(h);
-  setTimeout(()=>h.remove(),3000);
- },600);
+caught=0;
+document.querySelector("#progress div").style.width="0%";
+let box=document.getElementById("gameBox");
+let interval=setInterval(()=>{
+if(current!==5){clearInterval(interval);return;}
+let h=document.createElement("span");
+h.className="heart";
+h.innerText="❤️";
+h.style.left=Math.random()*90+"%";
+h.style.top="-10px";
+h.onclick=()=>{
+caught++;
+document.querySelector("#progress div").style.width=(caught/12*100)+"%";
+h.remove();
+if(caught>=12){clearInterval(interval);go(6);}
+};
+box.appendChild(h);
+setTimeout(()=>h.remove(),3000);
+},600);
 }
 
-/* LETTER */
 function openLetter(){
- letter.classList.remove("hidden");
- letterNext.classList.remove("hidden");
+document.getElementById("letter").classList.remove("hidden");
 }
 
-/* YES NO */
-function yes(){go(9)}
-function no(){
- noBtn.style.left=Math.random()*70+"%";
- noBtn.style.top=Math.random()*70+"%";
+function growYes(){
+let y=document.getElementById("yesBtn");
+y.style.transform="scale(1.3)";
 }
-
-/* MUSIC CTRL */
-musicCtrl.onclick=()=> music.paused?music.play():music.pause();
