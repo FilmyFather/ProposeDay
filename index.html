@@ -1,77 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Propose Day ❤️</title>
+  <meta charset="UTF-8">
+  <title>Propose Day 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 
-<link rel="stylesheet" href="style.css" />
-<script src="script.js" defer></script>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 
 <body>
 
+<!-- BACKGROUND HEARTS -->
+<div id="heart-bg"></div>
+
 <!-- MUSIC -->
-<audio id="bgMusic" loop>
-  <source src="https://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3">
+<audio id="bgMusic" preload="auto">
+  <source src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3?hash=AgADnS" type="audio/mpeg">
 </audio>
 
-<div id="musicCtrl" onclick="toggleMusic()">🎧</div>
+<!-- MUSIC CONTROL -->
+<div id="musicCtrl">🎧</div>
 
-<!-- PAGE 1 -->
-<section class="page active" id="p1">
+<!-- FOOTER -->
+<footer>
+  Developed with ❤️ by 
+  <a href="https://instagram.com/" target="_blank">Yuvraj</a>
+</footer>
+
+<!-- ================= PAGE 1 ================= -->
+<section id="page1" class="page active">
   <img class="gif" src="https://media.tenor.com/lquwmqAgQekAAAAm/bubu-dudu.webp">
-  <h1>3 years of love… prove it ❤️</h1>
-  <input id="password" placeholder="Enter password">
+  <h1 class="hand">3 years of love… prove it ❤️</h1>
+
+  <input id="passInput" placeholder="Enter the password">
+  <button onclick="unlock()">Unlock</button>
+
   <div id="wrongText"></div>
-  <button onclick="unlock()">Unlock 🔐</button>
-  <footer>Developed with ❤️ by <a href="https://instagram.com/" target="_blank">Yuvraj</a></footer>
+  <div id="hint" class="hidden">
+    Hint: Agar Yuvraj Rajkumar hai… to tum uski kya ho?
+  </div>
 </section>
 
-<!-- PAGE 2 QUIZ -->
-<section class="page" id="p2">
+<!-- ================= PAGE 2 ================= -->
+<section id="page2" class="page">
   <img class="gif" src="https://media.tenor.com/YiMNm2QVdMoAAAAm/bubu-dudu-sseeyall.webp">
-  <h2 id="qText"></h2>
-  <div id="options"></div>
+  <h2>Love Test 💖</h2>
+  <div id="quizBox"></div>
 </section>
 
-<!-- PAGE 3 -->
-<section class="page" id="p3">
+<!-- ================= PAGE 3 ================= -->
+<section id="page3" class="page">
   <img class="gif" src="https://media.tenor.com/nBQQ6XM5BhIAAAAm/cute.webp">
-  <h2>One last check…</h2>
-  <button onclick="go(4)">YES</button>
-  <button id="noBtn">NO I'M NOT INTERESTED</button>
+  <h2>One last check… 🔐</h2>
+  <div class="row">
+    <button onclick="go(4)">YES</button>
+    <button id="noBtn">NO I'M NOT INTERESTED</button>
+  </div>
 </section>
 
-<!-- PAGE 4 -->
-<section class="page" id="p4">
+<!-- ================= PAGE 4 ================= -->
+<section id="page4" class="page">
   <img class="gif" src="https://media.tenor.com/-3Z-ojIe5IcAAAAm/bubu-dudu-sseeyall.webp">
   <h2>Find the Rings 💍</h2>
-  <p>Found: <span id="ringCount">0</span>/3</p>
-  <div class="grid" id="huntGrid"></div>
+  <p>Rings found: <span id="ringCount">0</span>/3</p>
+  <div id="huntGrid"></div>
 </section>
 
-<!-- PAGE 5 -->
-<section class="page" id="p5">
+<!-- ================= PAGE 5 ================= -->
+<section id="page5" class="page">
   <img class="gif" src="https://media.tenor.com/bvXwJ4I19ZQAAAAm/cat-cat-meme.webp">
   <h2>Catch My Love ❤️</h2>
-  <button onclick="startGame()">Start Game</button>
+  <button id="startGame">Start Game</button>
   <div id="gameBox"></div>
-  <div id="progress"><div></div></div>
+  <div class="bar"><div id="barFill"></div></div>
 </section>
 
-<!-- PAGE 6 -->
-<section class="page" id="p6">
-  <div id="envelope" onclick="openLetter()">💌 Tap to open</div>
-  <div id="letter" class="hidden">
-    My love… every step brought you here ❤️
+<!-- ================= PAGE 6 ================= -->
+<section id="page6" class="page">
+  <img class="gif" src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp">
+  <div id="envelope">
+    <div class="flap"></div>
+    <div class="letter">
+      My love ❤️<br><br>
+      Every step you took brought you here.<br>
+      And I want every next step to be with you.<br><br>
+      Always. 💫
+    </div>
   </div>
-  <button onclick="go(7)">Next</button>
+  <button id="letterNext" class="hidden" onclick="go(7)">Next →</button>
 </section>
 
-<!-- PAGE 7 -->
-<section class="page" id="p7">
-  <div class="photos">
+<!-- ================= PAGE 7 ================= -->
+<section id="page7" class="page">
+  <h2>Some Precious Moments 📸</h2>
+  <div class="photo-list">
     <img src="images/p1.jpg">
     <img src="images/p2.jpg">
     <img src="images/p3.jpg">
@@ -82,21 +109,26 @@
   <button onclick="go(8)">One Last Thing… ❤️</button>
 </section>
 
-<!-- PAGE 8 -->
-<section class="page" id="p8">
+<!-- ================= PAGE 8 ================= -->
+<section id="page8" class="page">
   <img class="gif" src="https://media.tenor.com/qGiP_qcGH3MAAAAm/peach-goma.webp">
-  <h2>Will you be mine forever?</h2>
-  <button id="yesBtn" onclick="go(9)">YES</button>
-  <button onclick="growYes()">NO</button>
+  <h2>Will you be mine forever? 💖</h2>
+  <div class="row">
+    <button id="yesBtn">YES</button>
+    <button id="noBtn8">NO</button>
+  </div>
 </section>
 
-<!-- PAGE 9 -->
-<section class="page" id="p9">
+<!-- ================= PAGE 9 ================= -->
+<section id="page9" class="page">
   <img class="gif" src="https://media.tenor.com/nQD8tNYfJzQAAAAm/dance-love.webp">
-  <h1>I know you love me a lot! 🎉</h1>
-  <p>You chose me again — just like you did on<br>April 6 & 31, 2023 💖</p>
+  <h2>I know you love me a lot! 🎉</h2>
+  <div class="ring">💍</div>
+  <p>You chose me again — just like you did on<br>
+     April 6 & 31, 2023 💖</p>
   <button onclick="location.reload()">Wanna do this again?</button>
 </section>
 
+<script src="script.js"></script>
 </body>
-</html>
+  </html>
