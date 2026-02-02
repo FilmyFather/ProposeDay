@@ -2,63 +2,75 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Propose Day</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Propose Day 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<audio id="music">
+<!-- MUSIC -->
+<audio id="bgMusic" loop>
   <source src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3">
 </audio>
 
+<!-- FLOATING HEARTS -->
+<div id="bgHearts"></div>
+
 <!-- PAGE 1 -->
 <section id="p1" class="page active">
-  <h1>Unlock My Heart 🔒</h1>
-  <input id="password" placeholder="Password">
+  <img class="gif" src="https://media.tenor.com/lquwmqAgQekAAAAm/bubu-dudu.webp">
+  <h1 class="cursive">3 Years of Love… Prove It ❤️</h1>
+  <input id="password" placeholder="Enter password">
   <p id="lockMsg"></p>
-  <button onclick="unlock()">Unlock</button>
+  <button onclick="unlock()">Unlock 🔐</button>
 </section>
 
-<!-- PAGE 2 -->
+<!-- PAGE 2 QUIZ -->
 <section id="p2" class="page">
-  <h2 id="qTitle"></h2>
-  <div id="options"></div>
+  <img class="gif" src="https://media.tenor.com/YiMNm2QVdMoAAAAm/bubu-dudu-sseeyall.webp">
+  <h2 id="quizQ"></h2>
+  <div id="quizOpt"></div>
 </section>
 
-<!-- PAGE 3 -->
+<!-- PAGE 3 SECURITY -->
 <section id="p3" class="page">
-  <h2>Security Passed ✅</h2>
-  <button onclick="go(4)">Continue</button>
+  <img class="gif" src="https://media.tenor.com/nBQQ6XM5BhIAAAAm/cute.webp">
+  <h2>One Last Check 😏</h2>
+  <button onclick="go(4)">YES</button>
+  <button id="noRun">NO I’M NOT INTERESTED</button>
 </section>
 
-<!-- PAGE 4 -->
+<!-- PAGE 4 HUNT -->
 <section id="p4" class="page">
-  <h2>Proposal Hunt 💍</h2>
-  <div id="huntGrid"></div>
+  <img class="gif" src="https://media.tenor.com/-3Z-ojIe5IcAAAAm/bubu-dudu-sseeyall.webp">
+  <h2>Find 3 Rings 💍</h2>
+  <div id="hunt"></div>
 </section>
 
-<!-- PAGE 5 -->
+<!-- PAGE 5 GAME -->
 <section id="p5" class="page">
+  <img class="gif" src="https://media.tenor.com/bvXwJ4I19ZQAAAAm/cat-cat-meme.webp">
   <h2>Catch My Love ❤️</h2>
   <div id="gameBox"></div>
   <div class="bar"><div id="bar"></div></div>
-  <button id="startGame">Start Game</button>
+  <button onclick="startGame()">Start Game</button>
 </section>
 
-<!-- PAGE 6 -->
+<!-- PAGE 6 LETTER -->
 <section id="p6" class="page">
-  <div class="letter">
-    I loved you then.<br>
-    I love you now.<br>
-    I will love you forever.
+  <img class="gif" src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp">
+  <div class="letter cursive">
+    I loved you then…<br>
+    I love you now…<br>
+    I’ll love you forever 💌
   </div>
   <button onclick="go(7)">Next</button>
 </section>
 
-<!-- PAGE 7 -->
+<!-- PAGE 7 PHOTOS -->
 <section id="p7" class="page">
-  <h2>Memories 📸</h2>
+  <h2>Some Precious Moments 📸</h2>
   <div class="photos">
     <img src="images/p1.jpg">
     <img src="images/p2.jpg">
@@ -67,23 +79,29 @@
     <img src="images/p5.jpg">
     <img src="images/p6.jpg">
   </div>
-  <button onclick="go(8)">Next</button>
+  <button onclick="go(8)">One Last Thing ❤️</button>
 </section>
 
-<!-- PAGE 8 -->
+<!-- PAGE 8 YES NO -->
 <section id="p8" class="page">
+  <img class="gif" src="https://media.tenor.com/qGiP_qcGH3MAAAAm/peach-goma.webp">
   <h2>Will you be mine forever?</h2>
-  <button onclick="yes()">YES ❤️</button>
-  <button id="noBtn" onclick="no()">NO 😅</button>
+  <button id="yesBtn" onclick="yes()">YES ❤️</button>
+  <button id="noBtn" onclick="no()">NO</button>
 </section>
 
-<!-- PAGE 9 -->
+<!-- PAGE 9 FINAL -->
 <section id="p9" class="page">
-  <h1>I Know You Love Me 💖</h1>
-  <button onclick="location.reload()">Again 🔁</button>
+  <img class="gif" src="https://media.tenor.com/nQD8tNYfJzQAAAAm/dance-love.webp">
+  <h1>I Know You Love Me A Lot! 🎉</h1>
+  <p>You chose me again — just like April 6 & 31, 2023 💖</p>
+  <button onclick="location.reload()">Wanna do this again? 🔁</button>
 </section>
 
-<footer>Developed with ❤️ by Yuvraj</footer>
+<footer>
+  Developed with ❤️ by 
+  <a href="https://instagram.com/" target="_blank">Yuvraj</a>
+</footer>
 
 <script src="script.js"></script>
 </body>
