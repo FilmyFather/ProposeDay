@@ -4,37 +4,62 @@ body{
   background:#1b0b12;
   color:white;
   text-align:center;
-  overflow-x:hidden;
 }
-.cursive{font-family:'Dancing Script',cursive;}
-.page{display:none;min-height:100vh;padding:20px;}
-.page.active{display:block;}
+.cursive{font-family:'Dancing Script',cursive}
+.page{display:none;min-height:100vh;padding:20px}
+.page.active{display:block}
+
+.gif{width:170px;border-radius:50%;margin:10px auto}
+
 input,button{
   padding:12px 20px;
   border-radius:25px;
   border:none;
   margin:8px;
+  font-size:16px;
 }
-button{background:#ff4d6d;color:white;font-size:16px;}
-.gif{width:160px;border-radius:50%;margin:10px auto;}
-#bgHearts span{
-  position:fixed;
-  animation:float 6s infinite;
-  opacity:.4;
+button{background:#ff4d6d;color:white}
+
+#quizCard{
+  background:rgba(255,255,255,.1);
+  padding:20px;
+  border-radius:20px;
 }
-@keyframes float{
-  0%{transform:translateY(0);}
-  50%{transform:translateY(-20px);}
-  100%{transform:translateY(0);}
+
+#quizOpt button{
+  display:block;
+  width:100%;
+  margin:8px 0;
+  border-radius:30px;
 }
-#hunt span{
-  font-size:30px;
-  margin:10px;
+
+.shake{animation:shake .3s}
+@keyframes shake{
+  0%{transform:translateX(0)}
+  25%{transform:translateX(-5px)}
+  50%{transform:translateX(5px)}
+  75%{transform:translateX(-5px)}
+  100%{transform:translateX(0)}
+}
+
+#huntGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  max-width:300px;
+  margin:auto;
+}
+.huntCard{
+  background:#fff;
+  color:#000;
+  padding:20px;
+  font-size:24px;
+  border-radius:15px;
   cursor:pointer;
 }
+
 #gameBox{
-  width:300px;
-  height:220px;
+  width:300px;height:220px;
   border:2px dashed pink;
   margin:10px auto;
   position:relative;
@@ -45,24 +70,18 @@ button{background:#ff4d6d;color:white;font-size:16px;}
   animation:fall 3s linear;
 }
 @keyframes fall{
-  from{top:-20px;}
-  to{top:240px;}
+  from{top:-20px}
+  to{top:240px}
 }
-.bar{width:300px;height:6px;background:#333;margin:10px auto;}
-#bar{height:100%;width:0;background:lime;}
+.bar{width:300px;height:6px;background:#333;margin:10px auto}
+#bar{height:100%;width:0;background:lime}
+
 .letter{
-  background:#fff;
-  color:#000;
-  padding:20px;
-  border-radius:10px;
+  background:#fff;color:#000;
+  padding:20px;border-radius:10px;
+  max-width:300px;margin:auto
 }
 .photos img{
-  width:90px;
-  margin:5px;
-  border-radius:10px;
+  width:90px;margin:5px;border-radius:10px
 }
-footer{
-  opacity:.7;
-  font-size:12px;
-  padding:10px;
-}
+footer{opacity:.7;font-size:12px;padding:10px}
