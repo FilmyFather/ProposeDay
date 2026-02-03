@@ -11,17 +11,44 @@ function go(n){
  if(n===4)initHunt();
 }
 
-/* MUSIC */
-music.volume=0.5;
-function toggleMusicOptions(){
- document.getElementById("musicOptions").classList.toggle("show");
+/* HEARTS */
+const hb=document.getElementById("hearts");
+for(let i=0;i<30;i++){
+ let h=document.createElement("div");
+ h.className="heart";
+ h.innerText="❤️";
+ h.style.left=Math.random()*100+"%";
+ h.style.top=Math.random()*100+"%";
+ h.style.fontSize=12+Math.random()*18+"px";
+ hb.appendChild(h);
 }
-function setVolume(v){music.volume=v;music.play()}
-function muteMusic(){music.pause()}
+
+/* ===== LUXURY MUSIC LOGIC ===== */
+const optionsBox=document.getElementById("options");
+let vol=0.5;
+music.volume=vol;
+
+function toggleOptions(){
+ optionsBox.classList.toggle("show");
+}
+function setVolume(v){
+ music.volume=v;
+ music.play();
+}
+function muteMusic(){
+ music.pause();
+}
 
 /* LOCK */
-const PASSWORD="rajkumari";let wrong=0;
-const taunts=["Arre Ghelsodi 😝","Dhapudiii 😜","Bhilan ❌","Wagri 🤯","Gaanduu Insaan 🤦‍♂️"];
+const PASSWORD="rajkumari";
+let wrong=0;
+const taunts=[
+ "Arre Ghelsodi 😝",
+ "Dhapudiii 😜",
+ "Bhilan ❌",
+ "Wagri 🤯",
+ "Gaanduu Insaan 🤦‍♂️"
+];
 function unlock(){
  let val=password.value.toLowerCase().trim();
  if(val===PASSWORD){
@@ -46,12 +73,13 @@ const quiz=[
  {q:"05. Will you be mine forever?",o:["Yes","Beyond","Belong","Breath","All Above"],a:4},
  {q:"06. Choose me again?",o:["Yes","Always","Lifetime","Already","All Above"],a:4},
  {q:"07. Love means?",o:["Timepass","Habit","Mood","Trust","Drama"],a:3},
- {q:"08. Final answer?",o:["No","Maybe","Yes","Silence","Smile"],a:2}
+ {q:"08. Final answer?",o:["No","Maybe","Yes","Smile","Forever"],a:2}
 ];
 let qi=0;
+
 function loadQuestion(){
  qNo.innerText=quiz[qi].q;
- options.innerHTML="";
+ optionsBox.innerHTML="";
  quiz[qi].o.forEach((t,i)=>{
   let b=document.createElement("div");
   b.className="quiz-option";
@@ -59,12 +87,17 @@ function loadQuestion(){
   b.onclick=()=>{
    if(i===quiz[qi].a){
     b.classList.add("correct");
-    setTimeout(()=>{qi++;qi<quiz.length?loadQuestion():go(3)},600);
+    confetti({particleCount:80,spread:70});
+    setTimeout(()=>{
+     qi++;
+     qi<quiz.length?loadQuestion():go(3);
+    },600);
    }else{
     b.classList.add("wrong","shake");
+    navigator.vibrate?.(200);
    }
   };
-  options.appendChild(b);
+  optionsBox.appendChild(b);
  });
 }
 
@@ -73,12 +106,14 @@ noBtn.onmouseover=()=>{
  noBtn.style.position="absolute";
  noBtn.style.left=Math.random()*80+"%";
  noBtn.style.top=Math.random()*80+"%";
-}
+};
 
 /* PAGE 4 */
 let found=0;
 function initHunt(){
- found=0;ringCount.innerText=0;huntGrid.innerHTML="";
+ found=0;
+ ringCount.innerText=0;
+ huntGrid.innerHTML="";
  let items=["💍","💍","💍","🍃","🍃","🍃","🍃","🍃","🍃"].sort(()=>Math.random()-.5);
  items.forEach(it=>{
   let c=document.createElement("div");
@@ -96,27 +131,36 @@ function initHunt(){
 /* PAGE 5 */
 let caught=0,intv;
 function startGame(){
- caught=0;bar.style.width="0%";gameBox.innerHTML="";
+ caught=0;
+ bar.style.width="0%";
+ gameBox.innerHTML="";
  clearInterval(intv);
  intv=setInterval(()=>{
   if(currentPage!==5)return;
   let h=document.createElement("div");
-  h.className="fall-heart";h.innerText="❤️";
+  h.className="fall-heart";
+  h.innerText="❤️";
   h.style.left=Math.random()*90+"%";
   h.onclick=()=>{
-   caught++;bar.style.width=(caught/12*100)+"%";
+   caught++;
+   bar.style.width=(caught/12*100)+"%";
    h.remove();
-   if(caught>=12){clearInterval(intv);go(6)}
+   if(caught>=12){
+    clearInterval(intv);
+    go(6);
+   }
   };
   gameBox.appendChild(h);
   setTimeout(()=>h.remove(),3000);
  },600);
 }
 
-/* LETTER */
-function openLetter(){document.getElementById("letter").style.display="block"}
+/* PAGE 6 */
+function openLetter(){
+ document.getElementById("letter").style.display="block";
+}
 
-/* YES NO */
+/* PAGE 8 */
 let ys=1;
 function noClick(){
  ys+=.3;
@@ -127,4 +171,8 @@ function finalYes(){
  confetti({particleCount:300,spread:160});
  go(9);
 }
-function replay(){location.reload()}
+
+/* PAGE 9 */
+function replay(){
+ location.reload();
+}
