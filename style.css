@@ -45,7 +45,11 @@ body{
 
 .top-gif{
   width:160px;
-  margin-bottom:20px;
+  height:160px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid rgba(255,255,255,0.25);
+  box-shadow:0 0 20px rgba(255,77,109,0.35);
 }
 
 /* INPUT */
