@@ -24,8 +24,11 @@
 <!-- MUSIC CONTROL -->
 <div id="musicControl" onclick="toggleMusic()">🎧</div>
 
-<section class="page active">
-  <img class="top-gif" src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp">
+  <!-- ================= PAGE 1 : PASSWORD ================= -->
+<section class="page active" id="p1">
+  <img class="top-gif"
+       src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp"
+       alt="love gif">
 
   <h1 class="cursive">3 Years Of Love… Prove it ❤️</h1>
 
@@ -35,10 +38,29 @@
   <button class="btn" onclick="unlock()">Unlock 🔐</button>
 </section>
 
+<!-- ================= PAGE 2 : QUIZ ================= -->
+<section class="page" id="p2">
+  <img class="top-gif"
+       src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp"
+       alt="quiz gif">
+
+  <h2 class="cursive">Love Test 💖</h2>
+
+  <div class="quiz-card">
+    <div id="quizQno"></div>
+    <div id="quizQ"></div>
+    <div id="quizOptions"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
-  Developed with ❤️ by <a href="https://instagram.com/" target="_blank">Yuvraj</a>
+  Developed with ❤️ by
+  <a href="https://instagram.com/" target="_blank">Yuvraj</a>
 </footer>
 
+<!-- JS -->
 <script src="script.js"></script>
+
 </body>
 </html>
