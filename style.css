@@ -1,323 +1,93 @@
-/* =====================
-   GLOBAL RESET
-===================== */
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-:root{
-  --vh: 1vh;
-}
+*{margin:0;padding:0;box-sizing:border-box}
 
 body{
-  font-family:'Poppins',sans-serif;
-  background:radial-gradient(circle at top,#2b0014,#0b0005);
-  color:#fff;
-  min-height:calc(var(--vh) * 100);
-  text-align:center;
-  overflow-x:hidden;
+ font-family:'Poppins',sans-serif;
+ background:radial-gradient(circle at top,#2b0014,#0b0005);
+ color:#fff;
+ min-height:100svh;
+ text-align:center;
+ overflow-x:hidden;
 }
 
-/* =====================
-   FONTS
-===================== */
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap');
+.cursive{font-family:'Dancing Script',cursive}
 
-.cursive{
-  font-family:'Dancing Script',cursive;
-}
+.page{display:none;min-height:100svh;padding:60px 20px}
+.page.active{display:block}
 
-/* =====================
-   FLOATING HEARTS (BG)
-===================== */
-.hearts{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:-1;
-}
+.hearts{position:fixed;inset:0;pointer-events:none;z-index:-1}
 
-.heart{
-  position:absolute;
-  color:rgba(255,0,90,0.35);
-  animation:float 8s infinite ease-in-out;
-}
-
-@keyframes float{
-  0%{transform:translateY(0);}
-  50%{transform:translateY(-25px);}
-  100%{transform:translateY(0);}
-}
-
-/* =====================
-   PAGE WRAPPER
-===================== */
-.page{
-  display:none;
-  min-height:calc(var(--vh) * 100);
-  padding:60px 20px 90px;
-}
-
-.page.active{
-  display:block;
-}
-
-/* =====================
-   TOP GIF
-===================== */
 .top-gif{
-  width:160px;
-  height:160px;
-  border-radius:50%;
-  object-fit:cover;
-  border:3px solid rgba(255,255,255,0.25);
-  box-shadow:0 0 20px rgba(255,77,109,0.35);
-  margin-bottom:20px;
+ width:160px;height:160px;border-radius:50%;
+ border:3px solid rgba(255,255,255,.25);
+ box-shadow:0 0 20px rgba(255,77,109,.35);
+ margin:20px auto;
+ object-fit:cover
 }
 
-/* =====================
-   INPUT
-===================== */
-input{
-  margin-top:25px;
-  padding:14px;
-  width:80%;
-  max-width:320px;
-  border-radius:999px;
-  border:none;
-  outline:none;
-  text-align:center;
-  font-size:16px;
-}
+input{padding:14px;width:80%;max-width:320px;border-radius:999px;border:none;text-align:center}
 
-/* =====================
-   BUTTONS
-===================== */
 .btn{
-  margin-top:20px;
-  padding:14px 30px;
-  border:none;
-  border-radius:999px;
-  background:linear-gradient(45deg,#ff4d6d,#ff758f);
-  color:#fff;
-  font-size:16px;
-  cursor:pointer;
-  transition:0.25s;
+ padding:14px 30px;border:none;border-radius:999px;
+ background:linear-gradient(45deg,#ff4d6d,#ff758f);
+ color:#fff;cursor:pointer;margin-top:20px
 }
+.btn-outline{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3)}
 
-.btn-outline{
-  background:rgba(255,255,255,0.1);
-  border:1px solid rgba(255,255,255,0.3);
-}
-
-.btn:active{
-  transform:scale(0.95);
-}
-
-/* =====================
-   SHAKE ANIMATION
-===================== */
-.shake{
-  animation:shake 0.4s;
-}
-
-@keyframes shake{
-  0%{transform:translateX(0);}
-  25%{transform:translateX(-6px);}
-  50%{transform:translateX(6px);}
-  75%{transform:translateX(-6px);}
-  100%{transform:translateX(0);}
-}
-
-/* =====================
-   QUIZ
-===================== */
-.quiz-card{
-  background:rgba(255,255,255,0.08);
-  border-radius:24px;
-  padding:24px;
-  max-width:420px;
-  margin:30px auto;
-}
+.quiz-card{background:rgba(255,255,255,.08);border-radius:24px;padding:24px;max-width:420px;margin:30px auto}
 
 .quiz-option{
-  margin:12px 0;
-  padding:14px;
-  border-radius:999px;
-  background:rgba(255,255,255,0.15);
-  cursor:pointer;
-  transition:0.25s;
+ margin:10px 0;padding:14px;border-radius:999px;
+ background:rgba(255,255,255,.15);cursor:pointer
+}
+.quiz-option.correct{background:#1f8f4a}
+.quiz-option.wrong{background:#a32121}
+
+.sec-actions{display:flex;gap:20px;justify-content:center}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:360px;margin:30px auto}
+.card{height:90px;border-radius:18px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:28px}
+
+.game-box{width:320px;height:320px;margin:20px auto;border:2px dashed rgba(255,255,255,.4);border-radius:20px;position:relative;overflow:hidden}
+.fall-heart{position:absolute;top:-20px;font-size:24px;animation:fall 3s linear forwards}
+@keyframes fall{to{top:100%}}
+
+.progress{width:320px;height:8px;background:rgba(255,255,255,.25);margin:10px auto;border-radius:10px}
+.progress span{display:block;height:100%;width:0;background:#ff4d6d;border-radius:10px}
+
+.letter-center{
+ min-height:100svh;
+ display:flex;
+ align-items:center;
+ justify-content:center
+}
+.envelope{width:300px;height:200px;background:#c46a6a;border-radius:0 0 20px 20px;position:relative;cursor:pointer;overflow:hidden}
+.flap{position:absolute;border-left:150px solid transparent;border-right:150px solid transparent;border-top:100px solid #b05555}
+.paper{display:none;background:#fff7e6;color:#5a0d1e;padding:18px;border-radius:12px}
+
+.photo-card{width:90%;max-width:360px;margin:16px auto;border-radius:18px;display:block}
+
+.yn-wrap{display:flex;gap:18px;justify-content:center}
+.ring-big{font-size:64px;animation:pulse 1.2s infinite alternate}
+@keyframes pulse{to{transform:scale(1.15)}}
+
+/* LUXURY MUSIC */
+.music-wrapper{position:fixed;top:15px;right:15px;z-index:999}
+.music-box{
+ width:90px;height:90px;border-radius:50%;
+ backdrop-filter:blur(15px);
+ background:rgba(255,255,255,.08);
+ display:flex;align-items:center;justify-content:center;
+ cursor:pointer
+}
+.music-options{
+ display:none;flex-direction:column;gap:8px;margin-top:10px
+}
+.music-options.show{display:flex}
+.music-options button{
+ padding:10px;border-radius:14px;
+ background:rgba(255,255,255,.1);
+ color:#fff;border:1px solid rgba(255,255,255,.25)
 }
 
-.quiz-option.correct{
-  background:#1f8f4a;
-}
-
-.quiz-option.wrong{
-  background:#a32121;
-}
-
-/* =====================
-   PAGE 3 SECURITY
-===================== */
-.sec-actions{
-  margin-top:30px;
-  display:flex;
-  gap:20px;
-  justify-content:center;
-  position:relative;
-}
-
-/* =====================
-   MUSIC CONTROL
-===================== */
-#musicControl{
-  position:fixed;
-  top:15px;
-  right:15px;
-  z-index:999;
-  font-size:22px;
-  cursor:pointer;
-}
-
-#musicOptions{
-  position:fixed;
-  top:70px;
-  right:15px;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-  opacity:0;
-  pointer-events:none;
-  transform:translateY(-8px);
-  transition:0.3s;
-}
-
-#musicOptions.show{
-  opacity:1;
-  pointer-events:auto;
-  transform:translateY(0);
-}
-
-#musicOptions button{
-  padding:10px 14px;
-  border-radius:14px;
-  border:1px solid rgba(255,255,255,0.25);
-  background:rgba(255,255,255,0.08);
-  color:#fff;
-  cursor:pointer;
-}
-
-/* =====================
-   PROPOSAL HUNT
-===================== */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
-  max-width:360px;
-  margin:30px auto;
-}
-
-.card{
-  height:90px;
-  border-radius:16px;
-  background:rgba(255,255,255,0.12);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:28px;
-  cursor:pointer;
-}
-
-/* =====================
-   CATCH GAME
-===================== */
-.game-box{
-  width:320px;
-  height:320px;
-  margin:20px auto;
-  border:2px dashed rgba(255,255,255,0.4);
-  border-radius:20px;
-  position:relative;
-  overflow:hidden;
-}
-
-.fall-heart{
-  position:absolute;
-  font-size:24px;
-  top:-20px;
-  animation:fall 3s linear forwards;
-}
-
-@keyframes fall{
-  to{top:100%;}
-}
-
-.progress{
-  width:320px;
-  height:8px;
-  background:rgba(255,255,255,0.2);
-  border-radius:10px;
-  margin:10px auto;
-}
-
-.progress span{
-  display:block;
-  height:100%;
-  width:0%;
-  background:#ff4d6d;
-  border-radius:10px;
-}
-
-/* =====================
-   LETTER
-===================== */
-.envelope{
-  width:300px;
-  height:200px;
-  background:#c46a6a;
-  border-radius:0 0 20px 20px;
-  margin:40px auto;
-  cursor:pointer;
-}
-
-.letter{
-  background:#fff7e6;
-  color:#5a0d1e;
-  padding:20px;
-  border-radius:14px;
-  max-width:340px;
-  margin:20px auto;
-  font-family:'Dancing Script',cursive;
-  font-size:18px;
-  display:none;
-}
-
-/* =====================
-   PHOTOS
-===================== */
-.photo{
-  width:90%;
-  max-width:360px;
-  border-radius:16px;
-  margin:15px auto;
-}
-
-/* =====================
-   FOOTER
-===================== */
-footer{
-  position:fixed;
-  bottom:10px;
-  width:100%;
-  font-size:14px;
-  opacity:0.7;
-}
-
-footer a{
-  color:#ff7aa2;
-  text-decoration:none;
-}
+footer{position:fixed;bottom:10px;width:100%;opacity:.7}
+footer a{color:#ff7aa2}
