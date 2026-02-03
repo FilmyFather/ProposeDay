@@ -6,9 +6,9 @@
 <title>3 Years of Love ❤️</title>
 
 <link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
-
 <body>
 
 <!-- FLOATING HEARTS -->
@@ -19,15 +19,15 @@
   <source src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3" type="audio/mpeg">
 </audio>
 
-<!-- MUSIC ICON -->
-<div class="musicControl" onclick="toggleMusic()">🎧</div>
+<!-- MUSIC CONTROL -->
+<div id="musicControl">🎧</div>
 
 <!-- PAGE 1 -->
 <section class="page active" id="p1">
   <img class="top-gif" src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp">
   <h1 class="cursive">3 years of love… prove it ❤️</h1>
   <input id="password" placeholder="Enter password">
-  <p id="lockMsg"></p>
+  <div id="lockMsg"></div>
   <button class="btn" onclick="unlock()">Unlock 🔐</button>
 </section>
 
@@ -35,7 +35,6 @@
 <section class="page" id="p2">
   <img class="top-gif" src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp">
   <h2>Love Test 💖</h2>
-
   <div class="quiz-card">
     <div id="qNo"></div>
     <div id="question"></div>
@@ -45,16 +44,17 @@
 
 <!-- PAGE 3 -->
 <section class="page" id="p3">
+  <img class="top-gif" src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp">
   <h2>One last check… 😉</h2>
   <button class="btn" onclick="go(4)">YES</button>
-  <button class="btn btn-outline" id="noBtn">NO I'M NOT INTERESTED</button>
+  <button class="btn btn-outline" onmouseover="noFinal(this)">NO I'M NOT INTERESTED</button>
 </section>
 
 <!-- PAGE 4 -->
 <section class="page" id="p4">
   <h2>Find the Rings 💍</h2>
   <div class="grid" id="huntGrid"></div>
-  <p>Rings Found: <span id="rings">0</span>/3</p>
+  <p>Rings Found: <span id="ringCount">0</span>/3</p>
 </section>
 
 <!-- PAGE 5 -->
@@ -70,7 +70,7 @@
   <div class="envelope" onclick="openLetter()"></div>
   <div class="letter" id="letter">
     My love ❤️<br><br>
-    These 3 years were magic.  
+    Three years with you felt like magic.<br>
     I’ll choose you again… always.
     <br><br>
     <button class="btn" onclick="go(7)">Next</button>
@@ -92,14 +92,14 @@
 <!-- PAGE 8 -->
 <section class="page" id="p8">
   <h2>Will you choose me? 💖</h2>
-  <button class="btn" id="yesBtn" onclick="go(9)">YES</button>
-  <button class="btn btn-outline" onclick="growYes()">NO</button>
+  <button class="btn" id="yesBtn" onclick="finalYes()">YES</button>
+  <button class="btn btn-outline" onclick="noClick(this)">NO</button>
 </section>
 
 <!-- PAGE 9 -->
 <section class="page" id="p9">
   <h2>I know you love me a lot! 🎉</h2>
-  <p>You chose me again — April 6 & 31, 2023 💖</p>
+  <p>You chose me again — just like you did on<br>April 6 & 31, 2023 💖</p>
   <button class="btn" onclick="location.reload()">Wanna do this again?</button>
 </section>
 
