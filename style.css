@@ -81,14 +81,14 @@ input{padding:14px;width:80%;max-width:320px;border-radius:999px;border:none}
 /* MUSIC UI */
 .wrapper{position:fixed;top:15px;right:15px;z-index:999}
 .music-box{
- width:120px;height:120px;border-radius:50%;
+ width:90px;height:90px;border-radius:50%;
  backdrop-filter:blur(15px);
  background:rgba(255,255,255,0.08);
  box-shadow:0 0 40px rgba(255,0,150,.35), inset 0 0 20px rgba(255,255,255,.2);
  display:flex;justify-content:center;align-items:center;cursor:pointer;
  animation:pulse 2.5s infinite
 }
-.music-box span{font-size:48px}
+.music-box span{font-size:36px}
 .options{margin-top:16px;display:flex;flex-direction:column;align-items:center;opacity:0;pointer-events:none}
 .options.show{opacity:1;pointer-events:auto}
 .options button{
