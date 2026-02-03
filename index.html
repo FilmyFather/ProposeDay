@@ -2,15 +2,19 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+
+<!-- FULLSCREEN MOBILE / IOS FIX -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
 <title>3 Years of Love ❤️</title>
 
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
-<!-- Confetti -->
+<!-- CONFETTI -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
+
 <body>
 
 <!-- BACKGROUND HEARTS -->
@@ -18,23 +22,23 @@
 
 <!-- MUSIC -->
 <audio id="bgMusic" loop>
-  <source src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3?hash=AgADnS" type="audio/mpeg">
+  <source src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3" type="audio/mpeg">
 </audio>
 
-<!-- LUXURY MUSIC CONTROL -->
-<div class="music-wrapper">
-  <div class="music-box" onclick="toggleMusicOptions()">
+<!-- ===== LUXURY MUSIC CONTROL (EXACT COPY STRUCTURE) ===== -->
+<div class="wrapper">
+  <div class="music-box" onclick="toggleOptions()">
     <span>🎧</span>
   </div>
-  <div class="music-options" id="musicOptions">
-    <button onclick="setVolume(0.3)">LOW</button>
-    <button onclick="setVolume(0.6)">MID</button>
+  <div class="options" id="options">
+    <button onclick="setVolume(0.2)">LOW</button>
+    <button onclick="setVolume(0.5)">MID</button>
     <button onclick="setVolume(1)">HIGH</button>
     <button onclick="muteMusic()">MUTE</button>
   </div>
 </div>
 
-<!-- PAGE 1 -->
+<!-- ================= PAGE 1 ================= -->
 <section class="page active" id="p1">
   <img class="top-gif" src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp">
   <h1 class="cursive">3 years of love… prove it ❤️</h1>
@@ -43,19 +47,19 @@
   <button class="btn" onclick="unlock()">Unlock 🔐</button>
 </section>
 
-<!-- PAGE 2 -->
+<!-- ================= PAGE 2 ================= -->
 <section class="page" id="p2">
-  <img class="top-gif" src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp">
+  <img class="top-gif" src="https://media.tenor.com/YiMNm2QVdMoAAAAm/bubu-dudu-sseeyall.webp">
   <h2 class="cursive">3 Saal Ke Pyaar Ka Intehaan 💖</h2>
   <div class="quiz-card">
     <div id="qNo"></div>
-    <div id="options"></div>
+    <div id="optionsBox"></div>
   </div>
 </section>
 
-<!-- PAGE 3 -->
+<!-- ================= PAGE 3 ================= -->
 <section class="page" id="p3">
-  <img class="top-gif" src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp">
+  <img class="top-gif" src="https://media.tenor.com/nBQQ6XM5BhIAAAAm/cute.webp">
   <h2>One last check… 😉</h2>
   <div class="sec-actions">
     <button class="btn" onclick="go(4)">YES</button>
@@ -63,25 +67,28 @@
   </div>
 </section>
 
-<!-- PAGE 4 -->
+<!-- ================= PAGE 4 ================= -->
 <section class="page" id="p4">
+  <img class="top-gif" src="https://media.tenor.com/-3Z-ojIe5IcAAAAm/bubu-dudu-sseeyall.webp">
   <h2 class="cursive">The Proposal Hunt 💍</h2>
   <div class="grid" id="huntGrid"></div>
   <p>Rings Found: <span id="ringCount">0</span>/3</p>
 </section>
 
-<!-- PAGE 5 -->
+<!-- ================= PAGE 5 ================= -->
 <section class="page" id="p5">
+  <img class="top-gif" src="https://media.tenor.com/bvXwJ4I19ZQAAAAm/cat-cat-meme.webp">
   <h2 class="cursive">Catch My Love ❤️</h2>
   <div class="game-box" id="gameBox"></div>
   <div class="progress"><span id="bar"></span></div>
   <button class="btn" onclick="startGame()">Start Game</button>
 </section>
 
-<!-- PAGE 6 -->
+<!-- ================= PAGE 6 ================= -->
 <section class="page" id="p6">
-  <div class="letter-center">
-    <div class="envelope" onclick="openLetter()">
+  <img class="top-gif" src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp">
+  <div class="envelope-wrap" onclick="openLetter()">
+    <div class="envelope">
       <div class="flap"></div>
       <div class="paper" id="letter">
         <p class="cursive">
@@ -96,7 +103,7 @@
   </div>
 </section>
 
-<!-- PAGE 7 -->
+<!-- ================= PAGE 7 ================= -->
 <section class="page" id="p7">
   <h2 class="cursive">Some Precious Moments 📸</h2>
   <img class="photo-card" src="images/p1.jpg">
@@ -108,17 +115,17 @@
   <button class="btn" onclick="go(8)">One Last Thing ❤️</button>
 </section>
 
-<!-- PAGE 8 -->
+<!-- ================= PAGE 8 ================= -->
 <section class="page" id="p8">
   <img class="top-gif" src="https://media.tenor.com/qGiP_qcGH3MAAAAm/peach-goma.webp">
   <h2 class="cursive">Will you choose me? 💖</h2>
   <div class="yn-wrap">
     <button class="btn yes-btn" id="yesBtn" onclick="finalYes()">YES</button>
-    <button class="btn btn-outline" id="noBtn8" onclick="noClick()">NO</button>
+    <button class="btn btn-outline no-btn" id="noBtn8" onclick="noClick()">NO</button>
   </div>
 </section>
 
-<!-- PAGE 9 -->
+<!-- ================= PAGE 9 ================= -->
 <section class="page" id="p9">
   <img class="top-gif" src="https://media.tenor.com/nQD8tNYfJzQAAAAm/dance-love.webp">
   <h2 class="cursive">I know you love me a lot! 🎉</h2>
@@ -133,4 +140,4 @@
 
 <script src="script.js"></script>
 </body>
-  </html>
+</html>
