@@ -1,120 +1,280 @@
-let currentPage=1;
-const pages=document.querySelectorAll(".page");
-const music=document.getElementById("bgMusic");
+/* =====================================================
+   GLOBAL
+===================================================== */
 
-/* DOM */
-const password=document.getElementById("password");
-const lockMsg=document.getElementById("lockMsg");
-const qNo=document.getElementById("qNo");
-const question=document.getElementById("question");
-const options=document.getElementById("options");
-const huntGrid=document.getElementById("huntGrid");
-const gameBox=document.getElementById("gameBox");
-const bar=document.getElementById("bar");
-const letter=document.getElementById("letter");
+let currentPage = 1;
+const pages = document.querySelectorAll(".page");
+const music = document.getElementById("bgMusic");
 
-/* NAV */
-function go(n){
-  pages.forEach(p=>p.classList.remove("active"));
-  document.getElementById("p"+n).classList.add("active");
-  currentPage=n;
-  if(n===2)loadQuestion();
-  if(n===4)initHunt();
+/* page navigation */
+function go(n) {
+  pages.forEach(p => p.classList.remove("active"));
+  document.getElementById("p" + n).classList.add("active");
+  currentPage = n;
+
+  if (n === 2) loadQuestion();
+  if (n === 4) initHunt();
 }
 
-/* PAGE 1 */
-const PASSWORD="rajkumari";
-let wrong=0;
-const taunts=[
- "Arre Ghelsodi 😝",
- "Dhapudiii 😜",
- "Bhilan ❌",
- "Wagri 🤯",
- "Gaanduu Insaan 🤦‍♂️"
+/* =====================================================
+   PAGE 1 — LOCK / UNLOCK
+===================================================== */
+
+const PASSWORD = "rajkumari";
+let wrongCount = 0;
+
+const taunts = [
+  "Arre Ghelsodi 😝 thoda dhyaan se!",
+  "Dhapudiii 😜 ye bhi galat!",
+  "Bhilan ❌ itna bhi mushkil nahi!",
+  "Wagri 🤯 soch ke daal!",
+  "Gaanduu Insaan 🤦‍♂️ hint le le!"
 ];
-function unlock(){
-  if(password.value.trim().toLowerCase()===PASSWORD){
-    music.currentTime=62;music.play();go(2);
-  }else{
-    wrong++;password.classList.add("shake");
-    setTimeout(()=>password.classList.remove("shake"),300);
-    lockMsg.innerText=taunts[Math.min(wrong-1,4)];
-    if(wrong===5)lockMsg.innerText+="\nHint: Agar Yuvraj Rajkumar hai…";
+
+function unlock() {
+  const input = document.getElementById("password").value.trim().toLowerCase();
+  const msg = document.getElementById("lockMsg");
+
+  if (input === PASSWORD) {
+    msg.innerText = "";
+    music.currentTime = 62; // 01:02
+    music.play();
+    go(2);
+  } else {
+    wrongCount++;
+    document.getElementById("password").classList.add("shake");
+    setTimeout(()=>document.getElementById("password").classList.remove("shake"),300);
+
+    if (wrongCount <= taunts.length) {
+      msg.innerText = taunts[wrongCount - 1];
+    }
+
+    if (wrongCount === 5) {
+      msg.innerText += "\nHint: Agar Yuvraj Rajkumar hai… to tum uski kya ho? ❤️";
+    }
   }
 }
 
-/* PAGE 2 */
-const quizData=[
- {q:"01. Who is the lucky one?",options:["Me","You","Both"],correct:2},
- {q:"02. Perfect gift?",options:["Gift","Party","Whole Day","Stay Forever","Trip"],correct:3},
- {q:"03. What matters most?",options:["Looks","Money","Trust","Fame"],correct:2},
- {q:"04. Who do you trust?",options:["Friends","Family","Yuvraj","All"],correct:2},
- {q:"05. Be mine forever?",options:["Yes","Beyond","Belong","Till end","All"],correct:4},
- {q:"06. Choose me daily?",options:["Yes","Always","Lifetime","Chosen","All"],correct:4},
- {q:"07. Love means?",options:["Timepass","Habit","Mood","Trust"],correct:3},
- {q:"08. Final answer?",options:["No","Maybe","Yes"],correct:2}
+/* =====================================================
+   PAGE 2 — QUIZ
+===================================================== */
+
+const quizData = [
+  {
+    q: "01. Who is the lucky one?",
+    options: ["Me", "You", "Both"],
+    correct: 2
+  },
+  {
+    q: "02. What do you want from me?",
+    options: [
+      "Expensive Gift",
+      "One Night Stand",
+      "Whole Day Spend Together",
+      "Stay Together For Life",
+      "Party Out of State"
+    ],
+    correct: 3
+  },
+  {
+    q: "03. After 3 years, what matters most?",
+    options: ["Looks", "Money", "Trust", "Fame"],
+    correct: 2
+  },
+  {
+    q: "04. Who do you trust the most?",
+    options: ["Friends", "Family", "Yuvraj", "Everyone"],
+    correct: 2
+  },
+  {
+    q: "05. After 3 beautiful years together, will you be mine forever? 💍",
+    options: [
+      "Yes, today and always ❤️",
+      "Forever and beyond ♾️",
+      "I already belong to you 😘",
+      "Till my last breath 💕",
+      "All of the above 💍❤️"
+    ],
+    correct: 4
+  },
+  {
+    q: "06. Will you choose me again every single day? 💖",
+    options: [
+      "Yes, without thinking",
+      "Always and forever",
+      "In every lifetime",
+      "Already chosen ❤️",
+      "All of the above 💕"
+    ],
+    correct: 4
+  },
+  {
+    q: "07. Love for you means?",
+    options: ["Timepass", "Habit", "Mood", "Trust"],
+    correct: 3
+  },
+  {
+    q: "08. Final answer?",
+    options: ["No", "Maybe", "Yes"],
+    correct: 2
+  }
 ];
-let qi=0;
-function loadQuestion(){
- const q=quizData[qi];
- qNo.innerText=q.q.split(".")[0]+".";
- question.innerText=q.q.substring(3);
- options.innerHTML="";
- q.options.forEach((o,i)=>{
-  const b=document.createElement("button");
-  b.innerText=o;
-  b.onclick=()=>checkAnswer(i,b);
-  options.appendChild(b);
- });
-}
-function checkAnswer(i,btn){
- if(i===quizData[qi].correct){
-  btn.style.background="green";
-  setTimeout(()=>{qi++;qi<quizData.length?loadQuestion():go(3)},500);
- }else{
-  btn.style.background="red";btn.classList.add("shake");
- }
+
+let qIndex = 0;
+const quizBox = document.getElementById("quizBox");
+
+function loadQuestion() {
+  const q = quizData[qIndex];
+  quizBox.innerHTML = `
+    <h3>${q.q}</h3>
+    <div class="options">
+      ${q.options.map((o,i)=>`
+        <button class="optBtn" onclick="checkAnswer(${i},this)">${o}</button>
+      `).join("")}
+    </div>
+  `;
 }
 
-/* PAGE 3 */
-function noFinal(b){
- b.style.position="absolute";
- b.style.left=Math.random()*80+"%";
- b.style.top=Math.random()*80+"%";
+function checkAnswer(i, btn) {
+  const correct = quizData[qIndex].correct;
+
+  if (i === correct) {
+    btn.style.background = "green";
+    confetti({particleCount:80,spread:80});
+    setTimeout(()=>{
+      qIndex++;
+      if (qIndex < quizData.length) {
+        loadQuestion();
+      } else {
+        confetti({particleCount:200,spread:120});
+        go(3);
+      }
+    },600);
+  } else {
+    btn.style.background = "red";
+    btn.classList.add("shake");
+    navigator.vibrate?.(200);
+  }
 }
 
-/* PAGE 4 */
-let found=0;
-function initHunt(){
- huntGrid.innerHTML="";found=0;
- for(let i=0;i<9;i++){
-  const c=document.createElement("div");
-  c.className="card";
-  const ring=i%3===0;
-  c.onclick=()=>{c.innerText=ring?"💍":"💩";if(ring&&++found===3)go(5)};
-  huntGrid.appendChild(c);
- }
+/* =====================================================
+   PAGE 3 — FINAL SECURITY
+===================================================== */
+
+function yesFinal() {
+  go(4);
 }
 
-/* PAGE 5 */
-let caught=0,intv;
-function startGame(){
- caught=0;bar.style.width="0%";
- intv=setInterval(()=>{
-  if(currentPage!==5)return;
-  const h=document.createElement("span");
-  h.className="fall-heart";h.innerText="❤️";
-  h.style.left=Math.random()*90+"%";
-  h.onclick=()=>{caught++;bar.style.width=(caught/12*100)+"%";h.remove();if(caught>=12){clearInterval(intv);go(6)}};
-  gameBox.appendChild(h);
-  setTimeout(()=>h.remove(),3000);
- },600);
+function noFinal(btn) {
+  btn.style.position = "absolute";
+  btn.style.left = Math.random()*80 + "%";
+  btn.style.top  = Math.random()*80 + "%";
 }
 
-/* PAGE 6 */
-function openLetter(){letter.classList.add("open")}
+/* =====================================================
+   PAGE 4 — PROPOSAL HUNT
+===================================================== */
 
-/* PAGE 8 */
-let yesSize=1;
-function noClick(b){yesSize+=.3;document.getElementById("yesBtn").style.transform=`scale(${yesSize})`}
-function finalYes(){go(9)}
+let ringsFound = 0;
+
+function initHunt() {
+  ringsFound = 0;
+  document.getElementById("ringCount").innerText = "0/3";
+}
+
+function clickItem(el, isRing) {
+  if (isRing) {
+    ringsFound++;
+    el.innerText = "💍";
+    el.onclick = null;
+    document.getElementById("ringCount").innerText = ringsFound + "/3";
+    if (ringsFound === 3) {
+      setTimeout(()=>go(5),800);
+    }
+  } else {
+    el.innerText = "💩";
+  }
+}
+
+/* =====================================================
+   PAGE 5 — CATCH MY LOVE
+===================================================== */
+
+let caught = 0;
+let gameInterval;
+
+function startGame() {
+  caught = 0;
+  document.getElementById("bar").style.width = "0%";
+  const box = document.getElementById("gameBox");
+
+  gameInterval = setInterval(()=>{
+    if (currentPage !== 5) return;
+
+    const h = document.createElement("span");
+    h.innerText = "❤️";
+    h.style.left = Math.random()*90 + "%";
+    h.style.top = "-20px";
+    h.className = "fallHeart";
+
+    h.onclick = ()=>{
+      caught++;
+      document.getElementById("bar").style.width = (caught/12*100) + "%";
+      h.remove();
+      if (caught >= 12) {
+        clearInterval(gameInterval);
+        go(6);
+      }
+    };
+
+    box.appendChild(h);
+    setTimeout(()=>h.remove(),3000);
+  },600);
+}
+
+/* =====================================================
+   PAGE 6 — LETTER
+===================================================== */
+
+function openLetter() {
+  document.getElementById("letter").classList.add("open");
+}
+
+/* =====================================================
+   PAGE 7 — PHOTOS
+===================================================== */
+
+function openPhoto(src) {
+  const m = document.getElementById("photoModal");
+  m.querySelector("img").src = src;
+  m.style.display = "flex";
+}
+
+function closePhoto() {
+  document.getElementById("photoModal").style.display = "none";
+}
+
+/* =====================================================
+   PAGE 8 — YES / NO DRAMA
+===================================================== */
+
+let yesSize = 1;
+
+function noClick(btn) {
+  yesSize += 0.3;
+  document.getElementById("yesBtn").style.transform = `scale(${yesSize})`;
+  btn.innerText = ["NO","PLEASE","ARE YOU SURE?","CLICK YES!"][Math.min(yesSize|0,3)];
+}
+
+function finalYes() {
+  confetti({particleCount:300,spread:160});
+  go(9);
+}
+
+/* =====================================================
+   PAGE 9 — FINAL
+===================================================== */
+
+function replay() {
+  location.reload();
+  }
