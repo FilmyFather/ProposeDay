@@ -23,8 +23,15 @@ body{
 }
 
 /* INPUT */
-input{padding:14px;width:80%;max-width:320px;border-radius:999px;border:none}
-
+input{
+  margin-top:20px;      /* text aur input ke beech gap */
+  margin-bottom:12px;   /* input aur button ke beech gap */
+  padding:14px;
+  width:80%;
+  max-width:320px;
+  border-radius:999px;
+  border:none;
+}
 /* BUTTON */
 .btn{
  padding:14px 30px;border:none;border-radius:999px;
