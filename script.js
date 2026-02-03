@@ -1,90 +1,98 @@
-/* ================= HEARTS ================= */
-const heartsBox = document.getElementById("hearts");
+let currentPage = 1;
 
-for(let i=0;i<35;i++){
+/* PAGE NAV */
+function go(n){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  if(document.getElementById("p"+n)){
+    document.getElementById("p"+n).classList.add("active");
+    currentPage = n;
+    if(n===2) loadQuiz();
+  }
+}
+
+/* HEARTS */
+const heartsBox=document.getElementById("hearts");
+for(let i=0;i<30;i++){
   const h=document.createElement("div");
   h.className="heart";
   h.innerText="❤️";
   h.style.left=Math.random()*100+"%";
   h.style.top=Math.random()*100+"%";
-  h.style.animationDuration=6+Math.random()*4+"s";
   heartsBox.appendChild(h);
 }
 
-/* ================= MUSIC ================= */
-const music = document.getElementById("bgMusic");
-let volumeState = 1; // 1=mid
-
+/* MUSIC */
+const music=document.getElementById("bgMusic");
+let vol=2;
 function toggleMusic(){
-  if(music.paused){
-    music.volume = volumeState===0?0.3:volumeState===1?0.6:1;
-    music.play();
-  }else{
-    volumeState=(volumeState+1)%4;
-    if(volumeState===0){music.volume=0;}
-    if(volumeState===1){music.volume=0.3;}
-    if(volumeState===2){music.volume=0.6;}
-    if(volumeState===3){music.volume=1;}
-  }
+  const levels=[0,0.3,0.6,1];
+  vol=(vol+1)%4;
+  music.volume=levels[vol];
+  if(music.paused) music.play();
 }
 
-/* ================= LOCK ================= */
+/* PAGE 1 */
 const PASSWORD="rajkumari";
-let wrongCount=0;
-
+let wrong=0;
 const taunts=[
-  "Arre Ghelsodi 😝 itna bhi mushkil nahi tha!",
-  "Dhapudiii 😜 thoda dil se try kar!",
-  "Bhilan ❌ 3 saal ka pyaar yaad nahi?",
-  "Wagri 🤯 itna galat kaise ho sakti ho!",
-  "Gaanduu Insaan 🤦‍♂️ last chance…"
+  "Arre Ghelsodi 😝 itna bhi mushkil nahi!",
+  "Dhapudiii 😜 dil se try kar!",
+  "Bhilan ❌ 3 saal yaad nahi?",
+  "Wagri 🤯 galat fir galat!",
+  "Gaanduu Insaan 🤦‍♂️ last chance!"
 ];
 
 function unlock(){
   const input=document.getElementById("password");
   const msg=document.getElementById("lockMsg");
-  const val=input.value.trim().toLowerCase();
-
-  if(val===PASSWORD){
-    msg.innerText="💖 Unlocked Successfully 💖";
-    confettiBoom();
+  if(input.value.trim().toLowerCase()===PASSWORD){
+    confetti({particleCount:150,spread:120});
     music.currentTime=62;
     music.play();
+    go(2);
   }else{
-    wrongCount++;
+    wrong++;
     input.classList.add("shake");
     setTimeout(()=>input.classList.remove("shake"),400);
-
-    if(wrongCount<=taunts.length){
-      msg.innerText=taunts[wrongCount-1];
-    }
-
-    if(wrongCount===5){
-      msg.innerText +=
-      "\n\nHint ❤️\nAgar Yuvraj Rajkumar hai…\nTo tum uski Rajkumari ho 👑";
+    msg.innerText=taunts[Math.min(wrong-1,4)];
+    if(wrong===5){
+      msg.innerText+="\nHint ❤️ Agar Yuvraj Rajkumar hai… to tum uski Rajkumari ho 👑";
     }
   }
 }
 
-/* ================= CONFETTI ================= */
-function confettiBoom(){
-  for(let i=0;i<30;i++){
-    const c=document.createElement("div");
-    c.innerText="❤️";
-    c.style.position="fixed";
-    c.style.left=Math.random()*100+"%";
-    c.style.top="50%";
-    c.style.fontSize="24px";
-    c.style.animation="boom 1.2s forwards";
-    document.body.appendChild(c);
-    setTimeout(()=>c.remove(),1200);
+/* PAGE 2 QUIZ */
+const quizData=[/* SAME AS LOCKED */];
+let qi=0;
+
+function loadQuiz(){
+  const q=quizData[qi];
+  document.getElementById("quizQno").innerText=`Question ${qi+1}`;
+  document.getElementById("quizQ").innerText=q.q;
+  document.getElementById("quizOptions").innerHTML=
+    q.options.map((o,i)=>`<div class="quiz-option" onclick="checkQuiz(${i},this)">${o}</div>`).join("");
+}
+
+function checkQuiz(i,el){
+  if(i===quizData[qi].correct){
+    el.classList.add("correct");
+    confetti({particleCount:80,spread:80});
+    setTimeout(()=>{
+      qi++;
+      qi<quizData.length?loadQuiz():go(3);
+    },600);
+  }else{
+    el.classList.add("wrong","shake");
+    navigator.vibrate?.(200);
   }
 }
 
-const style=document.createElement("style");
-style.innerHTML=`
-@keyframes boom{
-  from{transform:translateY(0) scale(1);opacity:1;}
-  to{transform:translateY(-200px) scale(1.5);opacity:0;}
-}`;
-document.head.appendChild(style);
+/* PAGE 3 NO BUTTON */
+const noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("mouseenter",()=>{
+  if(currentPage===3){
+    noBtn.style.position="fixed";
+    noBtn.style.left=Math.random()*80+"%";
+    noBtn.style.top=Math.random()*80+"%";
+  }
+});
