@@ -10,14 +10,14 @@ body{
   color:#fff;
   min-height:100vh;
   text-align:center;
-  overflow:hidden;
+  overflow-x:hidden;
 }
 
 .cursive{
   font-family:'Dancing Script',cursive;
 }
 
-/* HEART BACKGROUND */
+/* FLOATING HEARTS */
 .hearts{
   position:fixed;
   inset:0;
@@ -28,7 +28,6 @@ body{
 .heart{
   position:absolute;
   color:rgba(255,0,90,0.35);
-  font-size:18px;
   animation:float 8s infinite ease-in-out;
 }
 
@@ -40,8 +39,11 @@ body{
 
 /* PAGE */
 .page{
+  display:none;
+  min-height:100vh;
   padding:60px 20px;
 }
+.page.active{display:block;}
 
 .top-gif{
   width:160px;
@@ -50,6 +52,7 @@ body{
   object-fit:cover;
   border:3px solid rgba(255,255,255,0.25);
   box-shadow:0 0 20px rgba(255,77,109,0.35);
+  margin-bottom:20px;
 }
 
 /* INPUT */
@@ -60,12 +63,11 @@ input{
   max-width:320px;
   border-radius:999px;
   border:none;
-  outline:none;
   text-align:center;
   font-size:16px;
 }
 
-/* BUTTON */
+/* BUTTONS */
 .btn{
   margin-top:20px;
   padding:14px 30px;
@@ -76,30 +78,49 @@ input{
   font-size:16px;
   cursor:pointer;
 }
-
-.btn:active{
-  transform:scale(0.95);
+.btn-outline{
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.3);
 }
 
-/* MESSAGE */
-#lockMsg{
-  margin-top:15px;
-  font-size:14px;
-  white-space:pre-line;
-  color:#ffb3c1;
-}
+.btn:active{transform:scale(0.95);}
 
 /* SHAKE */
-.shake{
-  animation:shake 0.4s;
-}
-
+.shake{animation:shake 0.4s;}
 @keyframes shake{
   0%{transform:translateX(0);}
   25%{transform:translateX(-6px);}
   50%{transform:translateX(6px);}
   75%{transform:translateX(-6px);}
   100%{transform:translateX(0);}
+}
+
+/* QUIZ */
+.quiz-card{
+  background:rgba(255,255,255,0.08);
+  border-radius:24px;
+  padding:24px;
+  max-width:420px;
+  margin:30px auto;
+}
+
+.quiz-option{
+  margin:10px 0;
+  padding:14px;
+  border-radius:999px;
+  background:rgba(255,255,255,0.15);
+  cursor:pointer;
+}
+
+.quiz-option.correct{background:#1f8f4a;}
+.quiz-option.wrong{background:#a32121;}
+
+/* PAGE 3 */
+.sec-actions{
+  margin-top:30px;
+  display:flex;
+  gap:20px;
+  justify-content:center;
 }
 
 /* MUSIC ICON */
@@ -119,7 +140,4 @@ footer{
   font-size:14px;
   opacity:0.7;
 }
-footer a{
-  color:#ff7aa2;
-  text-decoration:none;
-}
+footer a{color:#ff7aa2;}
