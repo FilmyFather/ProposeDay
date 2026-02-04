@@ -13,8 +13,8 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable
 body{
   margin:0;
   font-family:system-ui;
-  background:#0e0e0e;
-  color:white;
+  background:linear-gradient(180deg,#1b0f17,#120b12);
+  color:#fff;
   overflow:hidden;
 }
 .page{
@@ -26,28 +26,38 @@ body{
 }
 .page.active{display:block;}
 button{
+  border:none;
   cursor:pointer;
+  background:linear-gradient(135deg,#ff6fae,#ff9ecf);
+  color:#fff;
+  padding:14px 28px;
+  border-radius:40px;
+  font-size:16px;
+  box-shadow:0 6px 20px rgba(255,105,180,.35);
 }
+h1,h2{color:#ffd6e8;font-weight:500}
 
-/* hearts bg */
-.bg-heart{
+/* ===== BG HEARTS ===== */
+.bg-hearts{
   position:fixed;
   inset:0;
   pointer-events:none;
   z-index:-1;
 }
-
-/* footer */
-footer{
-  position:fixed;
-  bottom:5px;
-  width:100%;
-  text-align:center;
-  font-size:12px;
-  opacity:.7;
+.bg-hearts span{
+  position:absolute;
+  bottom:-20px;
+  color:rgba(255,105,180,.25);
+  font-size:14px;
+  animation:float 12s linear infinite;
+}
+@keyframes float{
+  from{transform:translateY(0);opacity:0}
+  10%{opacity:.6}
+  to{transform:translateY(-110vh);opacity:0}
 }
 
-/* ===== PAGE 1 ===== */
+/* ===== INPUT ===== */
 input{
   padding:12px;
   border-radius:20px;
@@ -69,9 +79,7 @@ input{
   padding:25px;
   background:rgba(255,255,255,.15);
   border-radius:18px;
-  cursor:pointer;
   perspective:800px;
-  position:relative;
 }
 .cell-inner{
   transition:.6s;
@@ -88,9 +96,7 @@ input{
   justify-content:center;
   backface-visibility:hidden;
 }
-.back{
-  transform:rotateY(180deg);
-}
+.back{transform:rotateY(180deg);}
 
 /* ===== PAGE 5 GAME ===== */
 .game-box{
@@ -110,8 +116,8 @@ input{
   cursor:pointer;
 }
 @keyframes fall{
-  from{top:-30px;}
-  to{top:450px;}
+  from{top:-30px}
+  to{top:450px}
 }
 .progress{
   width:80%;
@@ -159,32 +165,84 @@ input{
   gap:18px;
   margin-top:40px;
 }
-#yesBtn{
-  padding:14px 28px;
-  background:hotpink;
-  border:none;
-  border-radius:40px;
-  color:white;
+
+/* ===== HEADPHONE ===== */
+#headphone{
+  position:fixed;
+  bottom:90px;
+  right:20px;
+  width:64px;
+  height:64px;
+  border-radius:50%;
+  z-index:999;
 }
-#noBtn{
-  padding:14px 24px;
-  border:none;
-  border-radius:40px;
+#headphone .ring{
+  position:absolute;
+  inset:-8px;
+  border-radius:50%;
+  background:conic-gradient(
+    #ff004c,#ff7a00,#ffee00,#00ff85,
+    #00c3ff,#7a5cff,#ff00d4,#ff004c
+  );
+  filter:blur(8px);
+  animation:rgbSpin 3.5s linear infinite;
+}
+@keyframes rgbSpin{
+  to{transform:rotate(360deg)}
+}
+#headphone .icon{
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  background:rgba(255,255,255,.18);
+  backdrop-filter:blur(10px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:26px;
+}
+.volume-menu{
+  position:absolute;
+  bottom:75px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(20,20,20,.8);
+  border-radius:14px;
+  padding:8px;
+  display:none;
+}
+.volume-menu div{
+  padding:6px 14px;
+  font-size:13px;
+  border-radius:10px;
+}
+.volume-menu div:active{
+  background:rgba(255,255,255,.15);
+}
+
+/* ===== FOOTER ===== */
+footer{
+  position:fixed;
+  bottom:5px;
+  width:100%;
+  text-align:center;
+  font-size:12px;
+  opacity:.7;
 }
 </style>
 </head>
 
 <body>
 
-<!-- MUSIC -->
+<div class="bg-hearts"></div>
+
 <audio id="music" src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3"></audio>
 
 <!-- PAGE 1 -->
 <div class="page active">
   <img src="https://media.tenor.com/lquwmqAgQekAAAAm/bubu-dudu.webp"><br><br>
   <h2>3 years of love… prove it ❤️</h2>
-  <input id="pass" placeholder="Password">
-  <br><br>
+  <input id="pass" placeholder="Password"><br><br>
   <button onclick="unlock()">UNLOCK</button>
   <p id="msg"></p>
 </div>
@@ -193,23 +251,41 @@ input{
 <div class="page">
   <h2>Find My Rings 💍</h2>
   <div class="grid">
-    <div class="cell" onclick="reveal(this,0)"><div class="cell-inner"><div class="face">🍃</div><div class="face back"></div></div></div>
-    <div class="cell" onclick="reveal(this,1)"><div class="cell-inner"><div class="face">🍃</div><div class="face back"></div></div></div>
-    <div class="cell" onclick="reveal(this,2)"><div class="cell-inner"><div class="face">🍃</div><div class="face back"></div></div></div>
-    <div class="cell" onclick="reveal(this,3)"><div class="cell-inner"><div class="face">🍃</div><div class="face back"></div></div></div>
-    <div class="cell" onclick="reveal(this,4)"><div class="cell-inner"><div class="face">🍃</div><div class="face back"></div></div></div>
-    <div class="cell" onclick="reveal(this,5)"><div class="cell-inner"><div class="face">🍃</div><div class="face back"></div></div></div>
-    <div class="cell" onclick="reveal(this,6)"><div class="cell-inner"><div class="face">🍃</div><div class="face back"></div></div></div>
-    <div class="cell" onclick="reveal(this,7)"><div class="cell-inner"><div class="face">🍃</div><div class="face back"></div></div></div>
-    <div class="cell" onclick="reveal(this,8)"><div class="cell-inner"><div class="face">🍃</div><div class="face back"></div></div></div>
+    ${[0,1,2,3,4,5,6,7,8].map(i=>`
+    <div class="cell" onclick="reveal(this,${i})">
+      <div class="cell-inner">
+        <div class="face">🍃</div>
+        <div class="face back"></div>
+      </div>
+    </div>`).join("")}
   </div>
 </div>
 
 <!-- PAGE 5 -->
 <div class="page">
-  <h2>Catch My Love ❤️</h2>
+  <h2>Catch My Love</h2>
   <div class="game-box" id="gameBox"></div>
   <div class="progress"><div class="bar" id="bar"></div></div>
+</div>
+
+<!-- PAGE 7 -->
+<div class="page">
+  <img src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp" width="160">
+  <div class="gallery">
+    <div class="photo" onclick="openImg(this)"><img src="images/p1.jpg"></div>
+    <div class="photo" onclick="openImg(this)"><img src="images/p2.jpg"></div>
+    <div class="photo" onclick="openImg(this)"><img src="images/p3.jpg"></div>
+  </div>
+  <button onclick="go(8)">One Last Thing… ❤️</button>
+</div>
+
+<!-- PAGE 8 -->
+<div class="page">
+  <img src="https://media.tenor.com/qGiP_qcGH3MAAAAm/peach-goma.webp">
+  <div class="choice-wrap">
+    <button id="yesBtn" onclick="yes()">YES</button>
+    <button id="noBtn" onclick="no()">NO</button>
+  </div>
 </div>
 
 <!-- PAGE 9 -->
@@ -219,11 +295,29 @@ input{
   <button onclick="location.reload()">Wanna do this again?</button>
 </div>
 
+<!-- MODAL -->
+<div class="modal" id="modal" onclick="closeImg()">
+  <img id="modalImg">
+</div>
+
+<!-- HEADPHONE -->
+<div id="headphone">
+  <div class="ring"></div>
+  <div class="icon">🎧</div>
+  <div class="volume-menu">
+    <div onclick="setVol(0.2)">LOW</div>
+    <div onclick="setVol(0.5)">MID</div>
+    <div onclick="setVol(1)">HIGH</div>
+    <div onclick="setVol(0)">MUTE</div>
+  </div>
+</div>
+
 <footer>
 Developed with ❤️ by <a href="https://instagram.com/itz___yuviiii" target="_blank">Yuvraj</a>
 </footer>
 
 <script>
+/* PAGE NAV */
 let page=0;
 function go(n){
   document.querySelectorAll(".page")[page].classList.remove("active");
@@ -231,16 +325,37 @@ function go(n){
   document.querySelectorAll(".page")[page].classList.add("active");
 }
 
+/* BG HEARTS */
+setInterval(()=>{
+  const h=document.createElement("span");
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"%";
+  h.style.animationDuration=(10+Math.random()*6)+"s";
+  document.querySelector(".bg-hearts").appendChild(h);
+  setTimeout(()=>h.remove(),16000);
+},1200);
+
 /* PAGE 1 */
+let wrong=0;
+const lines=[
+"Arre Ghelsodi 😝 Itna Bhi Mushkil Nahi Hai Loduuu...!",
+"Dhapudiii 😜 Dil Se Try Karoo Dil Aur Ye Website Dono Ka Lock Khul Jayegaa..!",
+"Bhilan Fir Galat ❌ 3 Saal Ka Pyar Hai Apana Uska To Khyaal Rakho...!",
+"Wagri 🤯 Fir Galat Yeh Bhi Tumko Mujhse Pyaar Hi Nahi Hai....!",
+"Gaanduu Insaan 🤦‍♂️ Last Chance !"
+];
 function unlock(){
-  const v=document.getElementById("pass").value.toLowerCase();
+  const v=pass.value.toLowerCase();
   if(v==="rajkumari"){
-    const m=document.getElementById("music");
-    m.currentTime=62;
-    m.play();
+    music.currentTime=62;
+    music.play();
     go(4);
   }else{
-    document.getElementById("msg").innerText="Wrong 😝 Try again!";
+    wrong++;
+    msg.innerText=lines[Math.floor(Math.random()*lines.length)];
+    if(wrong>=5){
+      msg.innerHTML+=`<br><small>Hint: Agar Yuvraj Rajkumar hai… to tum uski kya ho? ❤️</small>`;
+    }
   }
 }
 
@@ -255,16 +370,13 @@ function reveal(el,i){
     el.querySelector(".back").innerText=items[i];
     if(items[i]==="💍"){
       rings++;
-      if(rings===3){
-        setTimeout(()=>go(5),1000);
-      }
+      if(rings===3) setTimeout(()=>go(5),1000);
     }
   },300);
 }
 
 /* PAGE 5 */
 let caught=0;
-const box=document.getElementById("gameBox");
 setInterval(()=>{
   const h=document.createElement("div");
   h.className="heart";
@@ -273,13 +385,40 @@ setInterval(()=>{
   h.style.animationDuration=(2+Math.random()*2)+"s";
   h.onclick=()=>{
     caught++;
-    document.getElementById("bar").style.width=(caught/12*100)+"%";
+    bar.style.width=(caught/12*100)+"%";
     h.remove();
-    if(caught===12) setTimeout(()=>go(9),800);
+    if(caught===12) setTimeout(()=>go(7),800);
   };
-  box.appendChild(h);
+  gameBox.appendChild(h);
   setTimeout(()=>h.remove(),4000);
 },700);
+
+/* PAGE 7 MODAL */
+function openImg(el){
+  modalImg.src=el.querySelector("img").src;
+  modal.classList.add("show");
+}
+function closeImg(){modal.classList.remove("show");}
+
+/* PAGE 8 */
+let step=0;
+function no(){
+  step++;
+  yesBtn.style.transform=`scale(${1+step*0.3})`;
+  if(step>=4) noBtn.style.display="none";
+}
+function yes(){go(9);}
+
+/* HEADPHONE */
+headphone.onclick=e=>{
+  if(e.target.classList.contains("icon"))
+    headphone.querySelector(".volume-menu").style.display=
+    headphone.querySelector(".volume-menu").style.display==="block"?"none":"block";
+}
+function setVol(v){
+  music.volume=v;
+  document.querySelector(".volume-menu").style.display="none";
+}
 </script>
 
 </body>
