@@ -17,10 +17,10 @@
 
 <!-- MUSIC -->
 <audio id="music" loop>
-  <source src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3">
+  <source src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3" type="audio/mpeg">
 </audio>
 
-<!-- MUSIC CONTROL -->
+<!-- MUSIC UI -->
 <div class="wrapper">
   <div class="music-box" onclick="toggleOptions()">
     <span>🎧</span>
@@ -33,29 +33,29 @@
   </div>
 </div>
 
-<!-- PAGE 1 -->
+<!-- PAGE 1 LOCK -->
 <section class="page active" id="p1">
-  <img class="top-gif" src="GIF_PAGE_1">
+  <img class="top-gif" src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp">
   <h1 class="cursive">3 years of love… prove it ❤️</h1>
   <input id="password" placeholder="Enter password">
   <div id="lockMsg"></div>
   <button class="btn" onclick="unlock()">Unlock 🔐</button>
 </section>
 
-<!-- PAGE 2 -->
+<!-- PAGE 2 QUIZ -->
 <section class="page" id="p2">
-  <img class="top-gif" src="GIF_PAGE_2">
-  <h2 class="cursive">3 Saal Ke Pyaar Ka Intehaan 💖</h2>
+  <img class="top-gif" src="https://media.tenor.com/qGiP_qcGH3MAAAAm/peach-goma.webp">
+  <h2 class="cursive">Love Test 💖</h2>
   <div class="quiz-card">
-    <div id="qNo" class="quiz-no"></div>
+    <div id="qNo"></div>
     <div id="question"></div>
-    <div id="optionsBox"></div>
+    <div id="optionsQuiz"></div>
   </div>
 </section>
 
 <!-- PAGE 3 -->
 <section class="page" id="p3">
-  <img class="top-gif" src="GIF_PAGE_3">
+  <img class="top-gif" src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp">
   <h2>One last check… 😉</h2>
   <div class="sec-actions">
     <button class="btn" onclick="go(4)">YES</button>
@@ -63,26 +63,24 @@
   </div>
 </section>
 
-<!-- PAGE 4 -->
+<!-- PAGE 4 HUNT -->
 <section class="page" id="p4">
-  <img class="top-gif" src="GIF_PAGE_4">
   <h2 class="cursive">The Proposal Hunt 💍</h2>
   <div class="grid" id="huntGrid"></div>
   <p>Rings Found: <span id="ringCount">0</span>/3</p>
 </section>
 
-<!-- PAGE 5 -->
+<!-- PAGE 5 GAME -->
 <section class="page" id="p5">
-  <img class="top-gif" src="GIF_PAGE_5">
+  <img class="top-gif" src="https://media.tenor.com/8hJ9vZpytZcAAAAm/peach-goma-love.webp">
   <h2 class="cursive">Catch My Love ❤️</h2>
   <div class="game-box" id="gameBox"></div>
   <div class="progress"><span id="bar"></span></div>
   <button class="btn" onclick="startGame()">Start Game</button>
 </section>
 
-<!-- PAGE 6 -->
+<!-- PAGE 6 LETTER -->
 <section class="page" id="p6">
-  <img class="top-gif" src="GIF_PAGE_6">
   <h2 class="cursive">A Letter For You 💌</h2>
   <div class="envelope-wrap" onclick="openLetter()">
     <div class="envelope">
@@ -100,9 +98,9 @@
   </div>
 </section>
 
-<!-- PAGE 7 -->
+<!-- PAGE 7 PHOTOS -->
 <section class="page" id="p7">
-  <h2 class="cursive">Some Precious Moments 📸</h2>
+  <h2 class="cursive">Memories 📸</h2>
   <img class="photo-card" src="images/p1.jpg" onclick="openPhoto(this.src)">
   <img class="photo-card" src="images/p2.jpg" onclick="openPhoto(this.src)">
   <img class="photo-card" src="images/p3.jpg" onclick="openPhoto(this.src)">
@@ -113,33 +111,31 @@
 </section>
 
 <div class="photo-modal" id="photoModal" onclick="closePhoto()">
-  <span class="close-btn">×</span>
   <img id="modalImg">
 </div>
 
-<!-- PAGE 8 -->
+<!-- PAGE 8 YES NO -->
 <section class="page" id="p8">
-  <img class="top-gif" src="GIF_PAGE_8">
+  <img class="top-gif" src="https://media.tenor.com/nQD8tNYfJzQAAAAm/dance-love.webp">
   <h2 class="cursive">Will you choose me? 💖</h2>
   <div class="yn-wrap">
     <button class="btn yes-btn" id="yesBtn" onclick="finalYes()">YES</button>
-    <button class="btn btn-outline no-btn" id="noBtn8" onclick="noClick()">NO</button>
+    <button class="btn btn-outline" id="noBtn8" onclick="noClick()">NO</button>
   </div>
 </section>
 
-<!-- PAGE 9 -->
+<!-- PAGE 9 FINAL -->
 <section class="page" id="p9">
-  <img class="top-gif" src="GIF_PAGE_9">
   <h2 class="cursive">I know you love me a lot! 🎉</h2>
-  <p>You chose me again — just like you did on<br>April 6 & 31, 2023 💖</p>
   <div class="ring-big">💍</div>
-  <button class="btn" onclick="replay()">Wanna do this again?</button>
+  <p>You chose me again — just like you did on<br>April 6 & 31, 2023 💖</p>
+  <button class="btn" onclick="location.reload()">Replay</button>
 </section>
 
 <footer>
-  Developed with ❤️ by <a href="https://instagram.com/" target="_blank">Yuvraj</a>
+  Developed with ❤️ by Yuvraj
 </footer>
 
 <script src="script.js"></script>
 </body>
-</html>
+  </html>
