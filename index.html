@@ -37,6 +37,7 @@ body{
   padding:24px;
   text-align:center;
   box-shadow:0 30px 70px rgba(0,0,0,.18);
+  border: 1px solid rgba(255,255,255,0.3);
 }
 
 /* round gif */
@@ -46,6 +47,7 @@ body{
   border-radius:50%;
   object-fit:cover;
   box-shadow:0 0 25px rgba(255,105,180,.45);
+  margin-bottom: 15px;
 }
 
 /* floating hearts */
@@ -55,6 +57,7 @@ body{
   opacity:.35;
   font-size:14px;
   animation:float 10s linear infinite;
+  pointer-events: none;
 }
 @keyframes float{
   to{transform:translateY(-110vh) translateX(20px)}
@@ -69,6 +72,8 @@ body{
   color:#fff;
   font-weight:600;
   margin-top:18px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 111, 177, 0.3);
 }
 
 /* input */
@@ -79,32 +84,28 @@ input{
   border-radius:18px;
   margin-top:12px;
   text-align:center;
+  outline: none;
+  background: rgba(255,255,255,0.6);
 }
 
 /* quiz */
 .option{
-  padding:14px;
+  padding:12px;
   border-radius:18px;
   background:rgba(255,255,255,.45);
   margin-top:10px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 14px;
 }
-.option.right{background:#6dff9a}
-.option.wrong{background:#ff6b6b;animation:shake .3s}
-@keyframes shake{
-  0%{transform:translateX(0)}
-  25%{transform:translateX(-6px)}
-  50%{transform:translateX(6px)}
-  75%{transform:translateX(-6px)}
-  100%{transform:translateX(0)}
-}
+.option:hover{background:rgba(255,255,255,0.7)}
+.option.right{background:#6dff9a !important}
+.option.wrong{background:#ff6b6b !important;animation:shake .3s}
 
-/* hint */
-#hint{
-  display:none;
-  margin-top:14px;
-  padding:12px;
-  border-radius:16px;
-  background:rgba(255,182,213,.5);
+@keyframes shake{
+  0%, 100%{transform:translateX(0)}
+  25%{transform:translateX(-6px)}
+  75%{transform:translateX(6px)}
 }
 
 /* grid */
@@ -119,22 +120,27 @@ input{
   padding:18px;
   border-radius:16px;
   background:rgba(255,255,255,.45);
+  cursor: pointer;
 }
 
-/* footer */
 footer{
   position:fixed;
   bottom:8px;
   width:100%;
   text-align:center;
   font-size:12px;
+  color: #888;
 }
+
+#taana { color: #ff4d4d; font-size: 13px; margin-top: 10px; font-weight: bold; }
+#hint { display:none; margin-top:14px; padding:12px; border-radius:16px; background:rgba(255,182,213,.5); font-size: 13px;}
 </style>
 </head>
 
 <body>
 
 <script>
+// Generate floating hearts
 for(let i=0;i<22;i++){
  let h=document.createElement("div");
  h.className="heart";
@@ -145,90 +151,84 @@ for(let i=0;i<22;i++){
 }
 </script>
 
-<!-- PAGE 1 -->
 <div class="page active" id="p1">
  <div class="card">
   <img class="gif" src="https://media.tenor.com/lquwmqAgQekAAAAm/bubu-dudu.webp">
-  <p style="font-family:Pacifico;font-size:20px;margin:12px 0">
-   3 years of love… prove it ❤️
-  </p>
+  <p style="font-family:Pacifico;font-size:20px;margin:12px 0">3 years of love… prove it ❤️</p>
   <input id="pass" placeholder="Enter the magic word">
   <button class="btn" onclick="unlock()">Unlock</button>
   <div id="taana"></div>
-  <div id="hint">
-   Hint: Agar Yuvraj Rajkumar hai…<br>to tum uski kya ho? ❤️
-  </div>
+  <div id="hint">Hint: Agar Yuvraj Rajkumar hai…<br>to tum uski kya ho? ❤️</div>
  </div>
 </div>
 
-<!-- PAGE 2 QUIZ -->
 <div class="page" id="p2">
  <div class="card">
   <img class="gif" src="https://media.tenor.com/YiMNm2QVdMoAAAAm/bubu-dudu-sseeyall.webp">
-  <div id="q"></div>
+  <div id="q_text" style="font-weight:600; margin-bottom:10px;"></div>
   <div id="opts"></div>
  </div>
 </div>
 
-<!-- PAGE 3 -->
 <div class="page" id="p3">
  <div class="card">
   <img class="gif" src="https://media.tenor.com/nBQQ6XM5BhIAAAAm/cute.webp">
+  <p style="margin-bottom:20px;">Ready for the Ring Hunt? 💍</p>
   <button class="btn" onclick="go(4)">YES</button>
-  <button class="btn" style="position:absolute"
-   onmouseover="this.style.left=Math.random()*70+'%'">
-   NO I'M NOT INTERESTED
-  </button>
+  <button class="btn" style="position:absolute" onmouseover="moveBtn(this)">NO</button>
  </div>
 </div>
 
-<!-- PAGE 4 -->
 <div class="page" id="p4">
  <div class="card">
   <img class="gif" src="https://media.tenor.com/-3Z-ojIe5IcAAAAm/bubu-dudu-sseeyall.webp">
-  <div id="ringCount">💍 0 / 3</div>
+  <div id="ringCount" style="font-weight:600">💍 0 / 3</div>
+  <p style="font-size:12px">Find the 3 hidden rings in the grass!</p>
   <div class="grid" id="grid"></div>
  </div>
 </div>
 
-<!-- PAGE 5 -->
 <div class="page" id="p5">
  <div class="card">
   <img class="gif" src="https://media.tenor.com/bvXwJ4I19ZQAAAAm/cat-cat-meme.webp">
-  <div id="score">0 / 12</div>
+  <p>Catch 12 Hearts! ❤️</p>
+  <div id="score" style="font-size:24px; font-weight:bold; color:#ff6fb1">0 / 12</div>
  </div>
 </div>
 
-<!-- PAGE 6 -->
 <div class="page" id="p6">
  <div class="card">
   <img class="gif" src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp">
-  <p>❤️ Love Letter ❤️</p>
+  <p style="font-family:Pacifico; font-size:22px;">❤️ My Dear Dimple ❤️</p>
+  <p style="font-size:14px; margin-top:10px; line-height:1.6">
+    These 3 years have been the most beautiful journey of my life. You are my strength, my happiness, and my future.
+  </p>
   <button class="btn" onclick="go(7)">Next</button>
  </div>
 </div>
 
-<!-- PAGE 7 -->
 <div class="page" id="p7">
  <div class="card">
   <img class="gif" src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp">
+  <p>Will you promise to be mine forever?</p>
   <button class="btn" onclick="go(8)">One Last Thing ❤️</button>
  </div>
 </div>
 
-<!-- PAGE 8 -->
 <div class="page" id="p8">
  <div class="card">
   <img class="gif" src="https://media.tenor.com/qGiP_qcGH3MAAAAm/peach-goma.webp">
-  <button class="btn" onclick="go(9)" style="font-size:22px">YES</button>
+  <p style="font-family:Pacifico; font-size:22px; color:#ff6fb1">I Love You! ❤️</p>
+  <p>Will you marry me, Mrs. Chauhan?</p>
+  <button class="btn" onclick="go(9)" style="font-size:22px">YES! 💍</button>
  </div>
 </div>
 
-<!-- PAGE 9 -->
 <div class="page" id="p9">
  <div class="card">
   <img class="gif" src="https://media.tenor.com/nQD8tNYfJzQAAAAm/dance-love.webp">
-  <p>I know you love me a lot! 🎉</p>
+  <p style="font-weight:600">I know you love me a lot! 🎉</p>
+  <p style="font-size:13px; margin-top:10px;">See you soon, my Queen!</p>
   <button class="btn" onclick="location.reload()">Wanna do this again?</button>
  </div>
 </div>
@@ -239,9 +239,15 @@ for(let i=0;i<22;i++){
 function go(n){
  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
  document.getElementById("p"+n).classList.add("active");
+ if(n===2) loadQ();
 }
 
-/* LOCK */
+function moveBtn(obj){
+    obj.style.left = Math.random() * 70 + '%';
+    obj.style.top = Math.random() * 70 + '%';
+}
+
+/* LOCK LOGIC */
 let tries=0;
 const taanas=[
 "Ghelsodi 😝 Fir Galat!",
@@ -250,44 +256,63 @@ const taanas=[
 "Wagri 🤯 Seriously?",
 "Gaanduu Insaan 🤦‍♂️ Last Chance!"
 ];
+
 function unlock(){
- let v=pass.value.toLowerCase();
- if(v==="rajkumari"){go(2);return;}
- taana.innerText=taanas[Math.min(tries,4)];
- tries++;
- if(tries>=5) hint.style.display="block";
+ let v=document.getElementById("pass").value.toLowerCase().trim();
+ if(v==="rajkumari"){
+    go(2);
+ } else {
+    document.getElementById("taana").innerText=taanas[Math.min(tries,4)];
+    tries++;
+    if(tries>=5) document.getElementById("hint").style.display="block";
+ }
 }
 
-/* QUIZ */
-const quiz=[
-{q:"Q1. Who is the lucky one?",o:["Me","You","Both","Us","Always You"],a:2},
-{q:"Q2. What do you want from me?",o:["Gift","One Night Stand","Time","Stay Forever","Party"],a:3}
+/* QUIZ LOGIC */
+const quiz = [
+{q:"Who is the lucky one?",o:["Me","You","Both","Us","Always You"],a:2},
+{q:"What do you want from me?",o:["Gift","One Night Stand","Time","Stay Forever","Party"],a:3},
+{q:"Propose Day Par Aapka Yuvraj Se Sabse Bada Promise Kya Hai?", o:["Hamesha Saath Nibhana","Kabhi Jhoot Na Bolna Aur Dher Saara Pyaar Dena","Dhaal Banke Khade Rehna Aur Yuvi Ki Saari Baat Mananaa","Gaand Maarane Gaya Sab I Don't Fucking Care","Inme Se Sab (AAP Mere Aadarniya Pati-Parmeshwar Ho)"],a:4},
+{q:"Who is The Lucky One In This Relationship?", o:["Yuvraj","Dimple","Hum Dono","Universe","Fate"],a:2},
+{q:"Can You Stay Forever With Yuvraj?", o:["No","Maybe","Yes","7 Janam","Till My Last Breath"],a:4},
+{q:"Perfect Gift From Me?", o:["Ring","Letter","Chocolate","Lifetime Together","Hug"],a:3},
+{q:"First Thing You Liked In Me?", o:["Looks","Nature","Talk","Respect","Bas Ho Gaya Pyaar"],a:4},
+{q:"Mrs. Dimple Chauhan Banne Ki Excitement?", o:["Low","Medium","High","Dream Come True","Infinite"],a:4},
+{q:"What Do You Want The Most From Me?", o:["Money","Time","Care","Love","B+C+D"],a:4}
 ];
+
 let qi=0;
 function loadQ(){
- q.innerText=quiz[qi].q;
- opts.innerHTML="";
- quiz[qi].o.forEach((t,i)=>{
+ let current = quiz[qi];
+ document.getElementById("q_text").innerText = current.q;
+ let optsDiv = document.getElementById("opts");
+ optsDiv.innerHTML="";
+ 
+ current.o.forEach((t,i)=>{
   let d=document.createElement("div");
   d.className="option";
   d.innerText=t;
   d.onclick=()=>{
-   if(i===quiz[qi].a)d.classList.add("right");
-   else{d.classList.add("wrong");navigator.vibrate?.(200);}
-   setTimeout(()=>{
-    qi++;
-    if(qi<quiz.length)loadQ();
-    else go(3);
-   },700);
+   if(i===current.a) {
+       d.classList.add("right");
+       setTimeout(()=>{
+        qi++;
+        if(qi < quiz.length) loadQ();
+        else go(3);
+       }, 600);
+   } else {
+       d.classList.add("wrong");
+       navigator.vibrate?.(200);
+   }
   };
-  opts.appendChild(d);
+  optsDiv.appendChild(d);
  });
 }
-loadQ();
 
-/* RING HUNT */
-const items=["💩","💩","💍","💩","💍","💩","💩","💩","💍"];
+/* RING HUNT LOGIC */
+const items=shuffle(["💩","💩","💍","💩","💍","💩","💩","💩","💍"]);
 let found=0;
+const grid = document.getElementById("grid");
 items.forEach(i=>{
  let d=document.createElement("div");
  d.className="cell";
@@ -295,21 +320,32 @@ items.forEach(i=>{
  d.onclick=()=>{
   if(d.innerText!=="🍃")return;
   d.innerText=i;
-  if(i==="💍"){found++;ringCount.innerText=`💍 ${found} / 3`;}
+  if(i==="💍"){
+      found++;
+      document.getElementById("ringCount").innerText=`💍 ${found} / 3`;
+  }
   if(found===3)setTimeout(()=>go(5),1000);
  };
  grid.appendChild(d);
 });
 
-/* GAME */
+function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+/* HEART GAME LOGIC */
 let score=0;
 setInterval(()=>{
- if(document.getElementById("p5").classList.contains("active")){
+ if(document.getElementById("p5").classList.contains("active") && score < 12){
   let h=document.createElement("div");
   h.innerText="𓆩❤︎𓆪";
   h.style.position="fixed";
   h.style.left=Math.random()*90+"vw";
   h.style.top="-20px";
+  h.style.fontSize="30px";
+  h.style.cursor="pointer";
+  h.style.transition="transform 4s linear";
+  
   h.onclick=()=>{
    score++;
    document.getElementById("score").innerText=`${score} / 12`;
@@ -317,6 +353,11 @@ setInterval(()=>{
    if(score>=12)go(6);
   };
   document.body.appendChild(h);
+  
+  setTimeout(()=> {
+      h.style.transform = "translateY(100vh)";
+  }, 10);
+  
   setTimeout(()=>h.remove(),4000);
  }
 },700);
