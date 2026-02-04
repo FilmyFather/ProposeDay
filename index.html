@@ -2,298 +2,254 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Propose Day 💖</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Love Journey</title>
 
 <style>
-*{box-sizing:border-box}
+*{box-sizing:border-box;margin:0;padding:0}
 body{
-  margin:0;
-  font-family:system-ui;
-  background:linear-gradient(180deg,#1b0f17,#120b12);
-  color:#fff;
-  overflow:hidden;
+ font-family:Poppins,system-ui;
+ height:100vh;
+ background:#fff;
+ overflow:hidden;
 }
 
-/* ---------- PAGES ---------- */
 .page{
-  display:none;
-  position:fixed;
-  inset:0;
-  padding:20px;
-}
-.page.active{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
+ display:none;
+ position:fixed;
+ inset:0;
+ padding:20px;
+ align-items:center;
+ justify-content:center;
 }
 
-/* ---------- SOFT GLASS ---------- */
+.page.active{display:flex}
+
 .card{
-  background:rgba(255,255,255,.12);
-  backdrop-filter:blur(12px);
-  border:1px solid rgba(255,255,255,.15);
-  border-radius:20px;
-  padding:20px;
-  text-align:center;
+ width:100%;
+ max-width:420px;
+ background:rgba(255,255,255,.25);
+ backdrop-filter:blur(14px);
+ border-radius:24px;
+ padding:22px;
+ text-align:center;
+ box-shadow:0 20px 60px rgba(0,0,0,.15);
 }
 
-/* ---------- BG HEARTS ---------- */
-.bg-hearts{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:-1;
-}
-.bg-hearts span{
-  position:absolute;
-  bottom:-20px;
-  font-size:14px;
-  opacity:.4;
-  animation:float 14s linear infinite;
-}
-@keyframes float{
-  from{transform:translateY(0)}
-  to{transform:translateY(-110vh)}
-}
-
-/* ---------- BUTTON ---------- */
 button{
-  padding:12px 26px;
-  border-radius:30px;
-  border:none;
-  font-size:15px;
-  background:linear-gradient(135deg,#ff6fae,#ff9ecf);
-  color:#000;
-  box-shadow:0 6px 20px rgba(255,105,180,.35);
+ border:none;
+ padding:14px 26px;
+ border-radius:30px;
+ background:linear-gradient(135deg,#ff6aa2,#ff9ac6);
+ color:#fff;
+ font-size:16px;
+ cursor:pointer;
 }
 
-/* ---------- PHOTOS PAGE ---------- */
-#p7{
-  overflow-y:auto;
-  justify-content:flex-start;
-}
-.photos{
-  display:flex;
-  flex-direction:column;
-  gap:16px;
-  width:100%;
-  padding-bottom:40px;
-}
-.photos img{
-  width:100%;
-  border-radius:16px;
+input{
+ width:100%;
+ padding:14px;
+ border-radius:20px;
+ border:none;
+ outline:none;
+ margin:14px 0;
+ text-align:center;
+ font-size:16px;
 }
 
-/* ---------- HEADPHONE ---------- */
-#headphone{
-  position:fixed;
-  bottom:90px;
-  right:20px;
-  width:64px;
-  height:64px;
-  border-radius:50%;
-  z-index:999;
+/* OPTIONS */
+.options{margin-top:18px;display:flex;flex-direction:column;gap:12px}
+.option{
+ padding:14px;
+ border-radius:18px;
+ background:rgba(255,255,255,.4);
+ cursor:pointer;
+ transition:.25s;
 }
-#headphone .ring{
-  position:absolute;
-  inset:-8px;
-  border-radius:50%;
-  background:conic-gradient(
-    #ff004c,#ff7a00,#ffee00,#00ff85,
-    #00c3ff,#7a5cff,#ff00d4,#ff004c
-  );
-  filter:blur(8px);
-  animation:spin 3.5s linear infinite;
+.option.right{background:#2ecc71;color:#033}
+.option.wrong{
+ background:#ff3b3b;
+ color:#fff;
+ animation:shake .35s;
 }
-@keyframes spin{to{transform:rotate(360deg)}}
-#headphone .icon{
-  position:absolute;
-  inset:0;
-  border-radius:50%;
-  background:rgba(255,255,255,.2);
-  backdrop-filter:blur(10px);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:26px;
+@keyframes shake{
+ 0%{transform:translateX(0)}
+ 25%{transform:translateX(-6px)}
+ 50%{transform:translateX(6px)}
+ 75%{transform:translateX(-6px)}
+ 100%{transform:translateX(0)}
 }
-.volume-menu{
-  position:absolute;
-  bottom:75px;
-  left:50%;
-  transform:translateX(-50%);
-  background:rgba(20,20,20,.85);
-  backdrop-filter:blur(8px);
-  border-radius:14px;
-  padding:8px;
-  display:none;
+
+/* CONFETTI */
+.confetti{
+ position:fixed;
+ top:-10px;
+ width:10px;
+ height:14px;
+ background:#2ecc71;
+ animation:fall 1.2s linear forwards;
 }
-.volume-menu div{
-  padding:6px 14px;
-  font-size:13px;
-  border-radius:10px;
+@keyframes fall{
+ to{transform:translateY(110vh) rotate(360deg);opacity:0}
+}
+
+/* PHOTO PAGE SCROLL FIX */
+#p8{
+ overflow-y:auto;
+ align-items:flex-start;
+}
+#p8 img{
+ width:100%;
+ border-radius:18px;
+ margin-bottom:14px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="bg-hearts"></div>
-
-<audio id="music" src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3?hash=AgADnS"></audio>
-
 <!-- PAGE 1 -->
 <div class="page active" id="p1">
-  <div class="card">
-    <img src="https://media.tenor.com/lquwmqAgQekAAAAm/bubu-dudu.webp" width="120"><br><br>
-    <h3>3 years of love… prove it ❤️</h3>
-    <input id="pass" placeholder="Password"><br><br>
-    <button onclick="unlock()">Unlock</button>
-    <p id="msg"></p>
-  </div>
+ <div class="card">
+  <img src="https://media.tenor.com/YiMNm2QVdMoAAAAm/bubu-dudu-sseeyall.webp" width="120">
+  <input id="pass" placeholder="Password">
+  <button onclick="unlock()">Unlock</button>
+ </div>
 </div>
 
 <!-- PAGE 2 -->
 <div class="page" id="p2">
-  <div class="card">
-    <img src="https://media.tenor.com/YiMNm2QVdMoAAAAm/bubu-dudu-sseeyall.webp" width="120"><br><br>
-    <h3>Love Quiz 💕</h3>
-    <button onclick="goNext()">Start</button>
-  </div>
+ <div class="card">
+  <h2>Welcome ❤️</h2>
+  <p>Ready for our journey?</p><br>
+  <button onclick="go(3)">Start</button>
+ </div>
 </div>
 
-<!-- PAGE 3 -->
+<!-- PAGE 3 QUIZ -->
 <div class="page" id="p3">
-  <div class="card">
-    <img src="https://media.tenor.com/nBQQ6XM5BhIAAAAm/cute.webp" width="120"><br><br>
-    <button onclick="goNext()">YES</button>
-    <button style="opacity:.5">NO I’M NOT INTERESTED</button>
-  </div>
+ <div class="card">
+  <div id="question"></div>
+  <div class="options" id="options"></div>
+ </div>
 </div>
 
 <!-- PAGE 4 -->
 <div class="page" id="p4">
-  <div class="card">
-    <h3>Find The Rings 💍</h3>
-    <button onclick="goNext()">3 Rings Found</button>
-  </div>
+ <div class="card">
+  <h2>💍 Ring Found</h2><br>
+  <button onclick="go(5)">Next</button>
+ </div>
 </div>
 
 <!-- PAGE 5 -->
 <div class="page" id="p5">
-  <div class="card">
-    <img src="https://media.tenor.com/bvXwJ4I19ZQAAAAm/cat-cat-meme.webp" width="120"><br><br>
-    <button onclick="goNext()">Game Complete</button>
-  </div>
+ <div class="card">
+  <h2>Message 💌</h2>
+  <p>You mean everything to me.</p><br>
+  <button onclick="go(6)">Next</button>
+ </div>
 </div>
 
 <!-- PAGE 6 -->
 <div class="page" id="p6">
-  <div class="card">
-    <img src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp" width="120"><br><br>
-    <button onclick="goNext()">Read Complete</button>
-  </div>
+ <div class="card">
+  <h2>𓆩❤︎𓆪</h2>
+  <p>Love raining forever</p><br>
+  <button onclick="go(7)">Next</button>
+ </div>
 </div>
 
 <!-- PAGE 7 -->
 <div class="page" id="p7">
-  <div class="photos">
-    <img src="images/p1.jpg">
-    <img src="images/p2.jpg">
-    <img src="images/p3.jpg">
-    <img src="images/p4.jpg">
-    <img src="images/p5.jpg">
-    <img src="images/p6.jpg">
-    <button onclick="goNext()">One Last Thing ❤️</button>
-  </div>
+ <div class="card">
+  <img src="https://media.tenor.com/9L0KQ8yH1eMAAAAi/bubu-dudu.gif" width="160"><br><br>
+  <button onclick="go(8)">Next</button>
+ </div>
 </div>
 
-<!-- PAGE 8 -->
+<!-- PAGE 8 PHOTOS -->
 <div class="page" id="p8">
-  <div class="card">
-    <img src="https://media.tenor.com/qGiP_qcGH3MAAAAm/peach-goma.webp" width="120"><br><br>
-    <button onclick="goNext()">YES</button>
-  </div>
+ <div class="card">
+  <img src="https://picsum.photos/400/300?1">
+  <img src="https://picsum.photos/400/300?2">
+  <img src="https://picsum.photos/400/300?3">
+  <button onclick="go(9)">Final</button>
+ </div>
 </div>
 
 <!-- PAGE 9 -->
 <div class="page" id="p9">
-  <div class="card">
-    <img src="https://media.tenor.com/nQD8tNYfJzQAAAAm/dance-love.webp" width="120"><br><br>
-    <h3>I know you love me a lot! 🎉</h3>
-    <button onclick="location.reload()">Wanna do this again?</button>
-  </div>
-</div>
-
-<!-- HEADPHONE -->
-<div id="headphone">
-  <div class="ring"></div>
-  <div class="icon">🎧</div>
-  <div class="volume-menu">
-    <div onclick="setVol(.2)">LOW</div>
-    <div onclick="setVol(.5)">MID</div>
-    <div onclick="setVol(1)">HIGH</div>
-    <div onclick="setVol(0)">MUTE</div>
-  </div>
+ <div class="card">
+  <h1>Forever ❤️</h1>
+  <p>Endless Love</p>
+ </div>
 </div>
 
 <script>
-/* BG HEARTS */
-const bg=document.querySelector(".bg-hearts");
-setInterval(()=>{
-  const h=document.createElement("span");
-  h.innerHTML="𓆩❤︎𓆪";
-  h.style.left=Math.random()*100+"%";
-  bg.appendChild(h);
-  setTimeout(()=>h.remove(),15000);
-},1200);
-
-/* PAGE FLOW */
-let currentPage=1;
-function showPage(n){
-  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-  document.getElementById("p"+n).classList.add("active");
-}
-function goNext(){
-  if(currentPage<9){
-    currentPage++;
-    showPage(currentPage);
-  }
+function go(n){
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ document.getElementById('p'+n).classList.add('active');
 }
 
-/* UNLOCK */
-let wrong=0;
-const lines=[
-  "Arre Ghelsodi 😝 Itna Bhi Mushkil Nahi Hai Loduuu...!",
-  "Dhapudiii 😜 Dil Se Try Karoo Dil Aur Website Dono Khul Jayegaa..!",
-  "Bhilan Fir Galat ❌ 3 Saal Ka Pyar Hai Apana...!",
-  "Wagri 🤯 Fir Galat Yeh Bhi Pyaar Nahi Hai....!",
-  "Gaanduu Insaan 🤦‍♂️ Last Chance !"
-];
 function unlock(){
-  const v=pass.value.trim().toLowerCase();
-  if(v==="rajkumari"){
-    music.currentTime=62;
-    music.play();
-    goNext();
-  }else{
-    wrong++;
-    msg.innerHTML=lines[Math.floor(Math.random()*lines.length)];
-    if(wrong>=5)
-      msg.innerHTML+="<br><small>Hint: Agar Yuvraj Rajkumar hai… to tum uski kya ho? ❤️</small>";
-  }
+ if(document.getElementById('pass').value.toLowerCase()==="love"){
+  go(2);
+ }else{
+  alert("Wrong Password ❤️");
+ }
 }
 
-/* HEADPHONE */
-const hp=document.getElementById("headphone");
-const menu=hp.querySelector(".volume-menu");
-hp.onclick=e=>{
-  if(e.target.classList.contains("icon"))
-    menu.style.display=menu.style.display==="block"?"none":"block";
+const quiz=[
+{q:"Who is the lucky one?",o:["Me","You","Both","Us","Always You"],a:2},
+{q:"What do you want from me?",o:["Gift","One Night Stand","Time","Stay Forever","Party"],a:3},
+{q:"Promise on Propose Day?",o:[
+ "Hamesha Saath",
+ "Sach & Pyaar",
+ "Shield Ban Ke",
+ "IDC",
+ "Sab Kuch"],a:4}
+];
+let qi=0;
+
+function loadQuiz(){
+ const q=quiz[qi];
+ document.getElementById("question").innerHTML="<b>Q"+(qi+1)+".</b> "+q.q;
+ const box=document.getElementById("options");
+ box.innerHTML="";
+ q.o.forEach((t,i)=>{
+  const d=document.createElement("div");
+  d.className="option";
+  d.innerText=t;
+  d.onclick=()=>check(d,i);
+  box.appendChild(d);
+ });
 }
-function setVol(v){music.volume=v;menu.style.display="none";}
+
+function confetti(){
+ for(let i=0;i<25;i++){
+  const c=document.createElement("div");
+  c.className="confetti";
+  c.style.left=Math.random()*100+"vw";
+  document.body.appendChild(c);
+  setTimeout(()=>c.remove(),1200);
+ }
+}
+
+function check(el,i){
+ if(i===quiz[qi].a){
+  el.classList.add("right");
+  confetti();
+ }else{
+  el.classList.add("wrong");
+  navigator.vibrate?.(200);
+ }
+ setTimeout(()=>{
+  qi++;
+  qi<quiz.length?loadQuiz():go(4);
+ },800);
+}
+loadQuiz();
 </script>
 
 </body>
