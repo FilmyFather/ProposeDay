@@ -6,6 +6,7 @@
 <title>Propose Day ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -24,6 +25,7 @@ body{
   align-items:center;
   justify-content:center;
   padding:20px;
+  flex-direction: column;
 }
 .page.active{display:flex}
 
@@ -38,113 +40,71 @@ body{
   text-align:center;
   box-shadow:0 30px 70px rgba(0,0,0,.18);
   border: 1px solid rgba(255,255,255,0.3);
+  position: relative;
 }
 
-/* round gif */
-.gif{
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  object-fit:cover;
-  box-shadow:0 0 25px rgba(255,105,180,.45);
-  margin-bottom: 15px;
-}
+.gif{ width:120px; height:120px; border-radius:50%; object-fit:cover; margin-bottom: 15px; }
 
-/* floating hearts */
-.heart{
-  position:fixed;
-  bottom:-20px;
-  opacity:.35;
-  font-size:14px;
-  animation:float 10s linear infinite;
-  pointer-events: none;
-}
-@keyframes float{
-  to{transform:translateY(-110vh) translateX(20px)}
-}
-
-/* buttons */
+/* Buttons */
+.btn-container { display: flex; justify-content: center; gap: 15px; margin-top: 20px; position: relative; }
 .btn{
-  padding:14px 22px;
-  border:none;
-  border-radius:20px;
+  padding:14px 22px; border:none; border-radius:20px;
   background:linear-gradient(135deg,#ff6fb1,#ff9fd6);
-  color:#fff;
-  font-weight:600;
-  margin-top:18px;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(255, 111, 177, 0.3);
+  color:#fff; font-weight:600; cursor: pointer; transition: 0.3s;
 }
 
-/* input */
-input{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:18px;
-  margin-top:12px;
-  text-align:center;
-  outline: none;
-  background: rgba(255,255,255,0.6);
-}
+/* Quiz Styles */
+.option{ padding:12px; border-radius:18px; background:rgba(255,255,255,.45); margin-top:10px; cursor: pointer; }
+.option.right{ background:#6dff9a !important; }
+.option.wrong{ background:#ff6b6b !important; animation:shake .3s; }
 
-/* quiz */
-.option{
-  padding:12px;
-  border-radius:18px;
-  background:rgba(255,255,255,.45);
-  margin-top:10px;
-  cursor: pointer;
-  transition: 0.3s;
-  font-size: 14px;
-}
-.option:hover{background:rgba(255,255,255,0.7)}
-.option.right{background:#6dff9a !important}
-.option.wrong{background:#ff6b6b !important;animation:shake .3s}
+/* Ring Hunt - Fixed Grid */
+.grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:20px; }
+.cell{ font-size:32px; padding:18px; border-radius:16px; background:rgba(255,255,255,.45); cursor: pointer; }
 
-@keyframes shake{
-  0%, 100%{transform:translateX(0)}
-  25%{transform:translateX(-6px)}
-  75%{transform:translateX(6px)}
+/* Game Box Page 5 */
+#game-box {
+    width: 280px; height: 300px; background: rgba(255,255,255,0.3);
+    border: 2px dashed #ff6fb1; margin: 15px auto; position: relative;
+    overflow: hidden; border-radius: 15px; display: none;
 }
+.game-heart { position: absolute; font-size: 25px; cursor: pointer; user-select: none; }
+.progress-container { width: 100%; height: 15px; background: #eee; border-radius: 10px; margin: 15px 0; overflow: hidden; display:none; }
+#progress-bar { width: 0%; height: 100%; background: #ff6fb1; transition: 0.3s; }
 
-/* grid */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-top:20px;
+/* Page 6: Letter */
+.envelope-wrapper { position: relative; width: 200px; height: 150px; background: #ff9fd6; margin: 20px auto; cursor: pointer; border-radius: 0 0 10px 10px; }
+.envelope-flap { 
+    position: absolute; top: 0; left: 0; width: 0; height: 0; 
+    border-left: 100px solid transparent; border-right: 100px solid transparent;
+    border-top: 80px solid #ff6fb1; transform-origin: top; transition: 0.6s; z-index: 3;
 }
-.cell{
-  font-size:32px;
-  padding:18px;
-  border-radius:16px;
-  background:rgba(255,255,255,.45);
-  cursor: pointer;
+.letter {
+    position: absolute; bottom: 5px; left: 10px; width: 180px; height: 130px;
+    background: #fff9f0; padding: 10px; border-radius: 5px; transition: 0.8s;
+    z-index: 2; overflow-y: auto; text-align: left; font-family: 'Pacifico', cursive; font-size: 12px;
 }
+.envelope-wrapper.open .envelope-flap { transform: rotateX(180deg); z-index: 1; }
+.envelope-wrapper.open .letter { transform: translateY(-120px); height: 250px; width: 280px; left: -40px; z-index: 5; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
 
-footer{
-  position:fixed;
-  bottom:8px;
-  width:100%;
-  text-align:center;
-  font-size:12px;
-  color: #888;
-}
+/* Page 7: Memories */
+#photo-list { height: 400px; overflow-y: auto; padding: 10px; }
+.mem-img { width: 100%; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; }
+.modal { display:none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:100; align-items:center; justify-content:center; }
+.modal img { max-width: 90%; max-height: 80%; border-radius: 10px; }
 
-#taana { color: #ff4d4d; font-size: 13px; margin-top: 10px; font-weight: bold; }
-#hint { display:none; margin-top:14px; padding:12px; border-radius:16px; background:rgba(255,182,213,.5); font-size: 13px;}
+/* Floating Hearts */
+.heart-bg{ position:fixed; bottom:-20px; opacity:.35; font-size:14px; animation:float 10s linear infinite; pointer-events: none; }
+@keyframes float{ to{transform:translateY(-110vh) translateX(20px)} }
+@keyframes shake{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
 </style>
 </head>
-
 <body>
 
 <script>
-// Generate floating hearts
-for(let i=0;i<22;i++){
+for(let i=0;i<15;i++){
  let h=document.createElement("div");
- h.className="heart";
- h.innerText="❤️";
+ h.className="heart-bg"; h.innerText="❤️";
  h.style.left=Math.random()*100+"vw";
  h.style.animationDuration=6+Math.random()*6+"s";
  document.body.appendChild(h);
@@ -152,216 +112,243 @@ for(let i=0;i<22;i++){
 </script>
 
 <div class="page active" id="p1">
- <div class="card">
-  <img class="gif" src="https://media.tenor.com/lquwmqAgQekAAAAm/bubu-dudu.webp">
-  <p style="font-family:Pacifico;font-size:20px;margin:12px 0">3 years of love… prove it ❤️</p>
-  <input id="pass" placeholder="Enter the magic word">
-  <button class="btn" onclick="unlock()">Unlock</button>
-  <div id="taana"></div>
-  <div id="hint">Hint: Agar Yuvraj Rajkumar hai…<br>to tum uski kya ho? ❤️</div>
- </div>
+    <div class="card">
+        <img class="gif" src="https://media.tenor.com/lquwmqAgQekAAAAm/bubu-dudu.webp">
+        <p style="font-family:Pacifico;font-size:20px;">3 years of love… prove it ❤️</p>
+        <input id="pass" placeholder="Enter the magic word" style="width:100%; padding:12px; margin:15px 0; border-radius:15px; border:none; text-align:center;">
+        <button class="btn" onclick="unlock()">Unlock</button>
+        <div id="taana" style="color:red; margin-top:10px;"></div>
+    </div>
 </div>
 
 <div class="page" id="p2">
- <div class="card">
-  <img class="gif" src="https://media.tenor.com/YiMNm2QVdMoAAAAm/bubu-dudu-sseeyall.webp">
-  <div id="q_text" style="font-weight:600; margin-bottom:10px;"></div>
-  <div id="opts"></div>
- </div>
+    <div class="card">
+        <img class="gif" src="https://media.tenor.com/YiMNm2QVdMoAAAAm/bubu-dudu-sseeyall.webp">
+        <div id="q_text" style="font-weight:600;"></div>
+        <div id="opts"></div>
+    </div>
 </div>
 
 <div class="page" id="p3">
- <div class="card">
-  <img class="gif" src="https://media.tenor.com/nBQQ6XM5BhIAAAAm/cute.webp">
-  <p style="margin-bottom:20px;">Ready for the Ring Hunt? 💍</p>
-  <button class="btn" onclick="go(4)">YES</button>
-  <button class="btn" style="position:absolute" onmouseover="moveBtn(this)">NO</button>
- </div>
+    <div class="card">
+        <img class="gif" src="https://media.tenor.com/nBQQ6XM5BhIAAAAm/cute.webp">
+        <h3>One last check… 😉</h3>
+        <div class="btn-container">
+            <button class="btn" onclick="go(4)">YES</button>
+            <button class="btn" id="no-btn" onmouseover="moveNo()" onclick="moveNo()">NO I’M NOT INTERESTED</button>
+        </div>
+    </div>
 </div>
 
 <div class="page" id="p4">
- <div class="card">
-  <img class="gif" src="https://media.tenor.com/-3Z-ojIe5IcAAAAm/bubu-dudu-sseeyall.webp">
-  <div id="ringCount" style="font-weight:600">💍 0 / 3</div>
-  <p style="font-size:12px">Find the 3 hidden rings in the grass!</p>
-  <div class="grid" id="grid"></div>
- </div>
+    <div class="card">
+        <img class="gif" src="https://media.tenor.com/-3Z-ojIe5IcAAAAm/bubu-dudu-sseeyall.webp">
+        <h3 id="hunt-title">The Proposal Hunt 💍</h3>
+        <div id="ringCount" style="margin:10px 0;">💍 0 / 3</div>
+        <div class="grid" id="grid"></div>
+    </div>
 </div>
 
 <div class="page" id="p5">
- <div class="card">
-  <img class="gif" src="https://media.tenor.com/bvXwJ4I19ZQAAAAm/cat-cat-meme.webp">
-  <p>Catch 12 Hearts! ❤️</p>
-  <div id="score" style="font-size:24px; font-weight:bold; color:#ff6fb1">0 / 12</div>
- </div>
+    <div class="card">
+        <img class="gif" src="https://media.tenor.com/bvXwJ4I19ZQAAAAm/cat-cat-meme.webp">
+        <h3>Catch My Love ❤️</h3>
+        <div id="game-box"></div>
+        <div class="progress-container" id="p-cont"><div id="progress-bar"></div></div>
+        <button class="btn" id="start-btn" onclick="startGame()">Start Game</button>
+    </div>
 </div>
 
 <div class="page" id="p6">
- <div class="card">
-  <img class="gif" src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp">
-  <p style="font-family:Pacifico; font-size:22px;">❤️ My Dear Dimple ❤️</p>
-  <p style="font-size:14px; margin-top:10px; line-height:1.6">
-    These 3 years have been the most beautiful journey of my life. You are my strength, my happiness, and my future.
-  </p>
-  <button class="btn" onclick="go(7)">Next</button>
- </div>
+    <div class="card">
+        <img class="gif" src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp">
+        <h3>A Letter For You 💌</h3>
+        <div class="envelope-wrapper" id="env" onclick="this.classList.add('open')">
+            <div class="envelope-flap"></div>
+            <div class="letter">
+                <img src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp" style="width:50px; border-radius:50%">
+                <p>❤️ My Dear Dimple ❤️<br><br>
+                These 03 Precious Years Have Been The Most Beautiful Journey Of My Life. You Are My Strength, My Happiness, And My Future.<br><br>
+                - Only Yours Yuvraj 💋💕🧿</p>
+                <button class="btn" onclick="event.stopPropagation(); go(7)">Next</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="page" id="p7">
- <div class="card">
-  <img class="gif" src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp">
-  <p>Will you promise to be mine forever?</p>
-  <button class="btn" onclick="go(8)">One Last Thing ❤️</button>
- </div>
+    <div class="card">
+        <h3>Some Precious Moments 📸</h3>
+        <div id="photo-list">
+            <img src="images/p1.jpg" class="mem-img" onclick="openModal(this.src)" onerror="this.src='https://placehold.co/400x600?text=Memory+1'">
+            <img src="images/p2.jpg" class="mem-img" onclick="openModal(this.src)" onerror="this.src='https://placehold.co/400x600?text=Memory+2'">
+            <img src="images/p3.jpg" class="mem-img" onclick="openModal(this.src)" onerror="this.src='https://placehold.co/400x600?text=Memory+3'">
+            <img src="images/p4.jpg" class="mem-img" onclick="openModal(this.src)" onerror="this.src='https://placehold.co/400x600?text=Memory+4'">
+            <img src="images/p5.jpg" class="mem-img" onclick="openModal(this.src)" onerror="this.src='https://placehold.co/400x600?text=Memory+5'">
+            <img src="images/p6.jpg" class="mem-img" onclick="openModal(this.src)" onerror="this.src='https://placehold.co/400x600?text=Memory+6'">
+        </div>
+        <button class="btn" onclick="go(8)">One Last Thing… ❤️</button>
+    </div>
 </div>
 
 <div class="page" id="p8">
- <div class="card">
-  <img class="gif" src="https://media.tenor.com/qGiP_qcGH3MAAAAm/peach-goma.webp">
-  <p style="font-family:Pacifico; font-size:22px; color:#ff6fb1">I Love You! ❤️</p>
-  <p>Will you marry me, Mrs. Chauhan?</p>
-  <button class="btn" onclick="go(9)" style="font-size:22px">YES! 💍</button>
- </div>
+    <div class="card">
+        <img class="gif" src="https://media.tenor.com/qGiP_qcGH3MAAAAm/peach-goma.webp">
+        <h2 id="drama-q">Will you choose me? 💖</h2>
+        <div class="btn-container" style="flex-direction:column; align-items:center;">
+            <button class="btn" id="yes-drama" style="font-size: 18px; order: 1;" onclick="finalYes()">YES</button>
+            <button class="btn" id="no-drama" style="background:#888; order: 2;" onclick="dramaStep()">NO</button>
+        </div>
+    </div>
 </div>
 
 <div class="page" id="p9">
- <div class="card">
-  <img class="gif" src="https://media.tenor.com/nQD8tNYfJzQAAAAm/dance-love.webp">
-  <p style="font-weight:600">I know you love me a lot! 🎉</p>
-  <p style="font-size:13px; margin-top:10px;">See you soon, my Queen!</p>
-  <button class="btn" onclick="location.reload()">Wanna do this again?</button>
- </div>
+    <div class="card">
+        <img class="gif" src="https://media.tenor.com/nQD8tNYfJzQAAAAm/dance-love.webp">
+        <h2>I know you love me a lot! 🎉</h2>
+        <p style="margin:15px 0;">You chose me again — just like you did on April 6 & 31, 2023 💖</p>
+        <button class="btn" onclick="location.reload()">Wanna do this again?</button>
+    </div>
 </div>
 
-<footer>Developed with ❤️ by Yuvraj</footer>
+<div class="modal" id="modal" onclick="this.style.display='none'">
+    <img id="modal-img" src="">
+</div>
 
 <script>
+/* Navigation */
 function go(n){
- document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
- document.getElementById("p"+n).classList.add("active");
- if(n===2) loadQ();
+    document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+    document.getElementById("p"+n).classList.add("active");
+    if(n===2) loadQ();
 }
 
-function moveBtn(obj){
-    obj.style.left = Math.random() * 70 + '%';
-    obj.style.top = Math.random() * 70 + '%';
-}
-
-/* LOCK LOGIC */
-let tries=0;
-const taanas=[
-"Ghelsodi 😝 Fir Galat!",
-"Dhapudiii 😜 Soch ke likh!",
-"Bhilan ❌ 3 saal ka pyaar!",
-"Wagri 🤯 Seriously?",
-"Gaanduu Insaan 🤦‍♂️ Last Chance!"
-];
-
+/* Page 1: Unlock */
 function unlock(){
- let v=document.getElementById("pass").value.toLowerCase().trim();
- if(v==="rajkumari"){
-    go(2);
- } else {
-    document.getElementById("taana").innerText=taanas[Math.min(tries,4)];
-    tries++;
-    if(tries>=5) document.getElementById("hint").style.display="block";
- }
+    let v = document.getElementById("pass").value.toLowerCase().trim();
+    if(v==="rajkumari") go(2);
+    else document.getElementById("taana").innerText = "Ghelsodi! Soch ke likh 😜";
 }
 
-/* QUIZ LOGIC */
+/* Page 2: Quiz with Confetti */
 const quiz = [
-{q:"Who is the lucky one?",o:["Me","You","Both","Us","Always You"],a:2},
-{q:"What do you want from me?",o:["Gift","One Night Stand","Time","Stay Forever","Party"],a:3},
-{q:"Propose Day Par Aapka Yuvraj Se Sabse Bada Promise Kya Hai?", o:["Hamesha Saath Nibhana","Kabhi Jhoot Na Bolna Aur Dher Saara Pyaar Dena","Dhaal Banke Khade Rehna Aur Yuvi Ki Saari Baat Mananaa","Gaand Maarane Gaya Sab I Don't Fucking Care","Inme Se Sab (AAP Mere Aadarniya Pati-Parmeshwar Ho)"],a:4},
-{q:"Who is The Lucky One In This Relationship?", o:["Yuvraj","Dimple","Hum Dono","Universe","Fate"],a:2},
-{q:"Can You Stay Forever With Yuvraj?", o:["No","Maybe","Yes","7 Janam","Till My Last Breath"],a:4},
-{q:"Perfect Gift From Me?", o:["Ring","Letter","Chocolate","Lifetime Together","Hug"],a:3},
-{q:"First Thing You Liked In Me?", o:["Looks","Nature","Talk","Respect","Bas Ho Gaya Pyaar"],a:4},
-{q:"Mrs. Dimple Chauhan Banne Ki Excitement?", o:["Low","Medium","High","Dream Come True","Infinite"],a:4},
-{q:"What Do You Want The Most From Me?", o:["Money","Time","Care","Love","B+C+D"],a:4}
+    {q:"Propose Day Par Aapka Yuvraj Se Sabse Bada Promise?", o:["Hamesha Saath Nibhana","Kabhi Jhoot Na Bolna","Dhaal Banke Khade Rehna","Gaand Maarane Gaya Sab","Inme Se Sab (Pati-Parmeshwar Ho)"],a:4},
+    {q:"Can You Stay Forever With Yuvraj?", o:["No","Maybe","Yes","7 Janam","Till My Last Breath"],a:4},
+    {q:"Mrs. Dimple Chauhan Banne Ki Excitement?", o:["Low","Medium","High","Dream Come True","Infinite"],a:4}
 ];
-
 let qi=0;
 function loadQ(){
- let current = quiz[qi];
- document.getElementById("q_text").innerText = current.q;
- let optsDiv = document.getElementById("opts");
- optsDiv.innerHTML="";
- 
- current.o.forEach((t,i)=>{
-  let d=document.createElement("div");
-  d.className="option";
-  d.innerText=t;
-  d.onclick=()=>{
-   if(i===current.a) {
-       d.classList.add("right");
-       setTimeout(()=>{
-        qi++;
-        if(qi < quiz.length) loadQ();
-        else go(3);
-       }, 600);
-   } else {
-       d.classList.add("wrong");
-       navigator.vibrate?.(200);
-   }
-  };
-  optsDiv.appendChild(d);
- });
+    let curr = quiz[qi];
+    document.getElementById("q_text").innerText = curr.q;
+    let opts = document.getElementById("opts");
+    opts.innerHTML = "";
+    curr.o.forEach((t, i)=>{
+        let d = document.createElement("div");
+        d.className = "option"; d.innerText = t;
+        d.onclick = () => {
+            if(i === curr.a){
+                d.classList.add("right");
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#6dff9a', '#ffffff'] });
+                setTimeout(()=>{
+                    qi++;
+                    if(qi<quiz.length) loadQ(); else go(3);
+                }, 800);
+            } else { d.classList.add("wrong"); }
+        }
+        opts.appendChild(d);
+    });
 }
 
-/* RING HUNT LOGIC */
-const items=shuffle(["💩","💩","💍","💩","💍","💩","💩","💩","💍"]);
-let found=0;
+/* Page 3: Escape Button */
+function moveNo(){
+    let btn = document.getElementById("no-btn");
+    btn.style.position = "fixed";
+    btn.style.left = Math.random()*80 + "vw";
+    btn.style.top = Math.random()*80 + "vh";
+}
+
+/* Page 4: Fixed Ring Hunt */
+const layout = ["💩","💩","💍","💩","💍","💩","💩","💩","💍"];
+let found = 0;
 const grid = document.getElementById("grid");
-items.forEach(i=>{
- let d=document.createElement("div");
- d.className="cell";
- d.innerText="🍃";
- d.onclick=()=>{
-  if(d.innerText!=="🍃")return;
-  d.innerText=i;
-  if(i==="💍"){
-      found++;
-      document.getElementById("ringCount").innerText=`💍 ${found} / 3`;
-  }
-  if(found===3)setTimeout(()=>go(5),1000);
- };
- grid.appendChild(d);
+layout.forEach(item => {
+    let d = document.createElement("div");
+    d.className="cell"; d.innerText="🍃";
+    d.onclick = () => {
+        if(d.innerText !== "🍃") return;
+        d.innerText = item;
+        if(item === "💍"){
+            found++;
+            document.getElementById("ringCount").innerText = `💍 ${found} / 3`;
+            if(found===3) setTimeout(()=>go(5), 1000);
+        }
+    };
+    grid.appendChild(d);
 });
 
-function shuffle(array) {
-  return array.sort(() => Math.random() - 0.5);
+/* Page 5: Game Logic */
+let caught = 0;
+function startGame(){
+    document.getElementById("start-btn").style.display = "none";
+    document.getElementById("game-box").style.display = "block";
+    document.getElementById("p-cont").style.display = "block";
+    spawnHeart();
+}
+function spawnHeart(){
+    if(caught >= 12) return;
+    let h = document.createElement("div");
+    h.className = "game-heart"; h.innerText = "❤️";
+    h.style.left = Math.random()*250 + "px";
+    h.style.top = "-30px";
+    document.getElementById("game-box").appendChild(h);
+    
+    let pos = -30;
+    let anim = setInterval(()=>{
+        pos += 3;
+        h.style.top = pos + "px";
+        if(pos > 300){ clearInterval(anim); h.remove(); spawnHeart(); }
+    }, 30);
+
+    h.onclick = () => {
+        caught++;
+        clearInterval(anim);
+        h.remove();
+        document.getElementById("progress-bar").style.width = (caught/12)*100 + "%";
+        if(caught >= 12) setTimeout(()=>go(6), 500);
+        else spawnHeart();
+    };
 }
 
-/* HEART GAME LOGIC */
-let score=0;
-setInterval(()=>{
- if(document.getElementById("p5").classList.contains("active") && score < 12){
-  let h=document.createElement("div");
-  h.innerText="𓆩❤︎𓆪";
-  h.style.position="fixed";
-  h.style.left=Math.random()*90+"vw";
-  h.style.top="-20px";
-  h.style.fontSize="30px";
-  h.style.cursor="pointer";
-  h.style.transition="transform 4s linear";
-  
-  h.onclick=()=>{
-   score++;
-   document.getElementById("score").innerText=`${score} / 12`;
-   h.remove();
-   if(score>=12)go(6);
-  };
-  document.body.appendChild(h);
-  
-  setTimeout(()=> {
-      h.style.transform = "translateY(100vh)";
-  }, 10);
-  
-  setTimeout(()=>h.remove(),4000);
- }
-},700);
+/* Page 7: Modal */
+function openModal(src){
+    document.getElementById("modal").style.display="flex";
+    document.getElementById("modal-img").src = src;
+}
+
+/* Page 8: Drama Button */
+let step = 0;
+const texts = ["PLEASE", "PWEASEEE 🥺", "ARE YOU SURE?", "THINK AGAIN 😏", "CLICK YES! 🥺", "LAST CHANCE 💭"];
+let yesSize = 18;
+function dramaStep(){
+    let yes = document.getElementById("yes-drama");
+    let no = document.getElementById("no-drama");
+    if(step < texts.length){
+        no.innerText = texts[step];
+        yesSize += 30;
+        yes.style.fontSize = yesSize + "px";
+        step++;
+    } else {
+        no.style.display = "none";
+        yes.style.width = "100%";
+        yes.style.height = "100px";
+    }
+}
+function finalYes(){
+    confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
+    go(9);
+}
 </script>
 
 </body>
-</html>
+  </html>
+  
