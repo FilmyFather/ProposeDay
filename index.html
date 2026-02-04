@@ -9,167 +9,150 @@
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-  height:100vh;
-  overflow:hidden;
-  font-family:Poppins,sans-serif;
-  background:linear-gradient(135deg,#ffd1e8,#f5d9ff,#ffe6f2);
-}
+/* --- CORE STYLES --- */
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif;}
+body{height:100vh;overflow:hidden;background:linear-gradient(135deg,#ffd1e8,#f5d9ff,#ffe6f2);touch-action:none;}
 
-/* pages */
-.page{
-  display:none;
-  height:100%;
-  width:100%;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  flex-direction: column;
-}
+.page{display:none;height:100%;width:100%;align-items:center;justify-content:center;padding:20px;flex-direction:column;}
 .page.active{display:flex}
 
-/* glass card */
 .card{
-  width:100%;
-  max-width:420px;
-  background:rgba(255,255,255,.25);
-  backdrop-filter:blur(18px);
-  border-radius:28px;
-  padding:24px;
-  text-align:center;
-  box-shadow:0 30px 70px rgba(0,0,0,.18);
-  border: 1px solid rgba(255,255,255,0.3);
-  position: relative;
+  width:100%;max-width:420px;background:rgba(255,255,255,.25);backdrop-filter:blur(18px);
+  border-radius:28px;padding:24px;text-align:center;box-shadow:0 30px 70px rgba(0,0,0,.18);
+  border:1px solid rgba(255,255,255,0.3);position:relative;
 }
 
-.gif{ width:120px; height:120px; border-radius:50%; object-fit:cover; margin-bottom: 15px; }
-
-/* Buttons */
-.btn-container { display: flex; justify-content: center; gap: 15px; margin-top: 20px; position: relative; }
-.btn{
-  padding:14px 22px; border:none; border-radius:20px;
-  background:linear-gradient(135deg,#ff6fb1,#ff9fd6);
-  color:#fff; font-weight:600; cursor: pointer; transition: 0.3s;
+/* --- LUXURY MUSIC CONTROL (DRAGGABLE) --- */
+#music-wrapper{
+    position:fixed;top:15px;right:15px;z-index:9999;
+    display:flex;flex-direction:column;align-items:center;
+    touch-action: none; user-select: none;
 }
-
-/* Quiz Styles */
-.option{ padding:12px; border-radius:18px; background:rgba(255,255,255,.45); margin-top:10px; cursor: pointer; }
-.option.right{ background:#6dff9a !important; }
-.option.wrong{ background:#ff6b6b !important; animation:shake .3s; }
-
-/* Ring Hunt - Fixed Grid */
-.grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:20px; }
-.cell{ font-size:32px; padding:18px; border-radius:16px; background:rgba(255,255,255,.45); cursor: pointer; }
-
-/* Game Box Page 5 */
-#game-box {
-    width: 280px; height: 300px; background: rgba(255,255,255,0.3);
-    border: 2px dashed #ff6fb1; margin: 15px auto; position: relative;
-    overflow: hidden; border-radius: 15px; display: none;
+.music-box{
+    width:80px;height:80px;border-radius:50%;backdrop-filter:blur(15px);
+    background:rgba(255,255,255,0.1);
+    box-shadow:0 0 25px rgba(255,105,180,0.4);
+    display:flex;justify-content:center;align-items:center;
+    cursor:pointer;animation:pulse 2.5s infinite;
 }
-.game-heart { position: absolute; font-size: 25px; cursor: pointer; user-select: none; }
-.progress-container { width: 100%; height: 15px; background: #eee; border-radius: 10px; margin: 15px 0; overflow: hidden; display:none; }
-#progress-bar { width: 0%; height: 100%; background: #ff6fb1; transition: 0.3s; }
+@keyframes pulse{
+    0%,100%{ box-shadow:0 0 15px rgba(255,105,180,0.4); transform: scale(1);}
+    50%{ box-shadow:0 0 45px rgba(0,200,255,0.5); transform: scale(1.05);}
+}
+.music-box span{font-size:35px;}
+.music-options{
+    margin-top:12px;display:none;flex-direction:column;gap:8px;
+}
+.music-options button{
+    width:110px;padding:10px;border-radius:14px;border:1px solid rgba(255,255,255,0.3);
+    background:rgba(255,255,255,0.15);color:#444;font-size:13px;font-weight:600;
+    cursor:pointer;backdrop-filter:blur(10px);transition: 0.3s;
+}
+.music-options button:hover{ background:rgba(255,255,255,0.4); }
 
-/* Page 6: Letter */
-.envelope-wrapper { position: relative; width: 200px; height: 150px; background: #ff9fd6; margin: 20px auto; cursor: pointer; border-radius: 0 0 10px 10px; }
-.envelope-flap { 
-    position: absolute; top: 0; left: 0; width: 0; height: 0; 
-    border-left: 100px solid transparent; border-right: 100px solid transparent;
-    border-top: 80px solid #ff6fb1; transform-origin: top; transition: 0.6s; z-index: 3;
-}
-.letter {
-    position: absolute; bottom: 5px; left: 10px; width: 180px; height: 130px;
-    background: #fff9f0; padding: 10px; border-radius: 5px; transition: 0.8s;
-    z-index: 2; overflow-y: auto; text-align: left; font-family: 'Pacifico', cursive; font-size: 12px;
-}
+/* --- BUTTONS & ELEMENTS --- */
+.btn{padding:14px 22px;border:none;border-radius:20px;background:linear-gradient(135deg,#ff6fb1,#ff9fd6);color:#fff;font-weight:600;cursor:pointer;margin-top:15px;box-shadow: 0 4px 15px rgba(255,111,177,0.3);}
+.option{padding:12px;border-radius:18px;background:rgba(255,255,255,.45);margin-top:10px;cursor:pointer;transition:0.3s;}
+.option.right{background:#6dff9a !important;}
+.option.wrong{background:#ff6b6b !important;animation:shake .3s;}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px;}
+.cell{font-size:32px;padding:18px;border-radius:16px;background:rgba(255,255,255,.45);cursor:pointer;}
+#game-box {width:280px;height:300px;border:2px dashed #ff6fb1;margin:15px auto;position:relative;overflow:hidden;border-radius:15px;display:none;background:rgba(255,255,255,0.2);}
+.progress-container {width:100%;height:15px;background:#eee;border-radius:10px;margin:15px 0;overflow:hidden;display:none;}
+#progress-bar {width:0%;height:100%;background:#ff6fb1;transition:0.3s;}
+
+/* --- ENVELOPE --- */
+.envelope-wrapper { position: relative; width: 160px; height: 110px; background: #ff9fd6; margin: 20px auto; cursor: pointer; border-radius: 0 0 10px 10px; }
+.envelope-flap { position: absolute; top: 0; left: 0; border-left: 80px solid transparent; border-right: 80px solid transparent; border-top: 65px solid #ff6fb1; transform-origin: top; transition: 0.6s; z-index: 3; }
+.letter { position: absolute; bottom: 5px; left: 5px; width: 150px; height: 90px; background: #fff; padding: 15px; border-radius: 5px; transition: 0.8s; z-index: 2; overflow: hidden; font-size: 11px; }
 .envelope-wrapper.open .envelope-flap { transform: rotateX(180deg); z-index: 1; }
-.envelope-wrapper.open .letter { transform: translateY(-120px); height: 250px; width: 280px; left: -40px; z-index: 5; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+.envelope-wrapper.open .letter { transform: translateY(-130px); height: 280px; width: 300px; left: -70px; z-index: 5; font-size: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); overflow-y: auto; font-family: 'Pacifico';}
 
-/* Page 7: Memories */
-#photo-list { height: 400px; overflow-y: auto; padding: 10px; }
-.mem-img { width: 100%; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; }
-.modal { display:none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:100; align-items:center; justify-content:center; }
-.modal img { max-width: 90%; max-height: 80%; border-radius: 10px; }
+/* --- MEMORIES --- */
+#photo-list { height: 380px; overflow-y: auto; padding: 10px; scrollbar-width: none;}
+.mem-img { width: 100%; border-radius: 18px; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); transition: 0.3s;}
 
-/* Floating Hearts */
-.heart-bg{ position:fixed; bottom:-20px; opacity:.35; font-size:14px; animation:float 10s linear infinite; pointer-events: none; }
-@keyframes float{ to{transform:translateY(-110vh) translateX(20px)} }
 @keyframes shake{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
 </style>
 </head>
 <body>
 
-<script>
-for(let i=0;i<15;i++){
- let h=document.createElement("div");
- h.className="heart-bg"; h.innerText="❤️";
- h.style.left=Math.random()*100+"vw";
- h.style.animationDuration=6+Math.random()*6+"s";
- document.body.appendChild(h);
-}
-</script>
+<audio id="bgMusic" loop>
+    <source src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3?hash=AgADnS" type="audio/mpeg">
+</audio>
+
+<div id="music-wrapper">
+    <div class="music-box" id="musicBtn" onclick="toggleMusicMenu()">
+        <span>🎧</span>
+    </div>
+    <div class="music-options" id="musicMenu">
+        <button onclick="handleVolume(0.2)">LOW</button>
+        <button onclick="handleVolume(0.5)">MID</button>
+        <button onclick="handleVolume(1.0)">HIGH</button>
+        <button onclick="handleVolume(0)">MUTE</button>
+    </div>
+</div>
 
 <div class="page active" id="p1">
     <div class="card">
-        <img class="gif" src="https://media.tenor.com/lquwmqAgQekAAAAm/bubu-dudu.webp">
-        <p style="font-family:Pacifico;font-size:20px;">3 years of love… prove it ❤️</p>
-        <input id="pass" placeholder="Enter the magic word" style="width:100%; padding:12px; margin:15px 0; border-radius:15px; border:none; text-align:center;">
-        <button class="btn" onclick="unlock()">Unlock</button>
-        <div id="taana" style="color:red; margin-top:10px;"></div>
+        <img src="https://media.tenor.com/lquwmqAgQekAAAAm/bubu-dudu.webp" class="gif">
+        <p style="font-family:Pacifico; font-size:22px; color:#ff6fb1">3 years of love… prove it ❤️</p>
+        <input id="passInput" type="text" placeholder="Magic word..." style="width:100%; padding:14px; margin:15px 0; border:none; border-radius:15px; background:rgba(255,255,255,0.6); text-align:center; outline:none;">
+        <button class="btn" onclick="validateLock()">Unlock</button>
+        <div id="taanaBox" style="margin-top:15px; color:#d63384; font-size:14px; font-weight:600; min-height:20px;"></div>
+        <div id="hintBox" style="display:none; margin-top:15px; background:rgba(255,255,255,0.5); padding:12px; border-radius:15px; border:1px dashed #ff6fb1; font-size:13px;">
+            Hint: Agar Yuvraj Rajkumar hai… to tum kya ho? ❤️
+        </div>
     </div>
 </div>
 
 <div class="page" id="p2">
     <div class="card">
-        <img class="gif" src="https://media.tenor.com/YiMNm2QVdMoAAAAm/bubu-dudu-sseeyall.webp">
-        <div id="q_text" style="font-weight:600;"></div>
-        <div id="opts"></div>
+        <img src="https://media.tenor.com/YiMNm2QVdMoAAAAm/bubu-dudu-sseeyall.webp" class="gif">
+        <p id="quizText" style="font-weight:600; margin-bottom:15px;"></p>
+        <div id="quizOpts"></div>
     </div>
 </div>
 
 <div class="page" id="p3">
     <div class="card">
-        <img class="gif" src="https://media.tenor.com/nBQQ6XM5BhIAAAAm/cute.webp">
-        <h3>One last check… 😉</h3>
-        <div class="btn-container">
+        <img src="https://media.tenor.com/nBQQ6XM5BhIAAAAm/cute.webp" class="gif">
+        <h3 style="color:#ff6fb1">One last check… 😉</h3>
+        <div style="display:flex; gap:15px; margin-top:25px; justify-content:center;">
             <button class="btn" onclick="go(4)">YES</button>
-            <button class="btn" id="no-btn" onmouseover="moveNo()" onclick="moveNo()">NO I’M NOT INTERESTED</button>
+            <button class="btn" id="noBtn" onmouseover="dodge()" style="background:#bbb;">NO</button>
         </div>
     </div>
 </div>
 
 <div class="page" id="p4">
     <div class="card">
-        <img class="gif" src="https://media.tenor.com/-3Z-ojIe5IcAAAAm/bubu-dudu-sseeyall.webp">
-        <h3 id="hunt-title">The Proposal Hunt 💍</h3>
-        <div id="ringCount" style="margin:10px 0;">💍 0 / 3</div>
-        <div class="grid" id="grid"></div>
+        <img src="https://media.tenor.com/-3Z-ojIe5IcAAAAm/bubu-dudu-sseeyall.webp" class="gif">
+        <h3>The Proposal Hunt 💍</h3>
+        <p id="ringCount" style="margin:10px 0; font-weight:600;">💍 0 / 3</p>
+        <div class="grid" id="ringGrid"></div>
     </div>
 </div>
 
 <div class="page" id="p5">
     <div class="card">
-        <img class="gif" src="https://media.tenor.com/bvXwJ4I19ZQAAAAm/cat-cat-meme.webp">
+        <img src="https://media.tenor.com/bvXwJ4I19ZQAAAAm/cat-cat-meme.webp" class="gif">
         <h3>Catch My Love ❤️</h3>
         <div id="game-box"></div>
-        <div class="progress-container" id="p-cont"><div id="progress-bar"></div></div>
-        <button class="btn" id="start-btn" onclick="startGame()">Start Game</button>
+        <div class="progress-container" id="prog-wrap"><div id="progress-bar"></div></div>
+        <button class="btn" id="gameStarter" onclick="initHeartGame()">Start Game</button>
     </div>
 </div>
 
 <div class="page" id="p6">
     <div class="card">
-        <img class="gif" src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp">
         <h3>A Letter For You 💌</h3>
-        <div class="envelope-wrapper" id="env" onclick="this.classList.add('open')">
+        <div class="envelope-wrapper" onclick="this.classList.add('open')">
             <div class="envelope-flap"></div>
             <div class="letter">
-                <img src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp" style="width:50px; border-radius:50%">
                 <p>❤️ My Dear Dimple ❤️<br><br>
                 These 03 Precious Years Have Been The Most Beautiful Journey Of My Life. You Are My Strength, My Happiness, And My Future.<br><br>
-                - Only Yours Yuvraj 💋💕🧿</p>
+                - Only Yours Yuvraj 💋💕🧿</p><br>
                 <button class="btn" onclick="event.stopPropagation(); go(7)">Next</button>
             </div>
         </div>
@@ -180,12 +163,12 @@ for(let i=0;i<15;i++){
     <div class="card">
         <h3>Some Precious Moments 📸</h3>
         <div id="photo-list">
-            <img src="images/p1.jpg" class="mem-img" onclick="openModal(this.src)" onerror="this.src='https://placehold.co/400x600?text=Memory+1'">
-            <img src="images/p2.jpg" class="mem-img" onclick="openModal(this.src)" onerror="this.src='https://placehold.co/400x600?text=Memory+2'">
-            <img src="images/p3.jpg" class="mem-img" onclick="openModal(this.src)" onerror="this.src='https://placehold.co/400x600?text=Memory+3'">
-            <img src="images/p4.jpg" class="mem-img" onclick="openModal(this.src)" onerror="this.src='https://placehold.co/400x600?text=Memory+4'">
-            <img src="images/p5.jpg" class="mem-img" onclick="openModal(this.src)" onerror="this.src='https://placehold.co/400x600?text=Memory+5'">
-            <img src="images/p6.jpg" class="mem-img" onclick="openModal(this.src)" onerror="this.src='https://placehold.co/400x600?text=Memory+6'">
+            <img src="images/p1.jpg" class="mem-img" onerror="this.src='https://placehold.co/400x500?text=Precious+Moment+1'">
+            <img src="images/p2.jpg" class="mem-img" onerror="this.src='https://placehold.co/400x500?text=Precious+Moment+2'">
+            <img src="images/p3.jpg" class="mem-img" onerror="this.src='https://placehold.co/400x500?text=Precious+Moment+3'">
+            <img src="images/p4.jpg" class="mem-img" onerror="this.src='https://placehold.co/400x500?text=Precious+Moment+4'">
+            <img src="images/p5.jpg" class="mem-img" onerror="this.src='https://placehold.co/400x500?text=Precious+Moment+5'">
+            <img src="images/p6.jpg" class="mem-img" onerror="this.src='https://placehold.co/400x500?text=Precious+Moment+6'">
         </div>
         <button class="btn" onclick="go(8)">One Last Thing… ❤️</button>
     </div>
@@ -193,162 +176,189 @@ for(let i=0;i<15;i++){
 
 <div class="page" id="p8">
     <div class="card">
-        <img class="gif" src="https://media.tenor.com/qGiP_qcGH3MAAAAm/peach-goma.webp">
-        <h2 id="drama-q">Will you choose me? 💖</h2>
-        <div class="btn-container" style="flex-direction:column; align-items:center;">
-            <button class="btn" id="yes-drama" style="font-size: 18px; order: 1;" onclick="finalYes()">YES</button>
-            <button class="btn" id="no-drama" style="background:#888; order: 2;" onclick="dramaStep()">NO</button>
+        <img src="https://media.tenor.com/qGiP_qcGH3MAAAAm/peach-goma.webp" class="gif">
+        <h2 id="finalQ">Will you choose me? 💖</h2>
+        <div style="display:flex; flex-direction:column; align-items:center;">
+            <button class="btn" id="yesBtn" onclick="finishStory()" style="font-size:18px; z-index:100;">YES</button>
+            <button class="btn" id="dramaBtn" onclick="increaseDrama()" style="background:#999;">NO</button>
         </div>
     </div>
 </div>
 
 <div class="page" id="p9">
     <div class="card">
-        <img class="gif" src="https://media.tenor.com/nQD8tNYfJzQAAAAm/dance-love.webp">
-        <h2>I know you love me a lot! 🎉</h2>
-        <p style="margin:15px 0;">You chose me again — just like you did on April 6 & 31, 2023 💖</p>
+        <img src="https://media.tenor.com/nQD8tNYfJzQAAAAm/dance-love.webp" class="gif">
+        <h2 style="color:#ff6fb1">I know you love me a lot! 🎉</h2>
+        <p style="margin-top:15px; font-size:14px; line-height:1.6">You chose me again — just like you did on April 6 & 31, 2023 💖</p>
         <button class="btn" onclick="location.reload()">Wanna do this again?</button>
     </div>
 </div>
 
-<div class="modal" id="modal" onclick="this.style.display='none'">
-    <img id="modal-img" src="">
-</div>
-
 <script>
-/* Navigation */
-function go(n){
-    document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+/* --- 1. DRAGGABLE HEADPHONE --- */
+const wrapper = document.getElementById("music-wrapper");
+let isDragging = false;
+let offsetX, offsetY;
+
+wrapper.addEventListener("pointerdown", (e) => {
+    if(e.target.tagName === 'BUTTON') return;
+    isDragging = true;
+    offsetX = e.clientX - wrapper.getBoundingClientRect().left;
+    offsetY = e.clientY - wrapper.getBoundingClientRect().top;
+    wrapper.setPointerCapture(e.pointerId);
+});
+
+wrapper.addEventListener("pointermove", (e) => {
+    if(!isDragging) return;
+    wrapper.style.left = (e.clientX - offsetX) + "px";
+    wrapper.style.top = (e.clientY - offsetY) + "px";
+    wrapper.style.right = "auto";
+});
+
+wrapper.addEventListener("pointerup", (e) => {
+    isDragging = false;
+    wrapper.releasePointerCapture(e.pointerId);
+});
+
+/* --- 2. MUSIC LOGIC --- */
+const music = document.getElementById("bgMusic");
+const menu = document.getElementById("musicMenu");
+
+function toggleMusicMenu() {
+    menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+}
+
+function handleVolume(v) {
+    if(v === 0) {
+        music.pause();
+    } else {
+        music.volume = v;
+        if(music.paused && music.currentTime > 0) music.play();
+    }
+    menu.style.display = "none";
+}
+
+/* --- 3. PASSWORD & UNLOCK --- */
+let lockTries = 0;
+const taunts = ["Ghelsodi 😝 Fir Galat!", "Dhapudiii 😜 Soch ke likh!", "Bhilan ❌ 3 saal!", "Wagri 🤯 Seriously?", "Gaanduu Insaan 🤦‍♂️ Last Chance!"];
+
+function validateLock() {
+    let inp = document.getElementById("passInput").value.toLowerCase().trim();
+    if(inp === "rajkumari") {
+        confetti({ particleCount: 200, spread: 80, origin: { y: 0.6 } });
+        // CHECKLIST STEP 3: Start 62s
+        music.currentTime = 62;
+        music.play();
+        setTimeout(() => go(2), 1000);
+    } else {
+        document.getElementById("taanaBox").innerText = taunts[Math.min(lockTries, 4)];
+        lockTries++;
+        if(lockTries >= 5) document.getElementById("hintBox").style.display = "block";
+    }
+}
+
+/* --- 4. NAVIGATION --- */
+function go(n) {
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
     document.getElementById("p"+n).classList.add("active");
-    if(n===2) loadQ();
+    if(n === 2) buildQuiz();
 }
 
-/* Page 1: Unlock */
-function unlock(){
-    let v = document.getElementById("pass").value.toLowerCase().trim();
-    if(v==="rajkumari") go(2);
-    else document.getElementById("taana").innerText = "Ghelsodi! Soch ke likh 😜";
-}
-
-/* Page 2: Quiz with Confetti */
-const quiz = [
-    {q:"Propose Day Par Aapka Yuvraj Se Sabse Bada Promise?", o:["Hamesha Saath Nibhana","Kabhi Jhoot Na Bolna","Dhaal Banke Khade Rehna","Gaand Maarane Gaya Sab","Inme Se Sab (Pati-Parmeshwar Ho)"],a:4},
+/* --- 5. QUIZ (DARK CONFETTI) --- */
+const questions = [
+    {q:"Propose Day Par Aapka Sabse Bada Promise?", o:["Saath Nibhana","Kabhi Jhoot Na Bolna","Dhaal Banna","I Don't Care","Inme Se Sab (Pati-Parmeshwar Ho)"],a:4},
     {q:"Can You Stay Forever With Yuvraj?", o:["No","Maybe","Yes","7 Janam","Till My Last Breath"],a:4},
     {q:"Mrs. Dimple Chauhan Banne Ki Excitement?", o:["Low","Medium","High","Dream Come True","Infinite"],a:4}
 ];
-let qi=0;
-function loadQ(){
-    let curr = quiz[qi];
-    document.getElementById("q_text").innerText = curr.q;
-    let opts = document.getElementById("opts");
-    opts.innerHTML = "";
-    curr.o.forEach((t, i)=>{
-        let d = document.createElement("div");
-        d.className = "option"; d.innerText = t;
+let qIdx = 0;
+function buildQuiz() {
+    let q = questions[qIdx];
+    document.getElementById("quizText").innerText = q.q;
+    let box = document.getElementById("quizOpts");
+    box.innerHTML = "";
+    q.o.forEach((t, i) => {
+        let d = document.createElement("div"); d.className="option"; d.innerText=t;
         d.onclick = () => {
-            if(i === curr.a){
+            if(i === q.a) {
                 d.classList.add("right");
-                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#6dff9a', '#ffffff'] });
-                setTimeout(()=>{
-                    qi++;
-                    if(qi<quiz.length) loadQ(); else go(3);
-                }, 800);
-            } else { d.classList.add("wrong"); }
-        }
-        opts.appendChild(d);
+                confetti({ particleCount: 100, colors: ['#4b0082', '#ff0080', '#000000'] }); // Dark Celebration
+                setTimeout(() => { qIdx++; if(qIdx < questions.length) buildQuiz(); else go(3); }, 800);
+            } else d.classList.add("wrong");
+        };
+        box.appendChild(d);
     });
 }
 
-/* Page 3: Escape Button */
-function moveNo(){
-    let btn = document.getElementById("no-btn");
+/* --- 6. PAGE 3 DODGE --- */
+function dodge() {
+    let btn = document.getElementById("noBtn");
     btn.style.position = "fixed";
     btn.style.left = Math.random()*80 + "vw";
     btn.style.top = Math.random()*80 + "vh";
 }
 
-/* Page 4: Fixed Ring Hunt */
-const layout = ["💩","💩","💍","💩","💍","💩","💩","💩","💍"];
-let found = 0;
-const grid = document.getElementById("grid");
-layout.forEach(item => {
-    let d = document.createElement("div");
-    d.className="cell"; d.innerText="🍃";
-    d.onclick = () => {
-        if(d.innerText !== "🍃") return;
-        d.innerText = item;
-        if(item === "💍"){
-            found++;
-            document.getElementById("ringCount").innerText = `💍 ${found} / 3`;
-            if(found===3) setTimeout(()=>go(5), 1000);
+/* --- 7. RING HUNT (FIXED) --- */
+const ringMap = ["💩","💩","💍","💩","💍","💩","💩","💩","💍"];
+let foundRings = 0;
+ringMap.forEach(item => {
+    let c = document.createElement("div"); c.className="cell"; c.innerText="🍃";
+    c.onclick = () => {
+        if(c.innerText !== "🍃") return;
+        c.innerText = item;
+        if(item === "💍") {
+            foundRings++;
+            document.getElementById("ringCount").innerText = `💍 ${foundRings} / 3`;
+            if(foundRings === 3) setTimeout(() => go(5), 1000);
         }
     };
-    grid.appendChild(d);
+    document.getElementById("ringGrid").appendChild(c);
 });
 
-/* Page 5: Game Logic */
-let caught = 0;
-function startGame(){
-    document.getElementById("start-btn").style.display = "none";
+/* --- 8. HEART GAME --- */
+let catchScore = 0;
+function initHeartGame() {
+    document.getElementById("gameStarter").style.display = "none";
     document.getElementById("game-box").style.display = "block";
-    document.getElementById("p-cont").style.display = "block";
+    document.getElementById("prog-wrap").style.display = "block";
     spawnHeart();
 }
-function spawnHeart(){
-    if(caught >= 12) return;
+function spawnHeart() {
+    if(catchScore >= 12) return;
     let h = document.createElement("div");
-    h.className = "game-heart"; h.innerText = "❤️";
-    h.style.left = Math.random()*250 + "px";
-    h.style.top = "-30px";
+    h.innerText="❤️"; h.style.position="absolute"; h.style.left=Math.random()*250+"px"; h.style.top="-30px"; h.style.fontSize="25px"; h.style.cursor="pointer";
     document.getElementById("game-box").appendChild(h);
-    
-    let pos = -30;
-    let anim = setInterval(()=>{
-        pos += 3;
-        h.style.top = pos + "px";
-        if(pos > 300){ clearInterval(anim); h.remove(); spawnHeart(); }
+    let top = -30;
+    let fall = setInterval(() => {
+        top += 3; h.style.top = top + "px";
+        if(top > 300) { clearInterval(fall); h.remove(); spawnHeart(); }
     }, 30);
-
     h.onclick = () => {
-        caught++;
-        clearInterval(anim);
-        h.remove();
-        document.getElementById("progress-bar").style.width = (caught/12)*100 + "%";
-        if(caught >= 12) setTimeout(()=>go(6), 500);
-        else spawnHeart();
+        catchScore++;
+        clearInterval(fall); h.remove();
+        document.getElementById("progress-bar").style.width = (catchScore/12)*100 + "%";
+        if(catchScore >= 12) setTimeout(() => go(6), 500); else spawnHeart();
     };
 }
 
-/* Page 7: Modal */
-function openModal(src){
-    document.getElementById("modal").style.display="flex";
-    document.getElementById("modal-img").src = src;
-}
-
-/* Page 8: Drama Button */
-let step = 0;
-const texts = ["PLEASE", "PWEASEEE 🥺", "ARE YOU SURE?", "THINK AGAIN 😏", "CLICK YES! 🥺", "LAST CHANCE 💭"];
-let yesSize = 18;
-function dramaStep(){
-    let yes = document.getElementById("yes-drama");
-    let no = document.getElementById("no-drama");
-    if(step < texts.length){
-        no.innerText = texts[step];
-        yesSize += 30;
-        yes.style.fontSize = yesSize + "px";
-        step++;
+/* --- 9. YES DRAMA --- */
+let dramaStep = 0;
+const dramaTxt = ["PLEASE", "PWEASEEE 🥺", "ARE YOU SURE?", "THINK AGAIN 😏", "CLICK YES! 🥺", "LAST CHANCE 💭"];
+let yesFSize = 18;
+function increaseDrama() {
+    let y = document.getElementById("yesBtn");
+    let n = document.getElementById("dramaBtn");
+    if(dramaStep < dramaTxt.length) {
+        n.innerText = dramaTxt[dramaStep];
+        yesFSize += 35;
+        y.style.fontSize = yesFSize + "px";
+        dramaStep++;
     } else {
-        no.style.display = "none";
-        yes.style.width = "100%";
-        yes.style.height = "100px";
+        n.style.display = "none";
+        y.style.width = "100%";
+        y.style.height = "200px";
     }
 }
-function finalYes(){
-    confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
-    go(9);
-}
+function finishStory() { confetti({ particleCount: 300, spread: 100 }); go(9); }
 </script>
-
 </body>
-  </html>
-  
+</html>
