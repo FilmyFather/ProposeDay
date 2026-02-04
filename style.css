@@ -1,28 +1,30 @@
-/* ======================
-   RESET + BODY
-====================== */
+/* ================= RESET ================= */
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
 }
 
+html,body{
+  width:100%;
+  height:100%;
+}
+
+/* ================= BODY ================= */
 body{
   font-family:'Poppins',sans-serif;
   background:radial-gradient(circle at top,#2b0014,#0b0005);
   color:#fff;
-  min-height:100vh;
   text-align:center;
   overflow-x:hidden;
 }
 
+/* ================= FONTS ================= */
 .cursive{
   font-family:'Dancing Script',cursive;
 }
 
-/* ======================
-   FLOATING HEARTS (BG)
-====================== */
+/* ================= FLOATING HEARTS ================= */
 .hearts{
   position:fixed;
   inset:0;
@@ -37,43 +39,37 @@ body{
 }
 
 @keyframes float{
-  0%{transform:translateY(0);}
-  50%{transform:translateY(-25px);}
-  100%{transform:translateY(0);}
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-25px)}
+  100%{transform:translateY(0)}
 }
 
-/* ======================
-   PAGE
-====================== */
+/* ================= PAGE ================= */
 .page{
   display:none;
   min-height:100vh;
-  padding:60px 20px;
+  padding:60px 20px 90px;
 }
 
 .page.active{
   display:block;
 }
 
-/* ======================
-   TOP GIF
-====================== */
+/* ================= TOP GIF ================= */
 .top-gif{
   width:160px;
   height:160px;
   border-radius:50%;
   object-fit:cover;
-  border:3px solid rgba(255,255,255,0.25);
-  box-shadow:0 0 20px rgba(255,77,109,0.35);
-  margin-bottom:20px;
+  border:3px solid rgba(255,255,255,.25);
+  box-shadow:0 0 20px rgba(255,77,109,.35);
+  margin-bottom:22px;
 }
 
-/* ======================
-   INPUT
-====================== */
+/* ================= INPUT ================= */
 input{
   margin-top:20px;
-  margin-bottom:12px;
+  margin-bottom:14px;
   padding:14px;
   width:80%;
   max-width:320px;
@@ -84,11 +80,9 @@ input{
   outline:none;
 }
 
-/* ======================
-   BUTTONS
-====================== */
+/* ================= BUTTON ================= */
 .btn{
-  margin-top:20px;
+  margin-top:14px;
   padding:14px 30px;
   border:none;
   border-radius:999px;
@@ -96,55 +90,33 @@ input{
   color:#fff;
   font-size:16px;
   cursor:pointer;
-  transition:.25s;
 }
 
 .btn-outline{
-  background:rgba(255,255,255,0.1);
-  border:1px solid rgba(255,255,255,0.3);
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.3);
 }
 
 .btn:active{
-  transform:scale(0.95);
+  transform:scale(.95);
 }
 
-/* ======================
-   SHAKE
-====================== */
+/* ================= SHAKE ================= */
 .shake{
   animation:shake .4s;
 }
 
 @keyframes shake{
-  0%{transform:translateX(0);}
-  25%{transform:translateX(-6px);}
-  50%{transform:translateX(6px);}
-  75%{transform:translateX(-6px);}
-  100%{transform:translateX(0);}
+  0%{transform:translateX(0)}
+  25%{transform:translateX(-6px)}
+  50%{transform:translateX(6px)}
+  75%{transform:translateX(-6px)}
+  100%{transform:translateX(0)}
 }
 
-/* ======================
-   HINT PREMIUM BOX
-====================== */
-.hint-box{
-  margin-top:14px;
-  padding:12px 16px;
-  border-radius:14px;
-  background:rgba(255,255,255,0.15);
-  backdrop-filter:blur(8px);
-  color:#ffe6ee;
-  font-size:14px;
-  line-height:1.4;
-  box-shadow:
-    0 0 20px rgba(255,77,109,0.25),
-    inset 0 0 12px rgba(255,255,255,0.15);
-}
-
-/* ======================
-   QUIZ
-====================== */
+/* ================= QUIZ ================= */
 .quiz-card{
-  background:rgba(255,255,255,0.08);
+  background:rgba(255,255,255,.08);
   border-radius:24px;
   padding:24px;
   max-width:420px;
@@ -152,12 +124,12 @@ input{
 }
 
 .quiz-option{
-  margin:10px 0;
+  margin:12px 0;
   padding:14px;
   border-radius:999px;
-  background:rgba(255,255,255,0.15);
+  background:rgba(255,255,255,.15);
   cursor:pointer;
-  transition:.25s;
+  transition:.3s;
 }
 
 .quiz-option.correct{
@@ -168,19 +140,15 @@ input{
   background:#a32121;
 }
 
-/* ======================
-   PAGE 3
-====================== */
+/* ================= PAGE 3 ================= */
 .sec-actions{
   margin-top:30px;
   display:flex;
-  gap:20px;
+  gap:18px;
   justify-content:center;
 }
 
-/* ======================
-   PROPOSAL HUNT
-====================== */
+/* ================= PROPOSAL HUNT ================= */
 .grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -192,7 +160,7 @@ input{
 .card{
   height:90px;
   border-radius:18px;
-  background:rgba(255,255,255,0.12);
+  background:rgba(255,255,255,.12);
   display:flex;
   align-items:center;
   justify-content:center;
@@ -200,14 +168,12 @@ input{
   cursor:pointer;
 }
 
-/* ======================
-   CATCH GAME
-====================== */
+/* ================= CATCH GAME ================= */
 .game-box{
   width:320px;
   height:320px;
   margin:20px auto;
-  border:2px dashed rgba(255,255,255,0.4);
+  border:2px dashed rgba(255,255,255,.4);
   border-radius:20px;
   position:relative;
   overflow:hidden;
@@ -221,32 +187,30 @@ input{
 }
 
 @keyframes fall{
-  to{top:100%;}
+  to{top:100%}
 }
 
 .progress{
   width:320px;
   height:8px;
-  background:rgba(255,255,255,0.25);
-  border-radius:10px;
+  background:rgba(255,255,255,.25);
   margin:10px auto;
+  border-radius:10px;
 }
 
 .progress span{
   display:block;
   height:100%;
-  width:0%;
+  width:0;
   background:#ff4d6d;
   border-radius:10px;
 }
 
-/* ======================
-   LETTER
-====================== */
+/* ================= LETTER ================= */
 .envelope-wrap{
   display:flex;
   justify-content:center;
-  margin-top:30px;
+  margin-top:20px;
 }
 
 .envelope{
@@ -263,6 +227,8 @@ input{
   position:absolute;
   top:0;
   left:0;
+  width:0;
+  height:0;
   border-left:150px solid transparent;
   border-right:150px solid transparent;
   border-top:100px solid #b05555;
@@ -274,12 +240,10 @@ input{
   padding:18px;
   border-radius:12px;
   display:none;
-  margin-top:120px;
+  margin-top:110px;
 }
 
-/* ======================
-   PHOTOS
-====================== */
+/* ================= PHOTOS ================= */
 .photo-card{
   width:90%;
   max-width:360px;
@@ -291,7 +255,7 @@ input{
 .photo-modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.85);
+  background:rgba(0,0,0,.85);
   display:none;
   align-items:center;
   justify-content:center;
@@ -309,9 +273,7 @@ input{
   font-size:32px;
 }
 
-/* ======================
-   YES / NO
-====================== */
+/* ================= YES / NO ================= */
 .yn-wrap{
   display:flex;
   gap:18px;
@@ -322,21 +284,17 @@ input{
   transition:.3s;
 }
 
-/* ======================
-   FINAL
-====================== */
+/* ================= FINAL ================= */
 .ring-big{
   font-size:64px;
   animation:pulse 1.2s infinite alternate;
 }
 
 @keyframes pulse{
-  to{transform:scale(1.15);}
+  to{transform:scale(1.15)}
 }
 
-/* ======================
-   MUSIC UI (LUXURY)
-====================== */
+/* ================= MUSIC UI SUPPORT ================= */
 .wrapper{
   position:fixed;
   top:15px;
@@ -344,62 +302,15 @@ input{
   z-index:999;
 }
 
-.music-box{
-  width:90px;
-  height:90px;
-  border-radius:50%;
-  backdrop-filter:blur(15px);
-  background:rgba(255,255,255,0.08);
-  box-shadow:
-    0 0 50px rgba(255,0,150,0.45),
-    inset 0 0 22px rgba(255,255,255,0.25);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  cursor:pointer;
-  animation:pulse 2.5s infinite;
-}
-
-.music-box span{
-  font-size:36px;
-}
-
-.options{
-  margin-top:16px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  opacity:0;
-  pointer-events:none;
-  transition:.3s;
-}
-
-.options.show{
-  opacity:1;
-  pointer-events:auto;
-}
-
-.options button{
-  width:150px;
-  padding:12px;
-  margin:6px;
-  border-radius:14px;
-  background:rgba(255,255,255,0.08);
-  color:#fff;
-  border:1px solid rgba(255,255,255,0.25);
-}
-
-/* ======================
-   FOOTER
-====================== */
+/* ================= FOOTER ================= */
 footer{
   position:fixed;
   bottom:10px;
   width:100%;
   font-size:14px;
-  opacity:0.7;
+  opacity:.7;
 }
 
 footer a{
   color:#ff7aa2;
-                        }
+}
