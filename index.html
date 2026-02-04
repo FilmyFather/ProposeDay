@@ -2,14 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-<title>Propose Day ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Propose Day 💖</title>
 
 <style>
-/* ===== GLOBAL ===== */
-*{box-sizing:border-box;}
+*{box-sizing:border-box}
 body{
   margin:0;
   font-family:system-ui;
@@ -17,27 +14,32 @@ body{
   color:#fff;
   overflow:hidden;
 }
+
+/* ---------- PAGES ---------- */
 .page{
   display:none;
-  height:100vh;
-  width:100vw;
+  position:fixed;
+  inset:0;
+  padding:20px;
+}
+.page.active{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+
+/* ---------- SOFT GLASS ---------- */
+.card{
+  background:rgba(255,255,255,.12);
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:20px;
   padding:20px;
   text-align:center;
 }
-.page.active{display:block;}
-button{
-  border:none;
-  cursor:pointer;
-  background:linear-gradient(135deg,#ff6fae,#ff9ecf);
-  color:#fff;
-  padding:14px 28px;
-  border-radius:40px;
-  font-size:16px;
-  box-shadow:0 6px 20px rgba(255,105,180,.35);
-}
-h1,h2{color:#ffd6e8;font-weight:500}
 
-/* ===== BG HEARTS ===== */
+/* ---------- BG HEARTS ---------- */
 .bg-hearts{
   position:fixed;
   inset:0;
@@ -47,126 +49,44 @@ h1,h2{color:#ffd6e8;font-weight:500}
 .bg-hearts span{
   position:absolute;
   bottom:-20px;
-  color:rgba(255,105,180,.25);
   font-size:14px;
-  animation:float 12s linear infinite;
+  opacity:.4;
+  animation:float 14s linear infinite;
 }
 @keyframes float{
-  from{transform:translateY(0);opacity:0}
-  10%{opacity:.6}
-  to{transform:translateY(-110vh);opacity:0}
+  from{transform:translateY(0)}
+  to{transform:translateY(-110vh)}
 }
 
-/* ===== INPUT ===== */
-input{
-  padding:12px;
-  border-radius:20px;
+/* ---------- BUTTON ---------- */
+button{
+  padding:12px 26px;
+  border-radius:30px;
   border:none;
-  text-align:center;
-  font-size:16px;
+  font-size:15px;
+  background:linear-gradient(135deg,#ff6fae,#ff9ecf);
+  color:#000;
+  box-shadow:0 6px 20px rgba(255,105,180,.35);
 }
 
-/* ===== PAGE 4 GRID ===== */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
-  max-width:300px;
-  margin:20px auto;
+/* ---------- PHOTOS PAGE ---------- */
+#p7{
+  overflow-y:auto;
+  justify-content:flex-start;
 }
-.cell{
-  font-size:40px;
-  padding:25px;
-  background:rgba(255,255,255,.15);
-  border-radius:18px;
-  perspective:800px;
-}
-.cell-inner{
-  transition:.6s;
-  transform-style:preserve-3d;
-}
-.cell.flip .cell-inner{
-  transform:rotateY(180deg);
-}
-.face{
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  backface-visibility:hidden;
-}
-.back{transform:rotateY(180deg);}
-
-/* ===== PAGE 5 GAME ===== */
-.game-box{
-  width:90%;
-  max-width:320px;
-  height:420px;
-  margin:20px auto;
-  border-radius:20px;
-  background:rgba(255,255,255,.15);
-  position:relative;
-  overflow:hidden;
-}
-.heart{
-  position:absolute;
-  font-size:22px;
-  animation:fall linear forwards;
-  cursor:pointer;
-}
-@keyframes fall{
-  from{top:-30px}
-  to{top:450px}
-}
-.progress{
-  width:80%;
-  height:10px;
-  background:#333;
-  margin:auto;
-  border-radius:10px;
-}
-.bar{
-  height:100%;
-  width:0%;
-  background:hotpink;
-  border-radius:10px;
-}
-
-/* ===== PAGE 7 ===== */
-.gallery{
+.photos{
   display:flex;
   flex-direction:column;
-  gap:18px;
+  gap:16px;
+  width:100%;
+  padding-bottom:40px;
 }
-.photo{
-  border-radius:18px;
-  overflow:hidden;
-}
-.photo img{width:100%;}
-.modal{
-  position:fixed;
-  inset:0;
-  background:black;
-  display:none;
-  align-items:center;
-  justify-content:center;
-}
-.modal.show{display:flex;}
-.modal img{
-  max-width:90%;
-  max-height:90%;
+.photos img{
+  width:100%;
+  border-radius:16px;
 }
 
-/* ===== PAGE 8 ===== */
-.choice-wrap{
-  display:flex;
-  justify-content:center;
-  gap:18px;
-  margin-top:40px;
-}
-
-/* ===== HEADPHONE ===== */
+/* ---------- HEADPHONE ---------- */
 #headphone{
   position:fixed;
   bottom:90px;
@@ -185,16 +105,14 @@ input{
     #00c3ff,#7a5cff,#ff00d4,#ff004c
   );
   filter:blur(8px);
-  animation:rgbSpin 3.5s linear infinite;
+  animation:spin 3.5s linear infinite;
 }
-@keyframes rgbSpin{
-  to{transform:rotate(360deg)}
-}
+@keyframes spin{to{transform:rotate(360deg)}}
 #headphone .icon{
   position:absolute;
   inset:0;
   border-radius:50%;
-  background:rgba(255,255,255,.18);
+  background:rgba(255,255,255,.2);
   backdrop-filter:blur(10px);
   display:flex;
   align-items:center;
@@ -206,7 +124,8 @@ input{
   bottom:75px;
   left:50%;
   transform:translateX(-50%);
-  background:rgba(20,20,20,.8);
+  background:rgba(20,20,20,.85);
+  backdrop-filter:blur(8px);
   border-radius:14px;
   padding:8px;
   display:none;
@@ -216,19 +135,6 @@ input{
   font-size:13px;
   border-radius:10px;
 }
-.volume-menu div:active{
-  background:rgba(255,255,255,.15);
-}
-
-/* ===== FOOTER ===== */
-footer{
-  position:fixed;
-  bottom:5px;
-  width:100%;
-  text-align:center;
-  font-size:12px;
-  opacity:.7;
-}
 </style>
 </head>
 
@@ -236,68 +142,89 @@ footer{
 
 <div class="bg-hearts"></div>
 
-<audio id="music" src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3"></audio>
+<audio id="music" src="http://ddl.safone.vip/4422238/Finding_Her_x_Dooron_Dooron_Mashup_Full_Version_Kushagra_Paresh.mp3?hash=AgADnS"></audio>
 
 <!-- PAGE 1 -->
-<div class="page active">
-  <img src="https://media.tenor.com/lquwmqAgQekAAAAm/bubu-dudu.webp"><br><br>
-  <h2>3 years of love… prove it ❤️</h2>
-  <input id="pass" placeholder="Password"><br><br>
-  <button onclick="unlock()">UNLOCK</button>
-  <p id="msg"></p>
+<div class="page active" id="p1">
+  <div class="card">
+    <img src="https://media.tenor.com/lquwmqAgQekAAAAm/bubu-dudu.webp" width="120"><br><br>
+    <h3>3 years of love… prove it ❤️</h3>
+    <input id="pass" placeholder="Password"><br><br>
+    <button onclick="unlock()">Unlock</button>
+    <p id="msg"></p>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="p2">
+  <div class="card">
+    <img src="https://media.tenor.com/YiMNm2QVdMoAAAAm/bubu-dudu-sseeyall.webp" width="120"><br><br>
+    <h3>Love Quiz 💕</h3>
+    <button onclick="goNext()">Start</button>
+  </div>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="p3">
+  <div class="card">
+    <img src="https://media.tenor.com/nBQQ6XM5BhIAAAAm/cute.webp" width="120"><br><br>
+    <button onclick="goNext()">YES</button>
+    <button style="opacity:.5">NO I’M NOT INTERESTED</button>
+  </div>
 </div>
 
 <!-- PAGE 4 -->
-<div class="page">
-  <h2>Find My Rings 💍</h2>
-  <div class="grid">
-    ${[0,1,2,3,4,5,6,7,8].map(i=>`
-    <div class="cell" onclick="reveal(this,${i})">
-      <div class="cell-inner">
-        <div class="face">🍃</div>
-        <div class="face back"></div>
-      </div>
-    </div>`).join("")}
+<div class="page" id="p4">
+  <div class="card">
+    <h3>Find The Rings 💍</h3>
+    <button onclick="goNext()">3 Rings Found</button>
   </div>
 </div>
 
 <!-- PAGE 5 -->
-<div class="page">
-  <h2>Catch My Love</h2>
-  <div class="game-box" id="gameBox"></div>
-  <div class="progress"><div class="bar" id="bar"></div></div>
+<div class="page" id="p5">
+  <div class="card">
+    <img src="https://media.tenor.com/bvXwJ4I19ZQAAAAm/cat-cat-meme.webp" width="120"><br><br>
+    <button onclick="goNext()">Game Complete</button>
+  </div>
+</div>
+
+<!-- PAGE 6 -->
+<div class="page" id="p6">
+  <div class="card">
+    <img src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp" width="120"><br><br>
+    <button onclick="goNext()">Read Complete</button>
+  </div>
 </div>
 
 <!-- PAGE 7 -->
-<div class="page">
-  <img src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp" width="160">
-  <div class="gallery">
-    <div class="photo" onclick="openImg(this)"><img src="images/p1.jpg"></div>
-    <div class="photo" onclick="openImg(this)"><img src="images/p2.jpg"></div>
-    <div class="photo" onclick="openImg(this)"><img src="images/p3.jpg"></div>
+<div class="page" id="p7">
+  <div class="photos">
+    <img src="images/p1.jpg">
+    <img src="images/p2.jpg">
+    <img src="images/p3.jpg">
+    <img src="images/p4.jpg">
+    <img src="images/p5.jpg">
+    <img src="images/p6.jpg">
+    <button onclick="goNext()">One Last Thing ❤️</button>
   </div>
-  <button onclick="go(8)">One Last Thing… ❤️</button>
 </div>
 
 <!-- PAGE 8 -->
-<div class="page">
-  <img src="https://media.tenor.com/qGiP_qcGH3MAAAAm/peach-goma.webp">
-  <div class="choice-wrap">
-    <button id="yesBtn" onclick="yes()">YES</button>
-    <button id="noBtn" onclick="no()">NO</button>
+<div class="page" id="p8">
+  <div class="card">
+    <img src="https://media.tenor.com/qGiP_qcGH3MAAAAm/peach-goma.webp" width="120"><br><br>
+    <button onclick="goNext()">YES</button>
   </div>
 </div>
 
 <!-- PAGE 9 -->
-<div class="page">
-  <img src="https://media.tenor.com/nQD8tNYfJzQAAAAm/dance-love.webp"><br>
-  <h2>I know you love me a lot! 🎉<br>April 6 & 31, 2023 💖</h2>
-  <button onclick="location.reload()">Wanna do this again?</button>
-</div>
-
-<!-- MODAL -->
-<div class="modal" id="modal" onclick="closeImg()">
-  <img id="modalImg">
+<div class="page" id="p9">
+  <div class="card">
+    <img src="https://media.tenor.com/nQD8tNYfJzQAAAAm/dance-love.webp" width="120"><br><br>
+    <h3>I know you love me a lot! 🎉</h3>
+    <button onclick="location.reload()">Wanna do this again?</button>
+  </div>
 </div>
 
 <!-- HEADPHONE -->
@@ -305,120 +232,68 @@ footer{
   <div class="ring"></div>
   <div class="icon">🎧</div>
   <div class="volume-menu">
-    <div onclick="setVol(0.2)">LOW</div>
-    <div onclick="setVol(0.5)">MID</div>
+    <div onclick="setVol(.2)">LOW</div>
+    <div onclick="setVol(.5)">MID</div>
     <div onclick="setVol(1)">HIGH</div>
     <div onclick="setVol(0)">MUTE</div>
   </div>
 </div>
 
-<footer>
-Developed with ❤️ by <a href="https://instagram.com/itz___yuviiii" target="_blank">Yuvraj</a>
-</footer>
-
 <script>
-/* PAGE NAV */
-let page=0;
-function go(n){
-  document.querySelectorAll(".page")[page].classList.remove("active");
-  page=n-1;
-  document.querySelectorAll(".page")[page].classList.add("active");
-}
-
 /* BG HEARTS */
+const bg=document.querySelector(".bg-hearts");
 setInterval(()=>{
   const h=document.createElement("span");
-  h.innerHTML="❤️";
+  h.innerHTML="𓆩❤︎𓆪";
   h.style.left=Math.random()*100+"%";
-  h.style.animationDuration=(10+Math.random()*6)+"s";
-  document.querySelector(".bg-hearts").appendChild(h);
-  setTimeout(()=>h.remove(),16000);
+  bg.appendChild(h);
+  setTimeout(()=>h.remove(),15000);
 },1200);
 
-/* PAGE 1 */
-let wrong=0;
-const lines=[
-"Arre Ghelsodi 😝 Itna Bhi Mushkil Nahi Hai Loduuu...!",
-"Dhapudiii 😜 Dil Se Try Karoo Dil Aur Ye Website Dono Ka Lock Khul Jayegaa..!",
-"Bhilan Fir Galat ❌ 3 Saal Ka Pyar Hai Apana Uska To Khyaal Rakho...!",
-"Wagri 🤯 Fir Galat Yeh Bhi Tumko Mujhse Pyaar Hi Nahi Hai....!",
-"Gaanduu Insaan 🤦‍♂️ Last Chance !"
-];
-function unlock(){
-  const v=pass.value.toLowerCase();
-  if(v==="rajkumari"){
-    music.currentTime=62;
-    music.play();
-    go(4);
-  }else{
-    wrong++;
-    msg.innerText=lines[Math.floor(Math.random()*lines.length)];
-    if(wrong>=5){
-      msg.innerHTML+=`<br><small>Hint: Agar Yuvraj Rajkumar hai… to tum uski kya ho? ❤️</small>`;
-    }
+/* PAGE FLOW */
+let currentPage=1;
+function showPage(n){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById("p"+n).classList.add("active");
+}
+function goNext(){
+  if(currentPage<9){
+    currentPage++;
+    showPage(currentPage);
   }
 }
 
-/* PAGE 4 */
-const items=["💩","💩","💍","💩","💍","💩","💩","💩","💍"];
-let rings=0;
-function reveal(el,i){
-  if(el.dataset.o) return;
-  el.dataset.o=1;
-  el.classList.add("flip");
-  setTimeout(()=>{
-    el.querySelector(".back").innerText=items[i];
-    if(items[i]==="💍"){
-      rings++;
-      if(rings===3) setTimeout(()=>go(5),1000);
-    }
-  },300);
+/* UNLOCK */
+let wrong=0;
+const lines=[
+  "Arre Ghelsodi 😝 Itna Bhi Mushkil Nahi Hai Loduuu...!",
+  "Dhapudiii 😜 Dil Se Try Karoo Dil Aur Website Dono Khul Jayegaa..!",
+  "Bhilan Fir Galat ❌ 3 Saal Ka Pyar Hai Apana...!",
+  "Wagri 🤯 Fir Galat Yeh Bhi Pyaar Nahi Hai....!",
+  "Gaanduu Insaan 🤦‍♂️ Last Chance !"
+];
+function unlock(){
+  const v=pass.value.trim().toLowerCase();
+  if(v==="rajkumari"){
+    music.currentTime=62;
+    music.play();
+    goNext();
+  }else{
+    wrong++;
+    msg.innerHTML=lines[Math.floor(Math.random()*lines.length)];
+    if(wrong>=5)
+      msg.innerHTML+="<br><small>Hint: Agar Yuvraj Rajkumar hai… to tum uski kya ho? ❤️</small>";
+  }
 }
-
-/* PAGE 5 */
-let caught=0;
-setInterval(()=>{
-  const h=document.createElement("div");
-  h.className="heart";
-  h.innerText="𓆩❤︎𓆪";
-  h.style.left=Math.random()*90+"%";
-  h.style.animationDuration=(2+Math.random()*2)+"s";
-  h.onclick=()=>{
-    caught++;
-    bar.style.width=(caught/12*100)+"%";
-    h.remove();
-    if(caught===12) setTimeout(()=>go(7),800);
-  };
-  gameBox.appendChild(h);
-  setTimeout(()=>h.remove(),4000);
-},700);
-
-/* PAGE 7 MODAL */
-function openImg(el){
-  modalImg.src=el.querySelector("img").src;
-  modal.classList.add("show");
-}
-function closeImg(){modal.classList.remove("show");}
-
-/* PAGE 8 */
-let step=0;
-function no(){
-  step++;
-  yesBtn.style.transform=`scale(${1+step*0.3})`;
-  if(step>=4) noBtn.style.display="none";
-}
-function yes(){go(9);}
 
 /* HEADPHONE */
-headphone.onclick=e=>{
+const hp=document.getElementById("headphone");
+const menu=hp.querySelector(".volume-menu");
+hp.onclick=e=>{
   if(e.target.classList.contains("icon"))
-    headphone.querySelector(".volume-menu").style.display=
-    headphone.querySelector(".volume-menu").style.display==="block"?"none":"block";
+    menu.style.display=menu.style.display==="block"?"none":"block";
 }
-function setVol(v){
-  music.volume=v;
-  document.querySelector(".volume-menu").style.display="none";
-}
+function setVol(v){music.volume=v;menu.style.display="none";}
 </script>
 
 </body>
