@@ -1,10 +1,8 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{
-  font-family:'Poppins',sans-serif;
-  background:radial-gradient(circle at top,#2b0014,#0b0005);
-  color:#fff;
-  min-height:100vh;
-  text-align:center;
+ font-family:'Poppins',sans-serif;
+ background:radial-gradient(circle at top,#2b0014,#0b0005);
+ color:#fff;text-align:center;min-height:100vh;overflow-x:hidden
 }
 .cursive{font-family:'Dancing Script',cursive}
 
@@ -12,78 +10,67 @@ body{
 .page.active{display:block}
 
 .top-gif{
-  width:150px;height:150px;
-  border-radius:50%;
-  object-fit:cover;
-  margin:10px auto 20px;
-}
-
-.btn{
-  padding:14px 30px;
-  border:none;border-radius:999px;
-  background:linear-gradient(45deg,#ff4d6d,#ff758f);
-  color:#fff;margin-top:15px;
-}
-.btn-outline{background:rgba(255,255,255,.1);border:1px solid #fff}
-
-input{
-  margin:20px auto 12px;
-  padding:14px;width:80%;max-width:320px;
-  border-radius:999px;border:none;
-}
-
-.shake{animation:shake .4s}
-@keyframes shake{
-  0%{transform:translateX(0)}
-  25%{transform:translateX(-6px)}
-  50%{transform:translateX(6px)}
-  75%{transform:translateX(-6px)}
-  100%{transform:translateX(0)}
+ width:150px;height:150px;border-radius:50%;
+ border:3px solid rgba(255,255,255,.25);
+ box-shadow:0 0 20px rgba(255,77,109,.4);
+ margin-bottom:20px
 }
 
 /* HEARTS */
 .hearts{position:fixed;inset:0;pointer-events:none;z-index:-1}
 .heart{position:absolute;color:rgba(255,0,90,.35);animation:float 8s infinite}
-@keyframes float{50%{transform:translateY(-20px)}}
+
+/* BUTTON */
+.btn{padding:14px 30px;border-radius:999px;border:none;
+ background:linear-gradient(45deg,#ff4d6d,#ff758f);color:#fff}
+.btn-outline{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3)}
+
+input{padding:14px;width:80%;max-width:320px;border-radius:999px;border:none;margin:18px auto}
 
 /* QUIZ */
-.quiz-card{background:rgba(255,255,255,.08);border-radius:20px;padding:20px}
-.quiz-option{
-  background:rgba(255,255,255,.15);
-  padding:14px;border-radius:999px;
-  margin:10px 0;
-}
+.quiz-card{background:rgba(255,255,255,.08);border-radius:24px;padding:24px}
+.quiz-option{padding:14px;border-radius:999px;background:rgba(255,255,255,.15);margin:10px 0}
 .quiz-option.correct{background:#1f8f4a}
 .quiz-option.wrong{background:#a32121}
 
 /* GRID */
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.card{height:90px;background:rgba(255,255,255,.12);border-radius:16px;font-size:28px}
+.card{height:90px;background:rgba(255,255,255,.12);border-radius:18px;font-size:30px}
 
 /* GAME */
-.game-box{width:300px;height:300px;border:2px dashed #fff;margin:10px auto;position:relative}
-.fall-heart{position:absolute;font-size:24px}
-.progress{width:300px;height:8px;background:#333;margin:auto}
-.progress span{display:block;height:100%;background:#ff4d6d;width:0}
+.game-box{width:320px;height:320px;border:2px dashed rgba(255,255,255,.4);margin:auto;position:relative}
+.fall-heart{position:absolute;font-size:24px;top:-20px;animation:fall 3s linear}
+.progress{width:320px;height:8px;background:rgba(255,255,255,.25);margin:10px auto;border-radius:10px}
+.progress span{display:block;height:100%;width:0;background:#ff4d6d}
 
 /* LETTER */
-.envelope-wrap{display:flex;justify-content:center}
-.envelope{width:300px;height:200px;background:#c46a6a;position:relative}
-.paper{display:none;background:#fff7e6;color:#5a0d1e;padding:20px}
+.envelope{width:300px;height:200px;background:#c46a6a;border-radius:0 0 20px 20px;position:relative;overflow:hidden}
+.flap{position:absolute;border-left:150px solid transparent;border-right:150px solid transparent;border-top:100px solid #b05555}
+.paper{
+ background:#fff7e6;color:#5a0d1e;padding:18px;
+ border-radius:12px;position:absolute;left:50%;transform:translateX(-50%);
+ bottom:-260px;width:90%;transition:.6s
+}
+.paper.show{bottom:20px}
 
 /* PHOTOS */
-.photo-card{width:90%;margin:12px auto;border-radius:16px}
-.photo-modal{position:fixed;inset:0;background:#000c;display:none;align-items:center;justify-content:center}
+.photo{width:90%;max-width:360px;border-radius:18px;margin:16px auto}
+.photo-modal{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center}
 .photo-modal img{max-width:90%}
 
 /* MUSIC */
-.wrapper{position:fixed;top:15px;right:15px}
+.wrapper{position:fixed;top:15px;right:15px;z-index:999}
 .music-box{
  width:90px;height:90px;border-radius:50%;
+ backdrop-filter:blur(15px);
  background:rgba(255,255,255,.08);
- box-shadow:0 0 50px rgba(255,0,150,.45),
- inset 0 0 22px rgba(255,255,255,.25);
- display:flex;align-items:center;justify-content:center
+ box-shadow:0 0 50px rgba(255,0,150,.45),inset 0 0 22px rgba(255,255,255,.25);
+ display:flex;justify-content:center;align-items:center;
+ animation:pulse 2.5s infinite
 }
-.options{display:none}
-.options.show{display:flex;flex-direction:column}
+.music-box span{font-size:36px}
+.options{margin-top:16px;display:flex;flex-direction:column;opacity:0;pointer-events:none}
+.options.show{opacity:1;pointer-events:auto}
+.options button{margin:6px;border-radius:14px;padding:12px}
+
+footer{position:fixed;bottom:10px;width:100%;opacity:.7}
