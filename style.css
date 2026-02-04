@@ -1,316 +1,78 @@
-/* ================= RESET ================= */
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-html,body{
-  width:100%;
-  height:100%;
-}
-
-/* ================= BODY ================= */
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden}
 body{
-  font-family:'Poppins',sans-serif;
-  background:radial-gradient(circle at top,#2b0014,#0b0005);
-  color:#fff;
-  text-align:center;
-  overflow-x:hidden;
+ font-family:'Poppins',sans-serif;
+ background:radial-gradient(circle at top,#2b0014,#0b0005);
+ color:#fff;text-align:center
 }
+.cursive{font-family:'Dancing Script',cursive}
 
-/* ================= FONTS ================= */
-.cursive{
-  font-family:'Dancing Script',cursive;
-}
+.page{display:none;min-height:100vh;padding:60px 20px}
+.page.active{display:block}
 
-/* ================= FLOATING HEARTS ================= */
-.hearts{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:-1;
-}
-
-.heart{
-  position:absolute;
-  color:rgba(255,0,90,0.35);
-  animation:float 8s infinite ease-in-out;
-}
-
-@keyframes float{
-  0%{transform:translateY(0)}
-  50%{transform:translateY(-25px)}
-  100%{transform:translateY(0)}
-}
-
-/* ================= PAGE ================= */
-.page{
-  display:none;
-  min-height:100vh;
-  padding:60px 20px 90px;
-}
-
-.page.active{
-  display:block;
-}
-
-/* ================= TOP GIF ================= */
 .top-gif{
-  width:160px;
-  height:160px;
-  border-radius:50%;
-  object-fit:cover;
-  border:3px solid rgba(255,255,255,.25);
-  box-shadow:0 0 20px rgba(255,77,109,.35);
-  margin-bottom:22px;
+ width:160px;height:160px;border-radius:50%;
+ object-fit:cover;margin-bottom:20px;
+ border:3px solid rgba(255,255,255,.25);
+ box-shadow:0 0 20px rgba(255,77,109,.35)
 }
 
-/* ================= INPUT ================= */
 input{
-  margin-top:20px;
-  margin-bottom:14px;
-  padding:14px;
-  width:80%;
-  max-width:320px;
-  border-radius:999px;
-  border:none;
-  text-align:center;
-  font-size:16px;
-  outline:none;
+ margin-top:20px;margin-bottom:12px;
+ padding:14px;width:80%;max-width:320px;
+ border-radius:999px;border:none;text-align:center
 }
 
-/* ================= BUTTON ================= */
+#lockMsg{white-space:pre-line;margin-top:10px;font-size:14px}
+
 .btn{
-  margin-top:14px;
-  padding:14px 30px;
-  border:none;
-  border-radius:999px;
-  background:linear-gradient(45deg,#ff4d6d,#ff758f);
-  color:#fff;
-  font-size:16px;
-  cursor:pointer;
+ padding:14px 30px;border:none;border-radius:999px;
+ background:linear-gradient(45deg,#ff4d6d,#ff758f);
+ color:#fff;cursor:pointer
 }
+.btn-outline{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3)}
 
-.btn-outline{
-  background:rgba(255,255,255,.1);
-  border:1px solid rgba(255,255,255,.3);
-}
+.hearts{position:fixed;inset:0;pointer-events:none;z-index:-1}
+.heart{position:absolute;color:rgba(255,0,90,.35);animation:float 8s infinite}
+@keyframes float{50%{transform:translateY(-25px)}}
 
-.btn:active{
-  transform:scale(.95);
-}
+.quiz-card{background:rgba(255,255,255,.08);border-radius:24px;padding:24px;max-width:420px;margin:auto}
+.quiz-option{margin:10px 0;padding:14px;border-radius:999px;background:rgba(255,255,255,.15);cursor:pointer}
+.quiz-option.correct{background:#1f8f4a}
+.quiz-option.wrong{background:#a32121}
 
-/* ================= SHAKE ================= */
-.shake{
-  animation:shake .4s;
-}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:360px;margin:auto}
+.card{height:90px;border-radius:18px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:28px}
 
-@keyframes shake{
-  0%{transform:translateX(0)}
-  25%{transform:translateX(-6px)}
-  50%{transform:translateX(6px)}
-  75%{transform:translateX(-6px)}
-  100%{transform:translateX(0)}
-}
+.game-box{width:320px;height:320px;margin:auto;border:2px dashed rgba(255,255,255,.4);border-radius:20px;position:relative;overflow:hidden}
+.fall-heart{position:absolute;top:-20px;font-size:24px;animation:fall 3s linear forwards}
+@keyframes fall{to{top:100%}}
 
-/* ================= QUIZ ================= */
-.quiz-card{
-  background:rgba(255,255,255,.08);
-  border-radius:24px;
-  padding:24px;
-  max-width:420px;
-  margin:30px auto;
-}
+.progress{width:320px;height:8px;background:rgba(255,255,255,.25);margin:10px auto;border-radius:10px}
+.progress span{display:block;height:100%;width:0;background:#ff4d6d;border-radius:10px}
 
-.quiz-option{
-  margin:12px 0;
-  padding:14px;
-  border-radius:999px;
-  background:rgba(255,255,255,.15);
-  cursor:pointer;
-  transition:.3s;
-}
+.envelope{width:300px;height:200px;background:#c46a6a;border-radius:0 0 20px 20px;position:relative;overflow:hidden;margin:auto}
+.flap{position:absolute;border-left:150px solid transparent;border-right:150px solid transparent;border-top:100px solid #b05555}
+.paper{background:#fff7e6;color:#5a0d1e;padding:18px;border-radius:12px;display:none}
 
-.quiz-option.correct{
-  background:#1f8f4a;
-}
+.photo-card{width:90%;max-width:360px;margin:16px auto;border-radius:18px;display:block}
 
-.quiz-option.wrong{
-  background:#a32121;
-}
+.yn-wrap{display:flex;gap:18px;justify-content:center}
+.ring-big{font-size:64px;animation:pulse 1.2s infinite alternate}
+@keyframes pulse{to{transform:scale(1.15)}}
 
-/* ================= PAGE 3 ================= */
-.sec-actions{
-  margin-top:30px;
-  display:flex;
-  gap:18px;
-  justify-content:center;
+.wrapper{position:fixed;top:15px;right:15px;z-index:999}
+.music-box{
+ width:90px;height:90px;border-radius:50%;
+ background:rgba(255,255,255,.08);
+ backdrop-filter:blur(15px);
+ box-shadow:0 0 50px rgba(255,0,150,.45), inset 0 0 22px rgba(255,255,255,.25);
+ display:flex;align-items:center;justify-content:center;cursor:pointer;
+ animation:pulse 2.5s infinite
 }
+.music-box span{font-size:36px}
+.options{margin-top:10px;display:flex;flex-direction:column;align-items:center;opacity:0;pointer-events:none}
+.options.show{opacity:1;pointer-events:auto}
+.options button{width:150px;padding:12px;margin:6px;border-radius:14px;background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.25)}
 
-/* ================= PROPOSAL HUNT ================= */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:16px;
-  max-width:360px;
-  margin:30px auto;
-}
-
-.card{
-  height:90px;
-  border-radius:18px;
-  background:rgba(255,255,255,.12);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:28px;
-  cursor:pointer;
-}
-
-/* ================= CATCH GAME ================= */
-.game-box{
-  width:320px;
-  height:320px;
-  margin:20px auto;
-  border:2px dashed rgba(255,255,255,.4);
-  border-radius:20px;
-  position:relative;
-  overflow:hidden;
-}
-
-.fall-heart{
-  position:absolute;
-  top:-20px;
-  font-size:24px;
-  animation:fall 3s linear forwards;
-}
-
-@keyframes fall{
-  to{top:100%}
-}
-
-.progress{
-  width:320px;
-  height:8px;
-  background:rgba(255,255,255,.25);
-  margin:10px auto;
-  border-radius:10px;
-}
-
-.progress span{
-  display:block;
-  height:100%;
-  width:0;
-  background:#ff4d6d;
-  border-radius:10px;
-}
-
-/* ================= LETTER ================= */
-.envelope-wrap{
-  display:flex;
-  justify-content:center;
-  margin-top:20px;
-}
-
-.envelope{
-  width:300px;
-  height:200px;
-  background:#c46a6a;
-  border-radius:0 0 20px 20px;
-  position:relative;
-  cursor:pointer;
-  overflow:hidden;
-}
-
-.flap{
-  position:absolute;
-  top:0;
-  left:0;
-  width:0;
-  height:0;
-  border-left:150px solid transparent;
-  border-right:150px solid transparent;
-  border-top:100px solid #b05555;
-}
-
-.paper{
-  background:#fff7e6;
-  color:#5a0d1e;
-  padding:18px;
-  border-radius:12px;
-  display:none;
-  margin-top:110px;
-}
-
-/* ================= PHOTOS ================= */
-.photo-card{
-  width:90%;
-  max-width:360px;
-  margin:16px auto;
-  border-radius:18px;
-  display:block;
-}
-
-.photo-modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.85);
-  display:none;
-  align-items:center;
-  justify-content:center;
-}
-
-.photo-modal img{
-  max-width:90%;
-  border-radius:18px;
-}
-
-.close-btn{
-  position:absolute;
-  top:20px;
-  right:20px;
-  font-size:32px;
-}
-
-/* ================= YES / NO ================= */
-.yn-wrap{
-  display:flex;
-  gap:18px;
-  justify-content:center;
-}
-
-.yes-btn{
-  transition:.3s;
-}
-
-/* ================= FINAL ================= */
-.ring-big{
-  font-size:64px;
-  animation:pulse 1.2s infinite alternate;
-}
-
-@keyframes pulse{
-  to{transform:scale(1.15)}
-}
-
-/* ================= MUSIC UI SUPPORT ================= */
-.wrapper{
-  position:fixed;
-  top:15px;
-  right:15px;
-  z-index:999;
-}
-
-/* ================= FOOTER ================= */
-footer{
-  position:fixed;
-  bottom:10px;
-  width:100%;
-  font-size:14px;
-  opacity:.7;
-}
-
-footer a{
-  color:#ff7aa2;
-}
+footer{position:fixed;bottom:10px;width:100%;opacity:.7}
