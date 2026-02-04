@@ -243,8 +243,11 @@ input{
   left:50%;
   transform:translateX(-50%);
   width:90%;
+  transition:al 06s ease;
 }
-
+.paper.show{
+  bottom:20px;
+}
 /* ================= PHOTOS ================= */
 .photo-card{
   width:90%;
