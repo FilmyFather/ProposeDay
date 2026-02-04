@@ -2,254 +2,318 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Love Journey</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Propose Day ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{margin:0;padding:0;box-sizing:border-box}
 body{
- font-family:Poppins,system-ui;
- height:100vh;
- background:#fff;
- overflow:hidden;
+  font-family:Poppins,sans-serif;
+  height:100vh;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 20% 20%, #ffd6e8, transparent 45%),
+    radial-gradient(circle at 80% 80%, #d6f0ff, transparent 45%),
+    linear-gradient(135deg,#fff,#fef6fb);
 }
 
+/* COMMON */
 .page{
- display:none;
- position:fixed;
- inset:0;
- padding:20px;
- align-items:center;
- justify-content:center;
+  display:none;
+  height:100%;
+  width:100%;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
 }
-
 .page.active{display:flex}
 
 .card{
- width:100%;
- max-width:420px;
- background:rgba(255,255,255,.25);
- backdrop-filter:blur(14px);
- border-radius:24px;
- padding:22px;
- text-align:center;
- box-shadow:0 20px 60px rgba(0,0,0,.15);
+  width:100%;
+  max-width:420px;
+  background:rgba(255,255,255,.25);
+  backdrop-filter:blur(18px);
+  border-radius:26px;
+  padding:22px;
+  text-align:center;
+  box-shadow:0 25px 70px rgba(0,0,0,.18);
 }
 
-button{
- border:none;
- padding:14px 26px;
- border-radius:30px;
- background:linear-gradient(135deg,#ff6aa2,#ff9ac6);
- color:#fff;
- font-size:16px;
- cursor:pointer;
+/* BACKGROUND HEART PARTICLES */
+.heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:14px;
+  opacity:.35;
+  animation:float 10s linear infinite;
+}
+@keyframes float{
+  to{transform:translateY(-110vh) translateX(30px)}
 }
 
+/* BUTTON */
+.btn{
+  padding:14px 20px;
+  border:none;
+  border-radius:18px;
+  background:linear-gradient(135deg,#ff7abf,#ffb3d9);
+  color:#fff;
+  font-weight:600;
+  margin-top:20px;
+}
+
+/* ================= PAGE 1 ================= */
+#lockText{
+  font-family:Pacifico;
+  font-size:20px;
+  margin:15px 0;
+}
 input{
- width:100%;
- padding:14px;
- border-radius:20px;
- border:none;
- outline:none;
- margin:14px 0;
- text-align:center;
- font-size:16px;
+  width:100%;
+  padding:14px;
+  border-radius:16px;
+  border:none;
+  text-align:center;
+}
+#taana{
+  margin-top:12px;
+  min-height:48px;
+  font-size:14px;
 }
 
-/* OPTIONS */
-.options{margin-top:18px;display:flex;flex-direction:column;gap:12px}
+/* ================= QUIZ ================= */
 .option{
- padding:14px;
- border-radius:18px;
- background:rgba(255,255,255,.4);
- cursor:pointer;
- transition:.25s;
+  padding:14px;
+  border-radius:18px;
+  background:rgba(255,255,255,.4);
+  margin:10px 0;
 }
-.option.right{background:#2ecc71;color:#033}
-.option.wrong{
- background:#ff3b3b;
- color:#fff;
- animation:shake .35s;
-}
+.option.right{background:#6dff9a}
+.option.wrong{background:#ff6b6b;animation:shake .3s}
 @keyframes shake{
- 0%{transform:translateX(0)}
- 25%{transform:translateX(-6px)}
- 50%{transform:translateX(6px)}
- 75%{transform:translateX(-6px)}
- 100%{transform:translateX(0)}
+  0%{transform:translateX(0)}
+  25%{transform:translateX(-6px)}
+  50%{transform:translateX(6px)}
+  75%{transform:translateX(-6px)}
+  100%{transform:translateX(0)}
 }
 
 /* CONFETTI */
-.confetti{
- position:fixed;
- top:-10px;
- width:10px;
- height:14px;
- background:#2ecc71;
- animation:fall 1.2s linear forwards;
+.conf{
+  position:fixed;
+  top:-10px;
+  width:8px;
+  height:14px;
+  background:#2ecc71;
+  animation:fall 1.2s linear forwards;
 }
 @keyframes fall{
- to{transform:translateY(110vh) rotate(360deg);opacity:0}
+  to{transform:translateY(110vh) rotate(360deg);opacity:0}
 }
 
-/* PHOTO PAGE SCROLL FIX */
-#p8{
- overflow-y:auto;
- align-items:flex-start;
+/* ================= PAGE 4 GRID ================= */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:20px;
 }
-#p8 img{
- width:100%;
- border-radius:18px;
- margin-bottom:14px;
+.cell{
+  font-size:32px;
+  padding:18px;
+  border-radius:16px;
+  background:rgba(255,255,255,.4);
+}
+
+/* ================= PAGE 5 HEART RAIN ================= */
+.rain{
+  position:absolute;
+  top:-20px;
+  animation:fall 4s linear infinite;
+}
+
+/* FOOTER */
+footer{
+  position:fixed;
+  bottom:8px;
+  width:100%;
+  text-align:center;
+  font-size:12px;
 }
 </style>
 </head>
 
 <body>
 
+<!-- HEART PARTICLES -->
+<script>
+for(let i=0;i<20;i++){
+ let h=document.createElement("div");
+ h.className="heart";
+ h.innerText="❤️";
+ h.style.left=Math.random()*100+"vw";
+ h.style.animationDuration=6+Math.random()*6+"s";
+ document.body.appendChild(h);
+}
+</script>
+
 <!-- PAGE 1 -->
 <div class="page active" id="p1">
  <div class="card">
-  <img src="https://media.tenor.com/YiMNm2QVdMoAAAAm/bubu-dudu-sseeyall.webp" width="120">
-  <input id="pass" placeholder="Password">
-  <button onclick="unlock()">Unlock</button>
+  <img src="https://media.tenor.com/lquwmqAgQekAAAAm/bubu-dudu.webp" width="120">
+  <div id="lockText">3 years of love… prove it ❤️</div>
+  <input id="pass" placeholder="Enter the magic word">
+  <button class="btn" onclick="unlock()">Unlock</button>
+  <div id="taana"></div>
  </div>
 </div>
 
-<!-- PAGE 2 -->
+<!-- PAGE 2 QUIZ -->
 <div class="page" id="p2">
  <div class="card">
-  <h2>Welcome ❤️</h2>
-  <p>Ready for our journey?</p><br>
-  <button onclick="go(3)">Start</button>
+  <img src="https://media.tenor.com/YiMNm2QVdMoAAAAm/bubu-dudu-sseeyall.webp" width="120">
+  <div id="q"></div>
+  <div id="opts"></div>
  </div>
 </div>
 
-<!-- PAGE 3 QUIZ -->
+<!-- PAGE 3 -->
 <div class="page" id="p3">
  <div class="card">
-  <div id="question"></div>
-  <div class="options" id="options"></div>
+  <img src="https://media.tenor.com/nBQQ6XM5BhIAAAAm/cute.webp" width="120">
+  <button class="btn" onclick="go(4)">YES</button>
+  <button class="btn" style="position:absolute" onmouseover="this.style.left=Math.random()*80+'%'">NO I'M NOT INTERESTED</button>
  </div>
 </div>
 
 <!-- PAGE 4 -->
 <div class="page" id="p4">
  <div class="card">
-  <h2>💍 Ring Found</h2><br>
-  <button onclick="go(5)">Next</button>
+  <img src="https://media.tenor.com/-3Z-ojIe5IcAAAAm/bubu-dudu-sseeyall.webp" width="120">
+  <div id="count">💍 0 / 3</div>
+  <div class="grid" id="grid"></div>
  </div>
 </div>
 
 <!-- PAGE 5 -->
 <div class="page" id="p5">
  <div class="card">
-  <h2>Message 💌</h2>
-  <p>You mean everything to me.</p><br>
-  <button onclick="go(6)">Next</button>
+  <img src="https://media.tenor.com/bvXwJ4I19ZQAAAAm/cat-cat-meme.webp" width="120">
+  <div id="prog">0 / 12</div>
  </div>
 </div>
 
 <!-- PAGE 6 -->
 <div class="page" id="p6">
  <div class="card">
-  <h2>𓆩❤︎𓆪</h2>
-  <p>Love raining forever</p><br>
-  <button onclick="go(7)">Next</button>
+  <img src="https://media.tenor.com/mbsKdEmx9V0AAAAm/bubu-cute-bubu-adorable.webp" width="120">
+  <p>❤️ Letter Content ❤️</p>
+  <button class="btn" onclick="go(7)">Next</button>
  </div>
 </div>
 
 <!-- PAGE 7 -->
 <div class="page" id="p7">
  <div class="card">
-  <img src="https://media.tenor.com/9L0KQ8yH1eMAAAAi/bubu-dudu.gif" width="160"><br><br>
-  <button onclick="go(8)">Next</button>
+  <img src="images/p1.jpg" width="100%">
+  <button class="btn" onclick="go(8)">One Last Thing ❤️</button>
  </div>
 </div>
 
-<!-- PAGE 8 PHOTOS -->
+<!-- PAGE 8 -->
 <div class="page" id="p8">
  <div class="card">
-  <img src="https://picsum.photos/400/300?1">
-  <img src="https://picsum.photos/400/300?2">
-  <img src="https://picsum.photos/400/300?3">
-  <button onclick="go(9)">Final</button>
+  <img src="https://media.tenor.com/qGiP_qcGH3MAAAAm/peach-goma.webp" width="120">
+  <button class="btn" onclick="go(9)" style="font-size:22px">YES</button>
  </div>
 </div>
 
 <!-- PAGE 9 -->
 <div class="page" id="p9">
  <div class="card">
-  <h1>Forever ❤️</h1>
-  <p>Endless Love</p>
+  <img src="https://media.tenor.com/nQD8tNYfJzQAAAAm/dance-love.webp" width="120">
+  <p>I know you love me a lot! 🎉<br>April 6 & 31, 2023 💖</p>
+  <button class="btn" onclick="location.reload()">Wanna do this again?</button>
  </div>
 </div>
 
+<footer>Developed with ❤️ by Yuvraj</footer>
+
 <script>
 function go(n){
- document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
- document.getElementById('p'+n).classList.add('active');
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.getElementById("p"+n).classList.add("active");
 }
 
+/* PAGE 1 */
+let tries=0;
+const taanas=[
+"Arre Ghelsodi 😝 Itna Bhi Mushkil Nahi Hai Loduuu!",
+"Dhapudiii 😜 Dil Se Try Karoo…!",
+"Bhilan Fir Galat ❌ 3 Saal Ka Pyar Hai!",
+"Wagri 🤯 Fir Galat!",
+"Gaanduu Insaan 🤦‍♂️ Last Chance!"
+];
 function unlock(){
- if(document.getElementById('pass').value.toLowerCase()==="love"){
-  go(2);
- }else{
-  alert("Wrong Password ❤️");
- }
+ let v=document.getElementById("pass").value.toLowerCase();
+ if(v==="rajkumari"){go(2);return;}
+ document.getElementById("taana").innerText=taanas[Math.min(tries,4)];
+ tries++;
 }
 
+/* QUIZ */
 const quiz=[
-{q:"Who is the lucky one?",o:["Me","You","Both","Us","Always You"],a:2},
-{q:"What do you want from me?",o:["Gift","One Night Stand","Time","Stay Forever","Party"],a:3},
-{q:"Promise on Propose Day?",o:[
- "Hamesha Saath",
- "Sach & Pyaar",
- "Shield Ban Ke",
- "IDC",
- "Sab Kuch"],a:4}
+{q:"Q1. Who is the lucky one?",o:["Me","You","Both","Us","Always You"],a:2},
+{q:"Q2. What do you want from me?",o:["Gift","One Night Stand","Time","Stay Forever","Party"],a:3}
 ];
 let qi=0;
-
-function loadQuiz(){
- const q=quiz[qi];
- document.getElementById("question").innerHTML="<b>Q"+(qi+1)+".</b> "+q.q;
- const box=document.getElementById("options");
- box.innerHTML="";
+function loadQ(){
+ let q=quiz[qi];
+ document.getElementById("q").innerText=q.q;
+ let o=document.getElementById("opts");o.innerHTML="";
  q.o.forEach((t,i)=>{
-  const d=document.createElement("div");
+  let d=document.createElement("div");
   d.className="option";
   d.innerText=t;
   d.onclick=()=>check(d,i);
-  box.appendChild(d);
+  o.appendChild(d);
  });
 }
-
-function confetti(){
- for(let i=0;i<25;i++){
-  const c=document.createElement("div");
-  c.className="confetti";
+function check(el,i){
+ if(i===quiz[qi].a){el.classList.add("right");conf();}
+ else{el.classList.add("wrong");navigator.vibrate?.(200);}
+ setTimeout(()=>{
+  qi++; if(qi<quiz.length) loadQ(); else go(3);
+ },800);
+}
+function conf(){
+ for(let i=0;i<20;i++){
+  let c=document.createElement("div");
+  c.className="conf";
   c.style.left=Math.random()*100+"vw";
   document.body.appendChild(c);
   setTimeout(()=>c.remove(),1200);
  }
 }
+loadQ();
 
-function check(el,i){
- if(i===quiz[qi].a){
-  el.classList.add("right");
-  confetti();
- }else{
-  el.classList.add("wrong");
-  navigator.vibrate?.(200);
- }
- setTimeout(()=>{
-  qi++;
-  qi<quiz.length?loadQuiz():go(4);
- },800);
-}
-loadQuiz();
+/* PAGE 4 */
+const items=["💩","💩","💍","💩","💍","💩","💩","💩","💍"];
+let found=0;
+items.forEach(i=>{
+ let d=document.createElement("div");
+ d.className="cell";
+ d.innerText="🍃";
+ d.onclick=()=>{
+  if(d.innerText!=="🍃")return;
+  d.innerText=i;
+  if(i==="💍"){found++;document.getElementById("count").innerText=`💍 ${found} / 3`;}
+  if(found===3)setTimeout(()=>go(5),1000);
+ };
+ document.getElementById("grid").appendChild(d);
+});
 </script>
 
 </body>
