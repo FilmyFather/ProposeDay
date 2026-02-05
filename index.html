@@ -246,7 +246,14 @@ function handleVolume(v) {
 
 /* --- 3. PASSWORD & UNLOCK --- */
 let lockTries = 0;
-const taunts = ["Ghelsodi 😝 Fir Galat!", "Dhapudiii 😜 Soch ke likh!", "Bhilan ❌ 3 saal!", "Wagri 🤯 Seriously?", "Gaanduu Insaan 🤦‍♂️ Last Chance!"];
+const taunts = [
+  "Arre Ghelsodi 😝 Itna Bhi Mushkil Nahi Hai Loduuu...!",
+  "Dhapudiii 😜 Dil Se Try Karoo Dil Aur Ye Website Dono La Lock Khul Jayegaa..!",
+  "Bhilan Fir Galat ❌ 3 Saal Ka Pyar Hai Apana Uska To Khyaal Rakho...!",
+  "Wagri 🤯 Fir Galat Yeh Bhi Tumko Mujhse Pyaar Hi Nahi Hai....!",
+  "Gaanduu Insaan 🤦‍♂️ Last Chance !"
+];
+  
 
 function validateLock() {
     let inp = document.getElementById("passInput").value.toLowerCase().trim();
