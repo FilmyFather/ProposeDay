@@ -248,7 +248,7 @@ function handleVolume(v) {
 let lockTries = 0;
 const taunts = [
   "Arre Ghelsodi 😝 Itna Bhi Mushkil Nahi Hai Loduuu...!",
-  "Dhapudiii 😜 Dil Se Try Karoo Dil Aur Ye Website Dono La Lock Khul Jayegaa..!",
+  "Dhapudiii 😜 Dil Se Try Karoo Dil Aur Ye Website Dono Ka Lock Khul Jayegaa..!",
   "Bhilan Fir Galat ❌ 3 Saal Ka Pyar Hai Apana Uska To Khyaal Rakho...!",
   "Wagri 🤯 Fir Galat Yeh Bhi Tumko Mujhse Pyaar Hi Nahi Hai....!",
   "Gaanduu Insaan 🤦‍♂️ Last Chance !"
@@ -282,27 +282,54 @@ function go(n) {
     if(n === 2) { qIdx = 0; buildQuiz(); }
 }
 
-/* --- 5. QUIZ (FIXED) --- */
+/* --- 5. QUIZ (UPDATED WITH 9 QUESTIONS) --- */
 const questions = [
-    {q:"Propose Day Par Aapka Sabse Bada Promise?", o:["Saath Nibhana","Kabhi Jhoot Na Bolna","Dhaal Banna","I Don't Care","Inme Se Sab (Pati-Parmeshwar Ho)"],a:4},
-    {q:"Can You Stay Forever With Yuvraj?", o:["No","Maybe","Yes","7 Janam","Till My Last Breath"],a:4},
-    {q:"Mrs. Dimple Chauhan Banne Ki Excitement?", o:["Low","Medium","High","Dream Come True","Infinite"],a:4}
+    {q: "Humari 3 Saal Ki Journey Ko 1 Word Mein Kya Bologe?", o: ["Rollercoaster Ride", "Ekdum Filmi", "Stronger Together", "Bas Shuruat Hai", "Rab Ne Bana Di Jodi"], a: 4},
+    {q: "Mr. Yuvraj Ki Wo Kaunsi Baat Hai Jo Mrs. Dimple Ko Sabse Zyada Irritate Karti Hai?", o: ["Baar Baar Sawal Poochna", "Ziddi Pana", "Late Reply Dena", "OVER-POSSESSIVE Hona", "Game/Phone Mein Lage Rehna"], a: 1},
+    {q: "Propose Day Par Aapka Yuvraj Se Sabse Bada Promise Kya Hai?", o: ["Hamesha Saath Nibhana", "Kabhi Jhoot Na Bolna Aur Dher Saara Pyaar Dena", "Dhaal Banke Khade Rehna Aur Yuvi Ki Sari Baat Mananaa", "Inme Se Sab (Qki Aap Mere Aadarniya Pati-Parmeshwar Ho)"], a: 3},
+    {q: "Who is The Lucky One In This Relationship?", o: ["Main (Yuvraj)", "Tum (Dimple)", "Hum Dono", "Pura Universe Jisko Jaat Fark Naa Pade", "Abhi Tak Faisla Nahi Hua"], a: 2},
+    {q: "Can You Stay Forever With Mr. Yuvraj Chauhan?", o: ["Yes, Pakka Wala", "Bilkul Nahiii (Nikal-Lodian)", "Sochna Padega", "7 Janam Bhi Kam Hai", "Forever Till My Breath"], a: 3},
+    {q: "What Is The Perfect Gift For You On Propose Day?", o: ["Sone ki Angooti", "Ek Pyaara Sa Khat (Letter)", "Dher Saari Chocolates", "Bas Tumhara Saath Zindagi Bhar Ke Liye...!", "Ek Tight Wali Hug"], a: 3},
+    {q: "Mere Baare Mein Sabse Pehli Cheez Kya Pasand Aayi Thi?", o: ["Shakal Aur Style", "Nature Aur Dil", "Baat Karne Ka Tarika", "Respect Dena", "Pata Nahi Bas Ho Gaya Pyaar"], a: 4},
+    {q: "Mrs. Dimple Yuvraj Chauhan Banne Ke Liye Kitni Excited Ho?", o: ["Thoda Sa Jaat Barabar", "Bahut Zyada", "Raha Nahi Jaata Tadap Hi Aesii Haina", "Sapna Sach Hone Jaisa", "Infinite Bhi Kam Utnaaa...!"], a: 4},
+    {q: "What Do You Want From Me The Most?", o: ["Dher Saara Paisa (Gold Digger)", "Bas Tumhara Waqt", "Izzat Aur Care", "Bina Wajah Ka Pyaar", "Sab Kuch (Time, Izzat & Pyaar)"], a: 4}
 ];
+
 let qIdx = 0;
+
 function buildQuiz() {
     let q = questions[qIdx];
     document.getElementById("quizText").innerText = q.q;
     let box = document.getElementById("quizOpts");
     box.innerHTML = "";
+
     q.o.forEach((t, i) => {
-        let d = document.createElement("div"); d.className="option"; d.innerText=t;
+        let d = document.createElement("div");
+        d.className = "option";
+        d.innerText = t;
         d.onclick = () => {
-            if(i === q.a) {
+            if (i === q.a) {
                 d.classList.add("right");
-                confetti({ particleCount: 100, colors: ['#4b0082', '#ff0080', '#000000'] });
+                // Confetti celebration for the right answer
+                confetti({ 
+                    particleCount: 100, 
+                    spread: 70, 
+                    origin: { y: 0.6 },
+                    colors: ['#4b0082', '#ff0080', '#000000'] 
+                });
+                
                 qIdx++;
-                setTimeout(() => { if(qIdx < questions.length) buildQuiz(); else go(3); }, 800);
-            } else d.classList.add("wrong");
+                setTimeout(() => {
+                    if (qIdx < questions.length) {
+                        buildQuiz();
+                    } else {
+                        go(3); // Moving to the next section after last question
+                    }
+                }, 1000);
+            } else {
+                d.classList.add("wrong");
+                // Optional: shake effect or alert for wrong answer
+            }
         };
         box.appendChild(d);
     });
